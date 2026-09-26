@@ -1,5 +1,5 @@
 {
- "generated": "2026-09-26",
+ "generated": "2026-09-27",
  "how_to_use": {
   "list": "python3 conversion/zoo_convert.py list",
   "show": "python3 conversion/zoo_convert.py show <recipe>",
@@ -519,6 +519,25 @@
      ]
     }
    ]
+  },
+  {
+   "family": "funasr-nano",
+   "card": "models/funasr-nano/README.md",
+   "recipes": [
+    {
+     "name": "funasr-nano-2512",
+     "status": "verified",
+     "source_model": null,
+     "source_model_from": null,
+     "hf_repo": "mlboydaisuke/Fun-ASR-Nano-2512-CoreAI",
+     "bundle": null,
+     "steps": 2,
+     "run": "python3 conversion/zoo_convert.py run funasr-nano-2512",
+     "gate_transcript": "models/funasr-nano/gate-funasr-nano-2512.json",
+     "open_questions": []
+    }
+   ],
+   "repos": []
   },
   {
    "family": "gemma4-12b",

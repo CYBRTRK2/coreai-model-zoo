@@ -485,6 +485,17 @@ Apple's repo; each recipe names the script it runs.
   (`swift/`, bit-identical logits), with poisoned-loop controls; `apps/N3DGate` runs the same gate on the
   iPhone. See [`nemotron3_diar/README.md`](nemotron3_diar/README.md) and
   [`../models/nemotron-3-diarization/README.md`](../models/nemotron-3-diarization/README.md).
+- **Fun-ASR-Nano-2512 (speech→text: zh with dialects, en, ja, hotword prompt; SAN-M encoder + adaptor +
+  fine-tuned Qwen3-0.6B, Tongyi Lab, in [`funasr_nano/`](funasr_nano/)): `funasr_nano/export_encoder.py --dtype fp16w32`
+  + `funasr_nano/export_decoder.py --mode int8lin`** — the 70-layer SAN-M encoder and adaptor re-authored in plain
+  torch from the vLLM repo's `model.safetensors` as one 30 s graph (`feats [1,500,560]` + `mask` → 63 audio rows,
+  fp16 weights with fp32 arithmetic: the fp16 graph has 1.39× headroom), and the decoder on the zoo's Qwen3
+  id-space recipe with the residual stream scaled ×1/4 in-graph (the fine-tuned Qwen3's 125k position-0
+  activation overflows fp16; the scale + RMSNorm eps × 1/16 is exact). Oracle = the publisher's `funasr` in fp32
+  (dither pinned at construction); NumPy kaldi-fbank + LFR front end gated first, then Swift; 155 fixture clips
+  (5 upstream examples + FLEURS en/zh/ja) gated end-to-end on the engine with the margin rule; `apps/FunASRGate`
+  runs the same gate on the iPhone. See [`funasr_nano/README.md`](funasr_nano/README.md) and
+  [`../models/funasr-nano/README.md`](../models/funasr-nano/README.md).
 - **RGBA-Image-2.1 (Qwen-Image-2.1 text-to-image with RGBA output, Alibaba Qwen, in [`qwenimage21/`](qwenimage21/)):
   `qwenimage21/export_dit.py`, `qwenimage21/export_encoder.py --aot --w16a32`,
   `qwenimage21/export_vae.py --size {256,512,1024} --aot`** — the 7B block-causal DiT and the

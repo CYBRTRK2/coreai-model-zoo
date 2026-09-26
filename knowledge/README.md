@@ -357,6 +357,13 @@ For the long-form version of the same material, read
   and the fix — a **fixed 128-token decoder window** (pad, read logits at the real last position;
   causal attention ignores the padding; constant shape compiles once → 0.18 s/token, token-exact).
   Plus the Swift log-mel frontend (n_fft 400 = DFT-as-matmul) and single-`main`→GPU routing.
+- [`funasr-nano-port.md`](funasr-nano-port.md) — Fun-ASR-Nano-2512 (SAN-M speech encoder + adaptor +
+  a fine-tuned Qwen3-0.6B; zh / dialects / en / ja, hotword prompt): the decoder is **not** stock
+  Qwen3-0.6B and its position-0 massive activation (125k) overflows float16 — fixed exactly by running the
+  residual stream at 1/4 with RMSNorm eps × 1/16; the SAN-M encoder's 1.39× fp16 headroom → float16
+  weights with float32 arithmetic; keep the tied head tied (int8lin, not int8hu); two LayerNorm epsilons;
+  `N = ceil(L/8)` audio rows; no audio marker token; funasr's dither is a constructor argument; and the
+  knife-edge accounting that makes 150/155 vs 155/155 the same verdict.
 - [`kokoro-tts.md`](kokoro-tts.md) — Kokoro-82M (StyleTTS2 + iSTFTNet), the zoo's first **text-to-speech**:
   3 bundles cut at the one data-dependent length + host DSP, the `weight_norm`-random-init bug
   (non-determinism → suspect weight loading), variable length via **masked-unrolled bi-LSTM +

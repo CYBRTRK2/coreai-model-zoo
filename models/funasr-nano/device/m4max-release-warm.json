@@ -1,0 +1,2692 @@
+{
+ "app": "FunASRGate",
+ "build": {
+  "configuration": "Release",
+  "ids_and_stage_times": true,
+  "platform_note": "App Nap held off for the run (ProcessInfo.beginActivity: userInitiated, latencyCritical)",
+  "testable_import": true
+ },
+ "config": {
+  "assets": "/Users/majimadaisuke/code/coreai/coreai-models-community-funasr-wt/apps/FunASRGate/_work/device_stage/FunASRAssets",
+  "bench_clip": "ja_jp_1719",
+  "bench_runs": 5,
+  "clip_limit": -1,
+  "decoder": "decoder",
+  "encoder": "encoder.aimodel",
+  "env": {
+   "FUNASR_ASSETS": "/Users/majimadaisuke/code/coreai/coreai-models-community-funasr-wt/apps/FunASRGate/_work/device_stage/FunASRAssets",
+   "FUNASR_GPU_LOCK": "taken by this run (flock; file 0 bytes, last written 2026-09-27 02:56:52; GPU utilization [98, 0, 0, 0, 0])",
+   "FUNASR_MAC_VARIANT": "",
+   "FUNASR_OUT": "/Users/majimadaisuke/code/coreai/coreai-models-community-funasr-wt/apps/FunASRGate/_work/mac_runs/mac-20260927-025652",
+   "FUNASR_RUN_ID": "mac-20260927-025652"
+  },
+  "isolate": true,
+  "md5_small_limit_bytes": 16777216,
+  "out": "/Users/majimadaisuke/code/coreai/coreai-models-community-funasr-wt/apps/FunASRGate/_work/mac_runs/mac-20260927-025652",
+  "stages": [
+   "assets",
+   "load1",
+   "warmup",
+   "e2e",
+   "load2",
+   "bench",
+   "md5"
+  ],
+  "wait_nominal_s": 300,
+  "warmup_clip": "zh"
+ },
+ "device": {
+  "battery_level": -1,
+  "battery_state": "unknown",
+  "coreai_architecture": "h16c",
+  "cpu": "Apple M4 Max",
+  "hw_model": "Mac16,9",
+  "low_power_mode": false,
+  "machine": "arm64",
+  "os": "macOS 27.0.0",
+  "os_build": "26A428",
+  "os_version_string": "Version 27.0 (Build 26A428)",
+  "physical_memory_gb": 128,
+  "processor_count": 16,
+  "thermal": "nominal"
+ },
+ "device_end": {
+  "footprint_mb": 1518.816664,
+  "low_power_mode": false,
+  "thermal": "nominal"
+ },
+ "elapsed_s": 46.608889791,
+ "finished": "2026-09-26T17:57:43Z",
+ "fixtures": {
+  "audio_s_total": 1836.1040000000003,
+  "expected_clips": 155,
+  "expected_oracle": "funasr 1.4.16 AutoModel fp32 CPU, dither 0, greedy, itn True, language None, no hotwords (oracle/oracle.json); gen_ids include the EOS",
+  "expected_ship_arm": "Python engine run (Mac GPU) of encoder fp16w32 + decoder int8lin unified static: gate_e2e/enc16w32_int8lin/ (155 clips), enc16_int8lin for the rest (0 clips)",
+  "feats": 155,
+  "mac_swift_ref_clips": 155,
+  "mac_swift_ref_source": "logs/sup_r3/r3_swift_e2e.json (kit FunASRSmokeTests test 3, Mac GPU, swift test debug build)",
+  "manifest_clips": 155,
+  "meta_clips": 155
+ },
+ "gate": "every clip's ids equal the fp32 oracle's, or first differ at a step where the oracle's top-2 softmax gap is < 0.1 (knife-edge); no clip at the 512-token cap",
+ "launch_index": 1,
+ "model": "Fun-ASR-Nano-2512: encoder fp16w32 (fp16 weights, fp32 compute) + decoder int8lin _s1, CoreAIKit KitFunASRModel",
+ "pass": true,
+ "run_id": "mac-20260927-025652",
+ "stage_order": [
+  "assets",
+  "load1",
+  "warmup",
+  "e2e",
+  "load2",
+  "bench",
+  "md5"
+ ],
+ "started": "2026-09-26T17:56:56Z",
+ "status": "done",
+ "summary": [
+  "assets=PASS",
+  "load1=PASS",
+  "warmup=PASS",
+  "e2e=PASS",
+  "load2=PASS",
+  "bench=PASS",
+  "md5=PASS"
+ ],
+ "updated": "2026-09-26T17:57:43Z",
+ "stages": {
+  "assets": {
+   "decoder_bytes": 795677989,
+   "decoder_files": 8,
+   "dir": "/Users/majimadaisuke/code/coreai/coreai-models-community-funasr-wt/apps/FunASRGate/_work/device_stage/FunASRAssets",
+   "encoder_bytes": 471485661,
+   "encoder_files": 3,
+   "free_gb": 483.317014809,
+   "md5_checked": 323,
+   "md5_checked_bytes": 143743991,
+   "md5_deferred": [
+    "decoder/funasr_nano_2512_decode_int8lin_n63_s1.aimodel/main.mlirb",
+    "encoder.aimodel/main.mlirb"
+   ],
+   "md5_deferred_bytes": 1251281362,
+   "md5_mismatch": [],
+   "md5sums_listed": 325,
+   "missing": [],
+   "pass": true,
+   "required_absent": [],
+   "seconds": 0.20429587500000002,
+   "t_end_s": 0.22595741600000002,
+   "t_start_s": 0.021258958,
+   "unlisted_entries": []
+  },
+  "bench": {
+   "audio_s": 13.62,
+   "clip": "ja_jp_1719",
+   "pass": true,
+   "runs": [
+    {
+     "decode_ms": 113.374,
+     "decode_ms_per_token": 2.765219512195122,
+     "encoder_ms": 50.027583,
+     "frontend_ms": 2.909,
+     "gen_ids": [
+      132429,
+      35727,
+      99383,
+      126238,
+      5373,
+      52853,
+      21887,
+      9370,
+      116840,
+      101295,
+      25770,
+      99328,
+      9370,
+      118334,
+      5373,
+      17340,
+      50509,
+      127349,
+      77083,
+      29269,
+      116840,
+      126287,
+      25770,
+      28195,
+      30331,
+      29197,
+      29269,
+      100087,
+      13982,
+      118,
+      25770,
+      94121,
+      46423,
+      99782,
+      46423,
+      15767,
+      99977,
+      237,
+      24641,
+      37541,
+      1773,
+      151645
+     ],
+     "hit_cap": false,
+     "ids_equal_e2e": true,
+     "k": 0,
+     "prefill_ms": 149.515166,
+     "prompt_length": 52,
+     "rtf": 0.02321855726872247,
+     "t_end_s": 0.316238791,
+     "t_start_s": 8.3e-08,
+     "text": "悪天候とは、物理的被害深刻な社会的困難、人命に関わる被害につながりうる危険な気象現象の総称です。",
+     "text_equal_e2e": true,
+     "thermal": "nominal",
+     "tokens": 42,
+     "wall_ms": 316.23675000000003,
+     "warmup": true,
+     "windows": 1
+    },
+    {
+     "decode_ms": 113.537375,
+     "decode_ms_per_token": 2.769204268292683,
+     "encoder_ms": 42.032666,
+     "frontend_ms": 1.98675,
+     "gen_ids": [
+      132429,
+      35727,
+      99383,
+      126238,
+      5373,
+      52853,
+      21887,
+      9370,
+      116840,
+      101295,
+      25770,
+      99328,
+      9370,
+      118334,
+      5373,
+      17340,
+      50509,
+      127349,
+      77083,
+      29269,
+      116840,
+      126287,
+      25770,
+      28195,
+      30331,
+      29197,
+      29269,
+      100087,
+      13982,
+      118,
+      25770,
+      94121,
+      46423,
+      99782,
+      46423,
+      15767,
+      99977,
+      237,
+      24641,
+      37541,
+      1773,
+      151645
+     ],
+     "hit_cap": false,
+     "ids_equal_e2e": true,
+     "k": 1,
+     "prefill_ms": 135.592917,
+     "prompt_length": 52,
+     "rtf": 0.021586208957415566,
+     "t_end_s": 0.610250833,
+     "t_start_s": 0.316245041,
+     "text": "悪天候とは、物理的被害深刻な社会的困難、人命に関わる被害につながりうる危険な気象現象の総称です。",
+     "text_equal_e2e": true,
+     "thermal": "nominal",
+     "tokens": 42,
+     "wall_ms": 294.004166,
+     "warmup": false,
+     "windows": 1
+    },
+    {
+     "decode_ms": 113.73075,
+     "decode_ms_per_token": 2.773920731707317,
+     "encoder_ms": 42.076458,
+     "frontend_ms": 1.483625,
+     "gen_ids": [
+      132429,
+      35727,
+      99383,
+      126238,
+      5373,
+      52853,
+      21887,
+      9370,
+      116840,
+      101295,
+      25770,
+      99328,
+      9370,
+      118334,
+      5373,
+      17340,
+      50509,
+      127349,
+      77083,
+      29269,
+      116840,
+      126287,
+      25770,
+      28195,
+      30331,
+      29197,
+      29269,
+      100087,
+      13982,
+      118,
+      25770,
+      94121,
+      46423,
+      99782,
+      46423,
+      15767,
+      99977,
+      237,
+      24641,
+      37541,
+      1773,
+      151645
+     ],
+     "hit_cap": false,
+     "ids_equal_e2e": true,
+     "k": 2,
+     "prefill_ms": 135.930625,
+     "prompt_length": 52,
+     "rtf": 0.02159402834067548,
+     "t_end_s": 0.9043892910000001,
+     "t_start_s": 0.610276958,
+     "text": "悪天候とは、物理的被害深刻な社会的困難、人命に関わる被害につながりうる危険な気象現象の総称です。",
+     "text_equal_e2e": true,
+     "thermal": "nominal",
+     "tokens": 42,
+     "wall_ms": 294.11066600000004,
+     "warmup": false,
+     "windows": 1
+    },
+    {
+     "decode_ms": 113.584625,
+     "decode_ms_per_token": 2.7703567073170734,
+     "encoder_ms": 41.680667,
+     "frontend_ms": 2.262542,
+     "gen_ids": [
+      132429,
+      35727,
+      99383,
+      126238,
+      5373,
+      52853,
+      21887,
+      9370,
+      116840,
+      101295,
+      25770,
+      99328,
+      9370,
+      118334,
+      5373,
+      17340,
+      50509,
+      127349,
+      77083,
+      29269,
+      116840,
+      126287,
+      25770,
+      28195,
+      30331,
+      29197,
+      29269,
+      100087,
+      13982,
+      118,
+      25770,
+      94121,
+      46423,
+      99782,
+      46423,
+      15767,
+      99977,
+      237,
+      24641,
+      37541,
+      1773,
+      151645
+     ],
+     "hit_cap": false,
+     "ids_equal_e2e": true,
+     "k": 3,
+     "prefill_ms": 135.428166,
+     "prompt_length": 52,
+     "rtf": 0.021571081130690166,
+     "t_end_s": 1.198196958,
+     "t_start_s": 0.9043968750000001,
+     "text": "悪天候とは、物理的被害深刻な社会的困難、人命に関わる被害につながりうる危険な気象現象の総称です。",
+     "text_equal_e2e": true,
+     "thermal": "nominal",
+     "tokens": 42,
+     "wall_ms": 293.798125,
+     "warmup": false,
+     "windows": 1
+    },
+    {
+     "decode_ms": 114.179333,
+     "decode_ms_per_token": 2.784861780487805,
+     "encoder_ms": 42.057792,
+     "frontend_ms": 1.48075,
+     "gen_ids": [
+      132429,
+      35727,
+      99383,
+      126238,
+      5373,
+      52853,
+      21887,
+      9370,
+      116840,
+      101295,
+      25770,
+      99328,
+      9370,
+      118334,
+      5373,
+      17340,
+      50509,
+      127349,
+      77083,
+      29269,
+      116840,
+      126287,
+      25770,
+      28195,
+      30331,
+      29197,
+      29269,
+      100087,
+      13982,
+      118,
+      25770,
+      94121,
+      46423,
+      99782,
+      46423,
+      15767,
+      99977,
+      237,
+      24641,
+      37541,
+      1773,
+      151645
+     ],
+     "hit_cap": false,
+     "ids_equal_e2e": true,
+     "k": 4,
+     "prefill_ms": 135.835292,
+     "prompt_length": 52,
+     "rtf": 0.021614470117474305,
+     "t_end_s": 1.492596833,
+     "t_start_s": 1.19820525,
+     "text": "悪天候とは、物理的被害深刻な社会的困難、人命に関わる被害につながりうる危険な気象現象の総称です。",
+     "text_equal_e2e": true,
+     "thermal": "nominal",
+     "tokens": 42,
+     "wall_ms": 294.38908299999997,
+     "warmup": false,
+     "windows": 1
+    },
+    {
+     "decode_ms": 113.333708,
+     "decode_ms_per_token": 2.764236780487805,
+     "encoder_ms": 42.011958,
+     "frontend_ms": 1.452584,
+     "gen_ids": [
+      132429,
+      35727,
+      99383,
+      126238,
+      5373,
+      52853,
+      21887,
+      9370,
+      116840,
+      101295,
+      25770,
+      99328,
+      9370,
+      118334,
+      5373,
+      17340,
+      50509,
+      127349,
+      77083,
+      29269,
+      116840,
+      126287,
+      25770,
+      28195,
+      30331,
+      29197,
+      29269,
+      100087,
+      13982,
+      118,
+      25770,
+      94121,
+      46423,
+      99782,
+      46423,
+      15767,
+      99977,
+      237,
+      24641,
+      37541,
+      1773,
+      151645
+     ],
+     "hit_cap": false,
+     "ids_equal_e2e": true,
+     "k": 5,
+     "prefill_ms": 135.511125,
+     "prompt_length": 52,
+     "rtf": 0.021525963656387665,
+     "t_end_s": 1.785792625,
+     "t_start_s": 1.492606666,
+     "text": "悪天候とは、物理的被害深刻な社会的困難、人命に関わる被害につながりうる危険な気象現象の総称です。",
+     "text_equal_e2e": true,
+     "thermal": "nominal",
+     "tokens": 42,
+     "wall_ms": 293.183625,
+     "warmup": false,
+     "windows": 1
+    }
+   ],
+   "runs_timed": 5,
+   "summary": {
+    "decode_ms_per_token_median": 2.7703567073170734,
+    "encoder_ms_median": 42.032666,
+    "frontend_ms_median": 1.483625,
+    "in_first_20s": true,
+    "prefill_ms_median": 135.592917,
+    "prompt_length": 52,
+    "rtf_max": 0.021614470117474305,
+    "rtf_median": 0.021586208957415566,
+    "rtf_min": 0.021525963656387665,
+    "rtf_p90": 0.021606293406754774,
+    "timed_runs_end_s": 1.785792625,
+    "tokens": 42,
+    "verdicts": [
+     "exact"
+    ],
+    "wall_ms_median": 294.004166
+   },
+   "t_end_s": 45.117751041,
+   "t_start_s": 43.330948291,
+   "thermal_end": "nominal",
+   "thermal_start": "nominal",
+   "wait_nominal": {
+    "cap_s": 300,
+    "polls": 0,
+    "reached_nominal": true,
+    "state_after": "nominal",
+    "state_before": "nominal",
+    "waited_s": 1.2500000000000002e-07
+   }
+  },
+  "e2e": {
+   "clips_planned": 155,
+   "memory": {
+    "available_mb_end": -1,
+    "available_mb_start": -1,
+    "duration_s": 39.990510292,
+    "footprint_mb_end": 702.237288,
+    "footprint_mb_start": 612.583944,
+    "interval_s": 0.1,
+    "min_available_mb": -1,
+    "peak_at_s": 32.730805209,
+    "peak_footprint_mb": 736.545384,
+    "samples": 374,
+    "series_1s": [
+     [
+      0,
+      612.583944,
+      -1
+     ],
+     [
+      1.1,
+      635.3086,
+      -1
+     ],
+     [
+      2.2,
+      649.005624,
+      -1
+     ],
+     [
+      3.2,
+      656.869944,
+      -1
+     ],
+     [
+      4.3,
+      689.310312,
+      -1
+     ],
+     [
+      5.4,
+      689.50692,
+      -1
+     ],
+     [
+      6.5,
+      690.063976,
+      -1
+     ],
+     [
+      7.6,
+      690.57188,
+      -1
+     ],
+     [
+      8.6,
+      690.014824,
+      -1
+     ],
+     [
+      9.7,
+      689.621608,
+      -1
+     ],
+     [
+      10.8,
+      691.161704,
+      -1
+     ],
+     [
+      11.9,
+      689.982056,
+      -1
+     ],
+     [
+      12.9,
+      694.66788,
+      -1
+     ],
+     [
+      14,
+      693.815912,
+      -1
+     ],
+     [
+      15.1,
+      700.303976,
+      -1
+     ],
+     [
+      16.2,
+      694.897256,
+      -1
+     ],
+     [
+      17.2,
+      695.89668,
+      -1
+     ],
+     [
+      18.3,
+      725.011048,
+      -1
+     ],
+     [
+      19.4,
+      694.798952,
+      -1
+     ],
+     [
+      20.5,
+      694.684264,
+      -1
+     ],
+     [
+      21.6,
+      695.634536,
+      -1
+     ],
+     [
+      22.7,
+      696.63396,
+      -1
+     ],
+     [
+      23.7,
+      695.962216,
+      -1
+     ],
+     [
+      24.8,
+      695.437928,
+      -1
+     ],
+     [
+      25.9,
+      696.027752,
+      -1
+     ],
+     [
+      27,
+      696.257128,
+      -1
+     ],
+     [
+      28,
+      695.716456,
+      -1
+     ],
+     [
+      29.1,
+      696.22436,
+      -1
+     ],
+     [
+      30.2,
+      700.467816,
+      -1
+     ],
+     [
+      31.2,
+      714.24676,
+      -1
+     ],
+     [
+      32.3,
+      701.975144,
+      -1
+     ],
+     [
+      33.4,
+      702.958184,
+      -1
+     ],
+     [
+      34.5,
+      702.69604,
+      -1
+     ],
+     [
+      35.5,
+      701.827688,
+      -1
+     ],
+     [
+      36.6,
+      701.745768,
+      -1
+     ],
+     [
+      37.6,
+      702.237288,
+      -1
+     ],
+     [
+      38.7,
+      702.351976,
+      -1
+     ],
+     [
+      39.8,
+      702.1226,
+      -1
+     ]
+    ],
+    "timeline": [
+     [
+      0,
+      "nominal",
+      612.583944,
+      -1
+     ],
+     [
+      20.1,
+      "nominal",
+      695.290472,
+      -1
+     ],
+     [
+      40,
+      "nominal",
+      702.237288,
+      -1
+     ]
+    ]
+   },
+   "pass": true,
+   "summary": {
+    "audio_s_total": 1836.1040000000003,
+    "clips_done": 155,
+    "clips_first_20s": 83,
+    "clips_planned": 155,
+    "decode_ms_per_token_median": 2.7673371363636363,
+    "decode_ms_per_token_p90": 2.7888539681818183,
+    "elapsed_s": 39.990532709,
+    "encoder_ms_median": 40.193209,
+    "encoder_ms_p90": 40.828025000000004,
+    "errors": 0,
+    "exact_mac_swift": 155,
+    "exact_or_knife_edge": 155,
+    "exact_oracle": 150,
+    "exact_python_engine": 155,
+    "frontend_checked": 155,
+    "frontend_max_abs_delta": 0.0004928112030029297,
+    "frontend_max_abs_delta_clip": "ja_jp_1670",
+    "frontend_ms_median": 1.322459,
+    "hit_cap": 0,
+    "ids_differ_mac_swift": [],
+    "ids_differ_python_engine": [],
+    "knife_edge": 5,
+    "knife_edge_clips": [
+     {
+      "clip": "en_us_1660",
+      "margin": 0.014121,
+      "oracle": 11,
+      "oracle_runner_up": 323,
+      "ours": 323,
+      "step": 21
+     },
+     {
+      "clip": "en_us_1665",
+      "margin": 0.033401,
+      "oracle": 386,
+      "oracle_runner_up": 12592,
+      "ours": 12592,
+      "step": 28
+     },
+     {
+      "clip": "en_us_1695",
+      "margin": 0.007577,
+      "oracle": 7106,
+      "oracle_runner_up": 2291,
+      "ours": 2291,
+      "step": 12
+     },
+     {
+      "clip": "ja_jp_1695",
+      "margin": 0.010899,
+      "oracle": 80119,
+      "oracle_runner_up": 74167,
+      "ours": 74167,
+      "step": 3
+     },
+     {
+      "clip": "ja_jp_1713",
+      "margin": 0.006906,
+      "oracle": 103626,
+      "oracle_runner_up": 101400,
+      "ours": 101400,
+      "step": 19
+     }
+    ],
+    "mac_swift_reference": 155,
+    "margin_floor": 0.1,
+    "mismatch_above_floor": 0,
+    "mismatch_clips": [],
+    "prefill_ms_median": 122.645709,
+    "prefill_ms_p90": 155.2998246,
+    "rtf_aggregate": 0.02137058596626335,
+    "rtf_max": 0.043485868863049094,
+    "rtf_max_clip": "ko",
+    "rtf_median": 0.022006727689594358,
+    "rtf_median_after_20s": 0.021440824763223676,
+    "rtf_median_first_20s": 0.023385086770833334,
+    "rtf_p90": 0.027971359341903892,
+    "text_equal_mac_swift": 155,
+    "text_equal_oracle": 150,
+    "text_equal_python_engine": 155,
+    "tokens_total": 4887,
+    "wall_s_total": 39.23861837500001
+   },
+   "t_end_s": 41.541294875,
+   "t_start_s": 1.549921958,
+   "thermal_end": "nominal",
+   "thermal_start": "nominal",
+   "clips": [
+    {
+     "name": "zh",
+     "rtf": 0.029161376780626785,
+     "wall_ms": 163.770292,
+     "encoder_ms": 39.64175,
+     "prefill_ms": 91.652084,
+     "decode_ms_per_token": 2.788625
+    },
+    {
+     "name": "en",
+     "rtf": 0.027596177118171684,
+     "wall_ms": 198.030167,
+     "encoder_ms": 41.442583,
+     "prefill_ms": 99.754417,
+     "decode_ms_per_token": 2.7545854
+    },
+    {
+     "name": "ja",
+     "rtf": 0.02970026411960133,
+     "wall_ms": 214.554708,
+     "encoder_ms": 41.1015,
+     "prefill_ms": 100.0265,
+     "decode_ms_per_token": 2.7578990384615385
+    },
+    {
+     "name": "ko",
+     "rtf": 0.043485868863049094,
+     "wall_ms": 201.94837500000003,
+     "encoder_ms": 41.449042,
+     "prefill_ms": 87.381208,
+     "decode_ms_per_token": 2.7591858846153845
+    },
+    {
+     "name": "yue",
+     "rtf": 0.032973990547839505,
+     "wall_ms": 170.937167,
+     "encoder_ms": 41.220083,
+     "prefill_ms": 91.645333,
+     "decode_ms_per_token": 2.765778846153846
+    },
+    {
+     "name": "en_us_1660",
+     "knife_edge": true,
+     "first_divergence": 21,
+     "rtf": 0.022031160205992512,
+     "wall_ms": 235.29279100000002,
+     "encoder_ms": 40.870667,
+     "prefill_ms": 120.573083,
+     "decode_ms_per_token": 2.7546730769230767
+    },
+    {
+     "name": "en_us_1661",
+     "rtf": 0.03152556996855346,
+     "wall_ms": 200.50262500000002,
+     "encoder_ms": 40.811917,
+     "prefill_ms": 97.57675,
+     "decode_ms_per_token": 2.747198863636364
+    },
+    {
+     "name": "en_us_1662",
+     "rtf": 0.025840597613365154,
+     "wall_ms": 216.54420800000003,
+     "encoder_ms": 40.836375,
+     "prefill_ms": 108.061458,
+     "decode_ms_per_token": 2.7451319583333333
+    },
+    {
+     "name": "en_us_1663",
+     "rtf": 0.020937847194719472,
+     "wall_ms": 253.766708,
+     "encoder_ms": 40.46775,
+     "prefill_ms": 127.838625,
+     "decode_ms_per_token": 2.7668430666666666
+    },
+    {
+     "name": "en_us_1664",
+     "rtf": 0.024606568899521536,
+     "wall_ms": 205.71091600000003,
+     "encoder_ms": 40.427958,
+     "prefill_ms": 108.271667,
+     "decode_ms_per_token": 2.75995415
+    },
+    {
+     "name": "en_us_1665",
+     "knife_edge": true,
+     "first_divergence": 28,
+     "rtf": 0.02865087053140097,
+     "wall_ms": 237.22920800000003,
+     "encoder_ms": 39.976792,
+     "prefill_ms": 107.330208,
+     "decode_ms_per_token": 2.75298828125
+    },
+    {
+     "name": "en_us_1666",
+     "rtf": 0.025914263669064748,
+     "wall_ms": 216.12495900000002,
+     "encoder_ms": 40.713417,
+     "prefill_ms": 107.5195,
+     "decode_ms_per_token": 2.754680541666667
+    },
+    {
+     "name": "en_us_1667",
+     "rtf": 0.019099132630098454,
+     "wall_ms": 271.589666,
+     "encoder_ms": 39.834667,
+     "prefill_ms": 138.070625,
+     "decode_ms_per_token": 2.755790393939394
+    },
+    {
+     "name": "en_us_1668",
+     "rtf": 0.020073861411411414,
+     "wall_ms": 267.38383400000004,
+     "encoder_ms": 40.11875,
+     "prefill_ms": 133.760833,
+     "decode_ms_per_token": 2.764080818181818
+    },
+    {
+     "name": "en_us_1669",
+     "rtf": 0.027804589166666668,
+     "wall_ms": 200.19304200000002,
+     "encoder_ms": 40.6045,
+     "prefill_ms": 99.618292,
+     "decode_ms_per_token": 2.7658015714285717
+    },
+    {
+     "name": "en_us_1670",
+     "rtf": 0.014776096416382254,
+     "wall_ms": 432.93962500000004,
+     "encoder_ms": 39.087083,
+     "prefill_ms": 219.09,
+     "decode_ms_per_token": 2.80780555
+    },
+    {
+     "name": "en_us_1671",
+     "rtf": 0.02357018463073853,
+     "wall_ms": 236.17325000000002,
+     "encoder_ms": 39.692792,
+     "prefill_ms": 114.831,
+     "decode_ms_per_token": 2.7492442413793103
+    },
+    {
+     "name": "en_us_1672",
+     "rtf": 0.022501886515748033,
+     "wall_ms": 228.619167,
+     "encoder_ms": 40.448917,
+     "prefill_ms": 117.447125,
+     "decode_ms_per_token": 2.752345
+    },
+    {
+     "name": "en_us_1673",
+     "rtf": 0.023529332043650795,
+     "wall_ms": 237.175667,
+     "encoder_ms": 40.468458,
+     "prefill_ms": 115.374458,
+     "decode_ms_per_token": 2.7370905172413793
+    },
+    {
+     "name": "en_us_1674",
+     "rtf": 0.03206436897163121,
+     "wall_ms": 180.843041,
+     "encoder_ms": 40.761292,
+     "prefill_ms": 91.479958,
+     "decode_ms_per_token": 2.757975470588235
+    },
+    {
+     "name": "en_us_1675",
+     "rtf": 0.025264212328767126,
+     "wall_ms": 221.31450000000004,
+     "encoder_ms": 39.8835,
+     "prefill_ms": 109.880334,
+     "decode_ms_per_token": 2.77405
+    },
+    {
+     "name": "en_us_1676",
+     "rtf": 0.022078914543524418,
+     "wall_ms": 207.98337500000002,
+     "encoder_ms": 40.576708,
+     "prefill_ms": 112.685083,
+     "decode_ms_per_token": 2.7681557368421053
+    },
+    {
+     "name": "en_us_1677",
+     "rtf": 0.031421857407407404,
+     "wall_ms": 186.645833,
+     "encoder_ms": 40.884875,
+     "prefill_ms": 94.672709,
+     "decode_ms_per_token": 2.7545277777777777
+    },
+    {
+     "name": "en_us_1678",
+     "rtf": 0.020806435837245698,
+     "wall_ms": 265.90625,
+     "encoder_ms": 40.651583,
+     "prefill_ms": 131.144292,
+     "decode_ms_per_token": 2.767090909090909
+    },
+    {
+     "name": "en_us_1679",
+     "rtf": 0.04027973484848485,
+     "wall_ms": 159.50775000000002,
+     "encoder_ms": 40.8475,
+     "prefill_ms": 84.202292,
+     "decode_ms_per_token": 2.750309
+    },
+    {
+     "name": "en_us_1680",
+     "rtf": 0.023921397058823533,
+     "wall_ms": 243.99825000000004,
+     "encoder_ms": 40.974041,
+     "prefill_ms": 117.5965,
+     "decode_ms_per_token": 2.7756013999999998
+    },
+    {
+     "name": "en_us_1681",
+     "rtf": 0.015651874774774775,
+     "wall_ms": 312.724458,
+     "encoder_ms": 39.491375,
+     "prefill_ms": 169.763333,
+     "decode_ms_per_token": 2.7935173611111113
+    },
+    {
+     "name": "en_us_1682",
+     "rtf": 0.019311647506393862,
+     "wall_ms": 302.034167,
+     "encoder_ms": 39.15775,
+     "prefill_ms": 146.241583,
+     "decode_ms_per_token": 2.7624451219512194
+    },
+    {
+     "name": "en_us_1683",
+     "rtf": 0.024048712522522518,
+     "wall_ms": 266.94070899999997,
+     "encoder_ms": 39.487,
+     "prefill_ms": 122.960209,
+     "decode_ms_per_token": 2.767945945945946
+    },
+    {
+     "name": "en_us_1684",
+     "rtf": 0.02319320638686131,
+     "wall_ms": 254.197542,
+     "encoder_ms": 40.238875,
+     "prefill_ms": 120.366375,
+     "decode_ms_per_token": 2.758385090909091
+    },
+    {
+     "name": "en_us_1685",
+     "rtf": 0.019863954741379312,
+     "wall_ms": 276.50625,
+     "encoder_ms": 39.384125,
+     "prefill_ms": 135.609708,
+     "decode_ms_per_token": 2.7553645833333333
+    },
+    {
+     "name": "en_us_1686",
+     "rtf": 0.020387565264026405,
+     "wall_ms": 247.097291,
+     "encoder_ms": 40.075041,
+     "prefill_ms": 127.847166,
+     "decode_ms_per_token": 2.749540178571429
+    },
+    {
+     "name": "en_us_1687",
+     "rtf": 0.018607960850694445,
+     "wall_ms": 214.363709,
+     "encoder_ms": 40.085709,
+     "prefill_ms": 122.888125,
+     "decode_ms_per_token": 2.734398166666667
+    },
+    {
+     "name": "en_us_1688",
+     "rtf": 0.0179290185206422,
+     "wall_ms": 312.682083,
+     "encoder_ms": 40.022875,
+     "prefill_ms": 156.298833,
+     "decode_ms_per_token": 2.770932926829268
+    },
+    {
+     "name": "en_us_1689",
+     "rtf": 0.015403201300578033,
+     "wall_ms": 319.770459,
+     "encoder_ms": 39.426542,
+     "prefill_ms": 174.5005,
+     "decode_ms_per_token": 2.7806283783783785
+    },
+    {
+     "name": "en_us_1690",
+     "rtf": 0.015847397405900306,
+     "wall_ms": 311.559833,
+     "encoder_ms": 39.203625,
+     "prefill_ms": 166.475958,
+     "decode_ms_per_token": 2.763498891891892
+    },
+    {
+     "name": "en_us_1691",
+     "rtf": 0.02390247948717949,
+     "wall_ms": 223.72720800000002,
+     "encoder_ms": 39.992583,
+     "prefill_ms": 112.835334,
+     "decode_ms_per_token": 2.75472664
+    },
+    {
+     "name": "en_us_1692",
+     "rtf": 0.026660896612466123,
+     "wall_ms": 196.757417,
+     "encoder_ms": 40.73225,
+     "prefill_ms": 102.173709,
+     "decode_ms_per_token": 2.7496074210526316
+    },
+    {
+     "name": "en_us_1693",
+     "rtf": 0.02613161678403756,
+     "wall_ms": 222.641375,
+     "encoder_ms": 40.75925,
+     "prefill_ms": 107.089292,
+     "decode_ms_per_token": 2.796583307692308
+    },
+    {
+     "name": "en_us_1694",
+     "rtf": 0.021030441604477614,
+     "wall_ms": 225.44633400000004,
+     "encoder_ms": 40.582375,
+     "prefill_ms": 119.976834,
+     "decode_ms_per_token": 2.730942
+    },
+    {
+     "name": "en_us_1695",
+     "knife_edge": true,
+     "first_divergence": 12,
+     "rtf": 0.022151630555555555,
+     "wall_ms": 271.135958,
+     "encoder_ms": 38.910792,
+     "prefill_ms": 127.573834,
+     "decode_ms_per_token": 2.7558051621621624
+    },
+    {
+     "name": "en_us_1696",
+     "rtf": 0.02749586129032258,
+     "wall_ms": 204.569208,
+     "encoder_ms": 40.557875,
+     "prefill_ms": 101.955292,
+     "decode_ms_per_token": 2.7426155
+    },
+    {
+     "name": "en_us_1697",
+     "rtf": 0.031026139937106918,
+     "wall_ms": 197.32625000000002,
+     "encoder_ms": 40.711375,
+     "prefill_ms": 96.764958,
+     "decode_ms_per_token": 2.774440476190476
+    },
+    {
+     "name": "en_us_1698",
+     "rtf": 0.02995129158878505,
+     "wall_ms": 192.28729200000004,
+     "encoder_ms": 40.914167,
+     "prefill_ms": 97.002417,
+     "decode_ms_per_token": 2.778679789473684
+    },
+    {
+     "name": "en_us_1699",
+     "rtf": 0.026319852500000004,
+     "wall_ms": 252.67058400000002,
+     "encoder_ms": 40.864375,
+     "prefill_ms": 112.945125,
+     "decode_ms_per_token": 2.770139285714286
+    },
+    {
+     "name": "en_us_1700",
+     "rtf": 0.024377997777777778,
+     "wall_ms": 175.52158400000002,
+     "encoder_ms": 40.506042,
+     "prefill_ms": 99.980375,
+     "decode_ms_per_token": 2.780791666666667
+    },
+    {
+     "name": "en_us_1701",
+     "rtf": 0.02102874679849341,
+     "wall_ms": 223.32529100000002,
+     "encoder_ms": 40.525375,
+     "prefill_ms": 120.592209,
+     "decode_ms_per_token": 2.7380814090909094
+    },
+    {
+     "name": "en_us_1702",
+     "rtf": 0.021454641453831046,
+     "wall_ms": 218.40825000000004,
+     "encoder_ms": 40.837875,
+     "prefill_ms": 117.926334,
+     "decode_ms_per_token": 2.7483888571428574
+    },
+    {
+     "name": "en_us_1703",
+     "rtf": 0.019649827075098818,
+     "wall_ms": 198.85625000000002,
+     "encoder_ms": 40.820958,
+     "prefill_ms": 117.320667,
+     "decode_ms_per_token": 2.7722589285714285
+    },
+    {
+     "name": "en_us_1704",
+     "rtf": 0.02983144931693989,
+     "wall_ms": 218.366209,
+     "encoder_ms": 40.477667,
+     "prefill_ms": 102.369708,
+     "decode_ms_per_token": 2.7337793333333336
+    },
+    {
+     "name": "en_us_1705",
+     "rtf": 0.02391165177865613,
+     "wall_ms": 241.98591600000003,
+     "encoder_ms": 39.499,
+     "prefill_ms": 117.322875,
+     "decode_ms_per_token": 2.7539360999999998
+    },
+    {
+     "name": "en_us_1706",
+     "rtf": 0.02120945031446541,
+     "wall_ms": 269.78420800000004,
+     "encoder_ms": 40.332333,
+     "prefill_ms": 130.509125,
+     "decode_ms_per_token": 2.763980942857143
+    },
+    {
+     "name": "en_us_1707",
+     "rtf": 0.021444757326007327,
+     "wall_ms": 234.17675000000003,
+     "encoder_ms": 40.104875,
+     "prefill_ms": 120.197458,
+     "decode_ms_per_token": 2.7444391153846155
+    },
+    {
+     "name": "en_us_1708",
+     "rtf": 0.020880285735963584,
+     "wall_ms": 275.20216600000003,
+     "encoder_ms": 40.121042,
+     "prefill_ms": 133.079042,
+     "decode_ms_per_token": 2.7686458333333333
+    },
+    {
+     "name": "en_us_1709",
+     "rtf": 0.025890977083333332,
+     "wall_ms": 223.69804200000002,
+     "encoder_ms": 40.571166,
+     "prefill_ms": 107.239542,
+     "decode_ms_per_token": 2.74429937037037
+    },
+    {
+     "name": "cmn_hans_cn_1660",
+     "rtf": 0.023385086770833334,
+     "wall_ms": 224.496833,
+     "encoder_ms": 41.004125,
+     "prefill_ms": 112.163708,
+     "decode_ms_per_token": 2.76069168
+    },
+    {
+     "name": "cmn_hans_cn_1661",
+     "rtf": 0.025093147028423777,
+     "wall_ms": 194.22095800000002,
+     "encoder_ms": 40.676708,
+     "prefill_ms": 104.456583,
+     "decode_ms_per_token": 2.7897034117647057
+    },
+    {
+     "name": "cmn_hans_cn_1662",
+     "rtf": 0.026955233333333335,
+     "wall_ms": 202.16425,
+     "encoder_ms": 40.682958,
+     "prefill_ms": 102.328625,
+     "decode_ms_per_token": 2.738456380952381
+    },
+    {
+     "name": "cmn_hans_cn_1663",
+     "rtf": 0.019714676756352766,
+     "wall_ms": 263.782375,
+     "encoder_ms": 40.696875,
+     "prefill_ms": 132.741417,
+     "decode_ms_per_token": 2.74960546875
+    },
+    {
+     "name": "cmn_hans_cn_1664",
+     "rtf": 0.019549981666666667,
+     "wall_ms": 222.86979100000002,
+     "encoder_ms": 40.472458,
+     "prefill_ms": 122.407833,
+     "decode_ms_per_token": 2.755595238095238
+    },
+    {
+     "name": "cmn_hans_cn_1665",
+     "rtf": 0.017855005496688742,
+     "wall_ms": 269.610583,
+     "encoder_ms": 39.492833,
+     "prefill_ms": 143.507459,
+     "decode_ms_per_token": 2.7863555333333334
+    },
+    {
+     "name": "cmn_hans_cn_1666",
+     "rtf": 0.025973279166666665,
+     "wall_ms": 211.941958,
+     "encoder_ms": 40.682,
+     "prefill_ms": 105.397,
+     "decode_ms_per_token": 2.772295304347826
+    },
+    {
+     "name": "cmn_hans_cn_1667",
+     "rtf": 0.01687434462915601,
+     "wall_ms": 263.91475,
+     "encoder_ms": 40.3905,
+     "prefill_ms": 146.505042,
+     "decode_ms_per_token": 2.7556743703703708
+    },
+    {
+     "name": "cmn_hans_cn_1668",
+     "rtf": 0.024556963470319635,
+     "wall_ms": 215.119,
+     "encoder_ms": 40.106041,
+     "prefill_ms": 109.766125,
+     "decode_ms_per_token": 2.7563840434782607
+    },
+    {
+     "name": "cmn_hans_cn_1669",
+     "rtf": 0.029411756725146204,
+     "wall_ms": 201.17641600000002,
+     "encoder_ms": 40.649875,
+     "prefill_ms": 100.350209,
+     "decode_ms_per_token": 2.774942428571429
+    },
+    {
+     "name": "cmn_hans_cn_1670",
+     "rtf": 0.01719352338772339,
+     "wall_ms": 442.56129200000004,
+     "encoder_ms": 39.347959,
+     "prefill_ms": 201.281959,
+     "decode_ms_per_token": 2.8116089285714287
+    },
+    {
+     "name": "cmn_hans_cn_1671",
+     "rtf": 0.02397955426356589,
+     "wall_ms": 247.46900000000002,
+     "encoder_ms": 39.563958,
+     "prefill_ms": 117.832291,
+     "decode_ms_per_token": 2.7526354375
+    },
+    {
+     "name": "cmn_hans_cn_1672",
+     "rtf": 0.017281618705035973,
+     "wall_ms": 240.21450000000002,
+     "encoder_ms": 39.997375,
+     "prefill_ms": 135.92,
+     "decode_ms_per_token": 2.7854394090909094
+    },
+    {
+     "name": "cmn_hans_cn_1673",
+     "rtf": 0.02554567797202797,
+     "wall_ms": 219.181917,
+     "encoder_ms": 40.005041,
+     "prefill_ms": 107.7405,
+     "decode_ms_per_token": 2.78480836
+    },
+    {
+     "name": "cmn_hans_cn_1674",
+     "rtf": 0.023040230855855853,
+     "wall_ms": 204.59725,
+     "encoder_ms": 40.828375,
+     "prefill_ms": 109.5865,
+     "decode_ms_per_token": 2.7548772105263155
+    },
+    {
+     "name": "cmn_hans_cn_1675",
+     "rtf": 0.02232771828571429,
+     "wall_ms": 234.441042,
+     "encoder_ms": 39.2765,
+     "prefill_ms": 117.8575,
+     "decode_ms_per_token": 2.7897237777777777
+    },
+    {
+     "name": "cmn_hans_cn_1676",
+     "rtf": 0.021960235076252724,
+     "wall_ms": 201.59495800000002,
+     "encoder_ms": 41.037666,
+     "prefill_ms": 112.038833,
+     "decode_ms_per_token": 2.745125
+    },
+    {
+     "name": "cmn_hans_cn_1677",
+     "rtf": 0.02434403195488722,
+     "wall_ms": 194.265375,
+     "encoder_ms": 40.930834,
+     "prefill_ms": 104.70075,
+     "decode_ms_per_token": 2.761901941176471
+    },
+    {
+     "name": "cmn_hans_cn_1678",
+     "rtf": 0.017790009954493747,
+     "wall_ms": 312.748375,
+     "encoder_ms": 39.771417,
+     "prefill_ms": 155.791541,
+     "decode_ms_per_token": 2.7730589512195123
+    },
+    {
+     "name": "cmn_hans_cn_1679",
+     "rtf": 0.020489553202479343,
+     "wall_ms": 198.33887500000003,
+     "encoder_ms": 40.131291,
+     "prefill_ms": 114.74175,
+     "decode_ms_per_token": 2.739736133333333
+    },
+    {
+     "name": "cmn_hans_cn_1680",
+     "rtf": 0.017868659514687104,
+     "wall_ms": 279.823208,
+     "encoder_ms": 39.670959,
+     "prefill_ms": 145.99375,
+     "decode_ms_per_token": 2.7532146363636363
+    },
+    {
+     "name": "cmn_hans_cn_1681",
+     "rtf": 0.018947472522522525,
+     "wall_ms": 252.38033400000003,
+     "encoder_ms": 39.71925,
+     "prefill_ms": 133.454291,
+     "decode_ms_per_token": 2.748955357142857
+    },
+    {
+     "name": "cmn_hans_cn_1682",
+     "rtf": 0.0175972085492228,
+     "wall_ms": 339.626125,
+     "encoder_ms": 39.642583,
+     "prefill_ms": 166.817125,
+     "decode_ms_per_token": 2.7718803191489365
+    },
+    {
+     "name": "cmn_hans_cn_1683",
+     "rtf": 0.0241505947008547,
+     "wall_ms": 282.561958,
+     "encoder_ms": 39.66575,
+     "prefill_ms": 125.471875,
+     "decode_ms_per_token": 2.7459593095238097
+    },
+    {
+     "name": "cmn_hans_cn_1684",
+     "rtf": 0.016771528667563932,
+     "wall_ms": 249.224916,
+     "encoder_ms": 39.6115,
+     "prefill_ms": 140.421667,
+     "decode_ms_per_token": 2.7501492916666668
+    },
+    {
+     "name": "cmn_hans_cn_1685",
+     "rtf": 0.022006727689594358,
+     "wall_ms": 249.556292,
+     "encoder_ms": 39.476333,
+     "prefill_ms": 122.645709,
+     "decode_ms_per_token": 2.7555335806451615
+    },
+    {
+     "name": "cmn_hans_cn_1686",
+     "rtf": 0.024898879683698298,
+     "wall_ms": 204.66879100000003,
+     "encoder_ms": 40.548667,
+     "prefill_ms": 106.739917,
+     "decode_ms_per_token": 2.78173125
+    },
+    {
+     "name": "cmn_hans_cn_1687",
+     "rtf": 0.02746298798798799,
+     "wall_ms": 182.90350000000004,
+     "encoder_ms": 40.558208,
+     "prefill_ms": 96.948375,
+     "decode_ms_per_token": 2.7374010625
+    },
+    {
+     "name": "cmn_hans_cn_1688",
+     "rtf": 0.019522498006379587,
+     "wall_ms": 244.812125,
+     "encoder_ms": 40.726167,
+     "prefill_ms": 130.213042,
+     "decode_ms_per_token": 2.7606618461538464
+    },
+    {
+     "name": "cmn_hans_cn_1689",
+     "rtf": 0.01637819198830409,
+     "wall_ms": 280.06708299999997,
+     "encoder_ms": 39.44125,
+     "prefill_ms": 154.56225,
+     "decode_ms_per_token": 2.7813861333333336
+    },
+    {
+     "name": "cmn_hans_cn_1690",
+     "rtf": 0.020050850423728814,
+     "wall_ms": 283.920042,
+     "encoder_ms": 39.370375,
+     "prefill_ms": 138.987167,
+     "decode_ms_per_token": 2.769189189189189
+    },
+    {
+     "name": "cmn_hans_cn_1691",
+     "rtf": 0.028975591884057975,
+     "wall_ms": 199.93158400000002,
+     "encoder_ms": 40.087208,
+     "prefill_ms": 99.884833,
+     "decode_ms_per_token": 2.7725258095238097
+    },
+    {
+     "name": "cmn_hans_cn_1692",
+     "rtf": 0.018907412909090912,
+     "wall_ms": 207.98154200000002,
+     "encoder_ms": 40.8275,
+     "prefill_ms": 120.683166,
+     "decode_ms_per_token": 2.7776875
+    },
+    {
+     "name": "cmn_hans_cn_1693",
+     "rtf": 0.020315719395866457,
+     "wall_ms": 255.57175000000004,
+     "encoder_ms": 40.240375,
+     "prefill_ms": 132.424458,
+     "decode_ms_per_token": 2.7824755862068966
+    },
+    {
+     "name": "cmn_hans_cn_1694",
+     "rtf": 0.019323651101694914,
+     "wall_ms": 228.01908300000002,
+     "encoder_ms": 40.16875,
+     "prefill_ms": 127.646041,
+     "decode_ms_per_token": 2.762720238095238
+    },
+    {
+     "name": "cmn_hans_cn_1695",
+     "rtf": 0.02053706953242836,
+     "wall_ms": 272.321542,
+     "encoder_ms": 39.094125,
+     "prefill_ms": 133.898,
+     "decode_ms_per_token": 2.7748642857142856
+    },
+    {
+     "name": "cmn_hans_cn_1696",
+     "rtf": 0.024274285279805352,
+     "wall_ms": 199.53462500000003,
+     "encoder_ms": 40.39625,
+     "prefill_ms": 107.786584,
+     "decode_ms_per_token": 2.7541643333333337
+    },
+    {
+     "name": "cmn_hans_cn_1697",
+     "rtf": 0.021208729550102254,
+     "wall_ms": 207.421375,
+     "encoder_ms": 40.462291,
+     "prefill_ms": 115.450083,
+     "decode_ms_per_token": 2.7560648333333333
+    },
+    {
+     "name": "cmn_hans_cn_1698",
+     "rtf": 0.02223982767489712,
+     "wall_ms": 216.17112500000002,
+     "encoder_ms": 40.790625,
+     "prefill_ms": 115.69875,
+     "decode_ms_per_token": 2.748220238095238
+    },
+    {
+     "name": "cmn_hans_cn_1699",
+     "rtf": 0.021492566666666667,
+     "wall_ms": 252.752584,
+     "encoder_ms": 39.939042,
+     "prefill_ms": 126.903542,
+     "decode_ms_per_token": 2.7715875000000003
+    },
+    {
+     "name": "cmn_hans_cn_1700",
+     "rtf": 0.017282422107765455,
+     "wall_ms": 218.10416700000002,
+     "encoder_ms": 40.262334,
+     "prefill_ms": 131.365708,
+     "decode_ms_per_token": 2.76495575
+    },
+    {
+     "name": "cmn_hans_cn_1701",
+     "rtf": 0.01841243271405493,
+     "wall_ms": 227.94591700000004,
+     "encoder_ms": 40.07075,
+     "prefill_ms": 130.272584,
+     "decode_ms_per_token": 2.77081455
+    },
+    {
+     "name": "cmn_hans_cn_1702",
+     "rtf": 0.019712167145421903,
+     "wall_ms": 219.593542,
+     "encoder_ms": 40.432792,
+     "prefill_ms": 123.436417,
+     "decode_ms_per_token": 2.821300421052632
+    },
+    {
+     "name": "cmn_hans_cn_1703",
+     "rtf": 0.0243072827991453,
+     "wall_ms": 227.51616700000002,
+     "encoder_ms": 40.643292,
+     "prefill_ms": 113.112333,
+     "decode_ms_per_token": 2.7646057692307693
+    },
+    {
+     "name": "cmn_hans_cn_1704",
+     "rtf": 0.027978650137741052,
+     "wall_ms": 203.12500000000003,
+     "encoder_ms": 40.757709,
+     "prefill_ms": 102.687084,
+     "decode_ms_per_token": 2.7637063333333334
+    },
+    {
+     "name": "cmn_hans_cn_1705",
+     "rtf": 0.03115326388888889,
+     "wall_ms": 224.3035,
+     "encoder_ms": 39.186916,
+     "prefill_ms": 99.954375,
+     "decode_ms_per_token": 2.7749208333333333
+    },
+    {
+     "name": "cmn_hans_cn_1706",
+     "rtf": 0.0230842474489796,
+     "wall_ms": 271.47075000000007,
+     "encoder_ms": 40.62525,
+     "prefill_ms": 126.30575,
+     "decode_ms_per_token": 2.7674842162162165
+    },
+    {
+     "name": "cmn_hans_cn_1707",
+     "rtf": 0.02796042314814815,
+     "wall_ms": 181.18354200000002,
+     "encoder_ms": 40.772,
+     "prefill_ms": 97.282708,
+     "decode_ms_per_token": 2.769461133333333
+    },
+    {
+     "name": "cmn_hans_cn_1708",
+     "rtf": 0.023338728380503142,
+     "wall_ms": 296.868625,
+     "encoder_ms": 40.291625,
+     "prefill_ms": 131.061167,
+     "decode_ms_per_token": 2.7890066136363636
+    },
+    {
+     "name": "cmn_hans_cn_1709",
+     "rtf": 0.022008054748062014,
+     "wall_ms": 227.12312500000002,
+     "encoder_ms": 40.362084,
+     "prefill_ms": 118.207875,
+     "decode_ms_per_token": 2.7708715
+    },
+    {
+     "name": "ja_jp_1661",
+     "rtf": 0.019008684630350194,
+     "wall_ms": 293.113917,
+     "encoder_ms": 39.791,
+     "prefill_ms": 146.67925,
+     "decode_ms_per_token": 2.79472072972973
+    },
+    {
+     "name": "ja_jp_1662",
+     "rtf": 0.017805398353909464,
+     "wall_ms": 259.602708,
+     "encoder_ms": 39.551209,
+     "prefill_ms": 141.796375,
+     "decode_ms_per_token": 2.782300925925926
+    },
+    {
+     "name": "ja_jp_1664",
+     "rtf": 0.02441066494949495,
+     "wall_ms": 241.66558300000003,
+     "encoder_ms": 40.244625,
+     "prefill_ms": 115.876041,
+     "decode_ms_per_token": 2.783783333333333
+    },
+    {
+     "name": "ja_jp_1665",
+     "rtf": 0.020134401135005975,
+     "wall_ms": 337.049875,
+     "encoder_ms": 39.769583,
+     "prefill_ms": 152.554167,
+     "decode_ms_per_token": 2.785072705882353
+    },
+    {
+     "name": "ja_jp_1666",
+     "rtf": 0.018896453982300884,
+     "wall_ms": 256.23591600000003,
+     "encoder_ms": 40.334334,
+     "prefill_ms": 136.034959,
+     "decode_ms_per_token": 2.769068428571429
+    },
+    {
+     "name": "ja_jp_1667",
+     "rtf": 0.01827068367003367,
+     "wall_ms": 325.58358300000003,
+     "encoder_ms": 39.701334,
+     "prefill_ms": 159.542666,
+     "decode_ms_per_token": 2.8121761363636364
+    },
+    {
+     "name": "ja_jp_1668",
+     "rtf": 0.021461154708520176,
+     "wall_ms": 287.15024999999997,
+     "encoder_ms": 39.471291,
+     "prefill_ms": 133.340042,
+     "decode_ms_per_token": 2.788126025
+    },
+    {
+     "name": "ja_jp_1669",
+     "rtf": 0.025061917162698417,
+     "wall_ms": 252.62412500000002,
+     "encoder_ms": 40.064834,
+     "prefill_ms": 115.715541,
+     "decode_ms_per_token": 2.777002470588235
+    },
+    {
+     "name": "ja_jp_1670",
+     "rtf": 0.01897905066666667,
+     "wall_ms": 483.9657920000001,
+     "encoder_ms": 39.387458,
+     "prefill_ms": 201.011042,
+     "decode_ms_per_token": 2.8228720588235294
+    },
+    {
+     "name": "ja_jp_1671",
+     "rtf": 0.01999020542888165,
+     "wall_ms": 368.21958400000005,
+     "encoder_ms": 39.440333,
+     "prefill_ms": 162.258667,
+     "decode_ms_per_token": 2.8231731206896553
+    },
+    {
+     "name": "ja_jp_1672",
+     "rtf": 0.02185617210884354,
+     "wall_ms": 257.028584,
+     "encoder_ms": 40.193209,
+     "prefill_ms": 126.250375,
+     "decode_ms_per_token": 2.760216125
+    },
+    {
+     "name": "ja_jp_1674",
+     "rtf": 0.02167321428571429,
+     "wall_ms": 227.56875000000002,
+     "encoder_ms": 40.677875,
+     "prefill_ms": 118.37725,
+     "decode_ms_per_token": 2.769776041666667
+    },
+    {
+     "name": "ja_jp_1675",
+     "rtf": 0.017693501069182393,
+     "wall_ms": 281.32666700000004,
+     "encoder_ms": 40.363834,
+     "prefill_ms": 148.852292,
+     "decode_ms_per_token": 2.7977421875
+    },
+    {
+     "name": "ja_jp_1676",
+     "rtf": 0.024502949313725493,
+     "wall_ms": 249.93008300000002,
+     "encoder_ms": 39.999125,
+     "prefill_ms": 118.533084,
+     "decode_ms_per_token": 2.77570440625
+    },
+    {
+     "name": "ja_jp_1677",
+     "rtf": 0.02537734820143885,
+     "wall_ms": 211.647084,
+     "encoder_ms": 40.721167,
+     "prefill_ms": 108.231333,
+     "decode_ms_per_token": 2.7673371363636363
+    },
+    {
+     "name": "ja_jp_1679",
+     "rtf": 0.020547543879472694,
+     "wall_ms": 218.21491600000002,
+     "encoder_ms": 39.64375,
+     "prefill_ms": 120.692167,
+     "decode_ms_per_token": 2.77528955
+    },
+    {
+     "name": "ja_jp_1680",
+     "rtf": 0.02358179014814815,
+     "wall_ms": 318.354167,
+     "encoder_ms": 39.945125,
+     "prefill_ms": 136.242042,
+     "decode_ms_per_token": 2.7831816600000003
+    },
+    {
+     "name": "ja_jp_1681",
+     "rtf": 0.02114074074074074,
+     "wall_ms": 342.48,
+     "encoder_ms": 39.657792,
+     "prefill_ms": 149.298208,
+     "decode_ms_per_token": 2.7805162037037037
+    },
+    {
+     "name": "ja_jp_1683",
+     "rtf": 0.021164376394557826,
+     "wall_ms": 311.116333,
+     "encoder_ms": 39.608666,
+     "prefill_ms": 142.578458,
+     "decode_ms_per_token": 2.8115166666666664
+    },
+    {
+     "name": "ja_jp_1684",
+     "rtf": 0.024806366451612903,
+     "wall_ms": 230.69920800000003,
+     "encoder_ms": 40.550959,
+     "prefill_ms": 113.512083,
+     "decode_ms_per_token": 2.7701635925925925
+    },
+    {
+     "name": "ja_jp_1685",
+     "rtf": 0.01787537691885965,
+     "wall_ms": 326.046875,
+     "encoder_ms": 39.979792,
+     "prefill_ms": 160.648083,
+     "decode_ms_per_token": 2.7870539772727274
+    },
+    {
+     "name": "ja_jp_1686",
+     "rtf": 0.01866184523809524,
+     "wall_ms": 313.51900000000006,
+     "encoder_ms": 39.722916,
+     "prefill_ms": 151.57925,
+     "decode_ms_per_token": 2.7824583488372094
+    },
+    {
+     "name": "ja_jp_1687",
+     "rtf": 0.025218215811965816,
+     "wall_ms": 236.04250000000002,
+     "encoder_ms": 40.251458,
+     "prefill_ms": 113.206875,
+     "decode_ms_per_token": 2.7816293103448273
+    },
+    {
+     "name": "ja_jp_1688",
+     "rtf": 0.023555906074766358,
+     "wall_ms": 302.45783400000005,
+     "encoder_ms": 40.413792,
+     "prefill_ms": 130.219541,
+     "decode_ms_per_token": 2.758007106382979
+    },
+    {
+     "name": "ja_jp_1690",
+     "rtf": 0.020173891768707486,
+     "wall_ms": 296.556209,
+     "encoder_ms": 40.036833,
+     "prefill_ms": 140.728125,
+     "decode_ms_per_token": 2.7650335365853658
+    },
+    {
+     "name": "ja_jp_1691",
+     "rtf": 0.022996936274509806,
+     "wall_ms": 234.56875000000002,
+     "encoder_ms": 39.664541,
+     "prefill_ms": 117.931166,
+     "decode_ms_per_token": 2.762626555555556
+    },
+    {
+     "name": "ja_jp_1692",
+     "rtf": 0.023121165424430646,
+     "wall_ms": 223.35045800000003,
+     "encoder_ms": 39.965458,
+     "prefill_ms": 115.049375,
+     "decode_ms_per_token": 2.7479982916666668
+    },
+    {
+     "name": "ja_jp_1693",
+     "rtf": 0.016756342751141556,
+     "wall_ms": 293.57112500000005,
+     "encoder_ms": 40.270917,
+     "prefill_ms": 156.24525,
+     "decode_ms_per_token": 2.7757867647058823
+    },
+    {
+     "name": "ja_jp_1694",
+     "rtf": 0.017785819081272084,
+     "wall_ms": 302.00320800000003,
+     "encoder_ms": 39.159833,
+     "prefill_ms": 154.019666,
+     "decode_ms_per_token": 2.794621710526316
+    },
+    {
+     "name": "ja_jp_1695",
+     "knife_edge": true,
+     "first_divergence": 3,
+     "rtf": 0.02376220813204509,
+     "wall_ms": 295.12662500000005,
+     "encoder_ms": 40.144459,
+     "prefill_ms": 127.560958,
+     "decode_ms_per_token": 2.782389822222222
+    },
+    {
+     "name": "ja_jp_1696",
+     "rtf": 0.023391450335008376,
+     "wall_ms": 279.293917,
+     "encoder_ms": 39.846083,
+     "prefill_ms": 125.270708,
+     "decode_ms_per_token": 2.7856260500000003
+    },
+    {
+     "name": "ja_jp_1697",
+     "rtf": 0.017131288439716313,
+     "wall_ms": 241.55116700000002,
+     "encoder_ms": 39.832834,
+     "prefill_ms": 138.196334,
+     "decode_ms_per_token": 2.7522575454545457
+    },
+    {
+     "name": "ja_jp_1698",
+     "rtf": 0.023322124094202902,
+     "wall_ms": 257.47625,
+     "encoder_ms": 39.985875,
+     "prefill_ms": 120.377791,
+     "decode_ms_per_token": 2.7822561470588236
+    },
+    {
+     "name": "ja_jp_1699",
+     "rtf": 0.021029709084406295,
+     "wall_ms": 293.995333,
+     "encoder_ms": 40.136375,
+     "prefill_ms": 138.175041,
+     "decode_ms_per_token": 2.763423780487805
+    },
+    {
+     "name": "ja_jp_1700",
+     "rtf": 0.024743383333333334,
+     "wall_ms": 185.575375,
+     "encoder_ms": 40.403125,
+     "prefill_ms": 102.338,
+     "decode_ms_per_token": 2.7437722
+    },
+    {
+     "name": "ja_jp_1701",
+     "rtf": 0.021478942171717173,
+     "wall_ms": 255.169833,
+     "encoder_ms": 39.120208,
+     "prefill_ms": 125.129292,
+     "decode_ms_per_token": 2.76035025
+    },
+    {
+     "name": "ja_jp_1702",
+     "rtf": 0.022556081717171717,
+     "wall_ms": 223.305209,
+     "encoder_ms": 40.37425,
+     "prefill_ms": 114.798416,
+     "decode_ms_per_token": 2.7388489583333335
+    },
+    {
+     "name": "ja_jp_1704",
+     "rtf": 0.021954344700854705,
+     "wall_ms": 256.86583300000007,
+     "encoder_ms": 40.543958,
+     "prefill_ms": 125.490875,
+     "decode_ms_per_token": 2.77509896875
+    },
+    {
+     "name": "ja_jp_1705",
+     "rtf": 0.021286094391025644,
+     "wall_ms": 265.650458,
+     "encoder_ms": 40.365458,
+     "prefill_ms": 128.51975,
+     "decode_ms_per_token": 2.782634794117647
+    },
+    {
+     "name": "ja_jp_1707",
+     "rtf": 0.023262585910652923,
+     "wall_ms": 270.77650000000006,
+     "encoder_ms": 40.143667,
+     "prefill_ms": 125.742958,
+     "decode_ms_per_token": 2.7777860540540544
+    },
+    {
+     "name": "ja_jp_1709",
+     "rtf": 0.021574515172955975,
+     "wall_ms": 274.427833,
+     "encoder_ms": 40.525833,
+     "prefill_ms": 131.037667,
+     "decode_ms_per_token": 2.7772407222222224
+    },
+    {
+     "name": "ja_jp_1710",
+     "rtf": 0.023363238948306598,
+     "wall_ms": 262.13554100000005,
+     "encoder_ms": 40.540083,
+     "prefill_ms": 123.246792,
+     "decode_ms_per_token": 2.7513726
+    },
+    {
+     "name": "ja_jp_1711",
+     "rtf": 0.019656420068027213,
+     "wall_ms": 288.94937500000003,
+     "encoder_ms": 40.179,
+     "prefill_ms": 140.860416,
+     "decode_ms_per_token": 2.7698508947368423
+    },
+    {
+     "name": "ja_jp_1712",
+     "rtf": 0.019727674025974026,
+     "wall_ms": 364.56741600000004,
+     "encoder_ms": 39.803292,
+     "prefill_ms": 161.318667,
+     "decode_ms_per_token": 2.771293103448276
+    },
+    {
+     "name": "ja_jp_1713",
+     "knife_edge": true,
+     "first_divergence": 19,
+     "rtf": 0.017892183216374268,
+     "wall_ms": 305.95633300000003,
+     "encoder_ms": 39.529542,
+     "prefill_ms": 153.377459,
+     "decode_ms_per_token": 2.7604968750000003
+    },
+    {
+     "name": "ja_jp_1714",
+     "rtf": 0.021420494817927172,
+     "wall_ms": 305.88466600000004,
+     "encoder_ms": 39.612208,
+     "prefill_ms": 138.612916,
+     "decode_ms_per_token": 2.7861102
+    },
+    {
+     "name": "ja_jp_1715",
+     "rtf": 0.015790956606606607,
+     "wall_ms": 420.671084,
+     "encoder_ms": 39.132209,
+     "prefill_ms": 204.99125,
+     "decode_ms_per_token": 2.7882674838709676
+    },
+    {
+     "name": "ja_jp_1716",
+     "rtf": 0.0242009499475891,
+     "wall_ms": 461.754125,
+     "encoder_ms": 39.290333,
+     "prefill_ms": 164.029958,
+     "decode_ms_per_token": 2.807398351648352
+    },
+    {
+     "name": "ja_jp_1718",
+     "rtf": 0.019173599134199134,
+     "wall_ms": 265.746084,
+     "encoder_ms": 39.876084,
+     "prefill_ms": 135.442375,
+     "decode_ms_per_token": 2.7527356875
+    },
+    {
+     "name": "ja_jp_1719",
+     "rtf": 0.021468777533039652,
+     "wall_ms": 292.40475000000004,
+     "encoder_ms": 40.238041,
+     "prefill_ms": 135.589792,
+     "decode_ms_per_token": 2.771519292682927
+    }
+   ]
+  },
+  "load1": {
+   "available_mb_after": -1,
+   "available_mb_before": -1,
+   "cache_bytes_after_encoder_alone": 1563735661,
+   "cache_bytes_after_encoder_warm": 1563735661,
+   "cache_bytes_after_model": 1563735661,
+   "cache_bytes_before": 1563735661,
+   "cache_files_before": 11,
+   "cold_total_est_s": 0.542615084,
+   "decoder": "/Users/majimadaisuke/code/coreai/coreai-models-community-funasr-wt/apps/FunASRGate/_work/device_stage/FunASRAssets/decoder",
+   "decoder_est_s": 0.42825662500000006,
+   "decoder_mb": 795.677989,
+   "encoder": "/Users/majimadaisuke/code/coreai/coreai-models-community-funasr-wt/apps/FunASRGate/_work/device_stage/FunASRAssets/encoder.aimodel",
+   "encoder_alone_memory": {
+    "available_mb_end": -1,
+    "available_mb_start": -1,
+    "duration_s": 0.207141542,
+    "footprint_mb_end": 234.784208,
+    "footprint_mb_start": 176.145464,
+    "interval_s": 0.1,
+    "min_available_mb": -1,
+    "peak_at_s": 0.20708516700000001,
+    "peak_footprint_mb": 234.784208,
+    "samples": 4,
+    "series_1s": [
+     [
+      0,
+      176.145464,
+      -1
+     ]
+    ]
+   },
+   "encoder_alone_s": 0.11435845900000001,
+   "encoder_mb": 471.485661,
+   "encoder_warm_memory": {
+    "available_mb_end": -1,
+    "available_mb_start": -1,
+    "duration_s": 0.22014425,
+    "footprint_mb_end": 266.751096,
+    "footprint_mb_start": 218.172176,
+    "interval_s": 0.1,
+    "min_available_mb": -1,
+    "peak_at_s": 0.220107667,
+    "peak_footprint_mb": 266.751096,
+    "samples": 4,
+    "series_1s": [
+     [
+      0,
+      218.172176,
+      -1
+     ]
+    ]
+   },
+   "encoder_warm_s": 0.11736312500000001,
+   "footprint_mb_after": 266.751096,
+   "footprint_mb_after_model": 218.155792,
+   "footprint_mb_before": 176.12908,
+   "min_available_mb": -1,
+   "model_memory": {
+    "available_mb_end": -1,
+    "available_mb_start": -1,
+    "duration_s": 0.6381380830000001,
+    "footprint_mb_end": 218.172176,
+    "footprint_mb_start": 234.866104,
+    "interval_s": 0.1,
+    "min_available_mb": -1,
+    "peak_at_s": 0.32471091700000004,
+    "peak_footprint_mb": 345.59016,
+    "samples": 8,
+    "series_1s": [
+     [
+      0,
+      234.866104,
+      -1
+     ]
+    ]
+   },
+   "model_s": 0.5456197500000001,
+   "pass": true,
+   "peak_footprint_mb": 345.59016,
+   "step": "done",
+   "storage": {
+    "after_encoder_alone": {
+     "coreai_cache": {
+      "bytes": 1563735661,
+      "dirs": [
+       {
+        "bytes": 1091667723,
+        "dir": "ad095a47cde231bf361ba7d68b01b04dfaa6b3910865cfa383e92703305b1c44",
+        "files": 6
+       },
+       {
+        "bytes": 1091667723,
+        "dir": "ad095a47cde231bf361ba7d68b01b04dfaa6b3910865cfa383e92703305b1c44/2BCC1AD4E15EA0CB8CD8E14DD2D8F3F9B06D666FA1C93914387E9F78D3CF7443",
+        "files": 6
+       },
+       {
+        "bytes": 1091667723,
+        "dir": "ad095a47cde231bf361ba7d68b01b04dfaa6b3910865cfa383e92703305b1c44/2BCC1AD4E15EA0CB8CD8E14DD2D8F3F9B06D666FA1C93914387E9F78D3CF7443/model.aimodelx",
+        "files": 6
+       },
+       {
+        "bytes": 1091654987,
+        "dir": "ad095a47cde231bf361ba7d68b01b04dfaa6b3910865cfa383e92703305b1c44/2BCC1AD4E15EA0CB8CD8E14DD2D8F3F9B06D666FA1C93914387E9F78D3CF7443/model.aimodelx/main-this-delegates",
+        "files": 4
+       },
+       {
+        "bytes": 472067938,
+        "dir": "4dca147e26e7c52e6fe243c09ccfc9dd5b5323a175313496cb986405565c27e6",
+        "files": 5
+       },
+       {
+        "bytes": 472067938,
+        "dir": "4dca147e26e7c52e6fe243c09ccfc9dd5b5323a175313496cb986405565c27e6/1437135650F5EB80B3545D58225DFBDAB1D3F672814A14BDB8BE67FA0A9BB0E1",
+        "files": 5
+       },
+       {
+        "bytes": 472067938,
+        "dir": "4dca147e26e7c52e6fe243c09ccfc9dd5b5323a175313496cb986405565c27e6/1437135650F5EB80B3545D58225DFBDAB1D3F672814A14BDB8BE67FA0A9BB0E1/model.aimodelx",
+        "files": 5
+       },
+       {
+        "bytes": 472057018,
+        "dir": "4dca147e26e7c52e6fe243c09ccfc9dd5b5323a175313496cb986405565c27e6/1437135650F5EB80B3545D58225DFBDAB1D3F672814A14BDB8BE67FA0A9BB0E1/model.aimodelx/main-this-delegates",
+        "files": 3
+       }
+      ],
+      "dirs_total": 8,
+      "exists": true,
+      "files": 11,
+      "path": "/Users/majimadaisuke/Library/Caches/coreai-cache/26A428/com.daisukemajima.funasrgate"
+     },
+     "coreai_cache_build_entries": [
+      "chat-cli",
+      "com.apple.dt.xctest.tool",
+      "com.daisukemajima.funasrgate",
+      "decide-selftest",
+      "python"
+     ]
+    },
+    "after_encoder_warm": {
+     "coreai_cache": {
+      "bytes": 1563735661,
+      "dirs": [
+       {
+        "bytes": 1091667723,
+        "dir": "ad095a47cde231bf361ba7d68b01b04dfaa6b3910865cfa383e92703305b1c44",
+        "files": 6
+       },
+       {
+        "bytes": 1091667723,
+        "dir": "ad095a47cde231bf361ba7d68b01b04dfaa6b3910865cfa383e92703305b1c44/2BCC1AD4E15EA0CB8CD8E14DD2D8F3F9B06D666FA1C93914387E9F78D3CF7443",
+        "files": 6
+       },
+       {
+        "bytes": 1091667723,
+        "dir": "ad095a47cde231bf361ba7d68b01b04dfaa6b3910865cfa383e92703305b1c44/2BCC1AD4E15EA0CB8CD8E14DD2D8F3F9B06D666FA1C93914387E9F78D3CF7443/model.aimodelx",
+        "files": 6
+       },
+       {
+        "bytes": 1091654987,
+        "dir": "ad095a47cde231bf361ba7d68b01b04dfaa6b3910865cfa383e92703305b1c44/2BCC1AD4E15EA0CB8CD8E14DD2D8F3F9B06D666FA1C93914387E9F78D3CF7443/model.aimodelx/main-this-delegates",
+        "files": 4
+       },
+       {
+        "bytes": 472067938,
+        "dir": "4dca147e26e7c52e6fe243c09ccfc9dd5b5323a175313496cb986405565c27e6",
+        "files": 5
+       },
+       {
+        "bytes": 472067938,
+        "dir": "4dca147e26e7c52e6fe243c09ccfc9dd5b5323a175313496cb986405565c27e6/1437135650F5EB80B3545D58225DFBDAB1D3F672814A14BDB8BE67FA0A9BB0E1",
+        "files": 5
+       },
+       {
+        "bytes": 472067938,
+        "dir": "4dca147e26e7c52e6fe243c09ccfc9dd5b5323a175313496cb986405565c27e6/1437135650F5EB80B3545D58225DFBDAB1D3F672814A14BDB8BE67FA0A9BB0E1/model.aimodelx",
+        "files": 5
+       },
+       {
+        "bytes": 472057018,
+        "dir": "4dca147e26e7c52e6fe243c09ccfc9dd5b5323a175313496cb986405565c27e6/1437135650F5EB80B3545D58225DFBDAB1D3F672814A14BDB8BE67FA0A9BB0E1/model.aimodelx/main-this-delegates",
+        "files": 3
+       }
+      ],
+      "dirs_total": 8,
+      "exists": true,
+      "files": 11,
+      "path": "/Users/majimadaisuke/Library/Caches/coreai-cache/26A428/com.daisukemajima.funasrgate"
+     },
+     "coreai_cache_build_entries": [
+      "chat-cli",
+      "com.apple.dt.xctest.tool",
+      "com.daisukemajima.funasrgate",
+      "decide-selftest",
+      "python"
+     ]
+    },
+    "after_model": {
+     "coreai_cache": {
+      "bytes": 1563735661,
+      "dirs": [
+       {
+        "bytes": 1091667723,
+        "dir": "ad095a47cde231bf361ba7d68b01b04dfaa6b3910865cfa383e92703305b1c44",
+        "files": 6
+       },
+       {
+        "bytes": 1091667723,
+        "dir": "ad095a47cde231bf361ba7d68b01b04dfaa6b3910865cfa383e92703305b1c44/2BCC1AD4E15EA0CB8CD8E14DD2D8F3F9B06D666FA1C93914387E9F78D3CF7443",
+        "files": 6
+       },
+       {
+        "bytes": 1091667723,
+        "dir": "ad095a47cde231bf361ba7d68b01b04dfaa6b3910865cfa383e92703305b1c44/2BCC1AD4E15EA0CB8CD8E14DD2D8F3F9B06D666FA1C93914387E9F78D3CF7443/model.aimodelx",
+        "files": 6
+       },
+       {
+        "bytes": 1091654987,
+        "dir": "ad095a47cde231bf361ba7d68b01b04dfaa6b3910865cfa383e92703305b1c44/2BCC1AD4E15EA0CB8CD8E14DD2D8F3F9B06D666FA1C93914387E9F78D3CF7443/model.aimodelx/main-this-delegates",
+        "files": 4
+       },
+       {
+        "bytes": 472067938,
+        "dir": "4dca147e26e7c52e6fe243c09ccfc9dd5b5323a175313496cb986405565c27e6",
+        "files": 5
+       },
+       {
+        "bytes": 472067938,
+        "dir": "4dca147e26e7c52e6fe243c09ccfc9dd5b5323a175313496cb986405565c27e6/1437135650F5EB80B3545D58225DFBDAB1D3F672814A14BDB8BE67FA0A9BB0E1",
+        "files": 5
+       },
+       {
+        "bytes": 472067938,
+        "dir": "4dca147e26e7c52e6fe243c09ccfc9dd5b5323a175313496cb986405565c27e6/1437135650F5EB80B3545D58225DFBDAB1D3F672814A14BDB8BE67FA0A9BB0E1/model.aimodelx",
+        "files": 5
+       },
+       {
+        "bytes": 472057018,
+        "dir": "4dca147e26e7c52e6fe243c09ccfc9dd5b5323a175313496cb986405565c27e6/1437135650F5EB80B3545D58225DFBDAB1D3F672814A14BDB8BE67FA0A9BB0E1/model.aimodelx/main-this-delegates",
+        "files": 3
+       }
+      ],
+      "dirs_total": 8,
+      "exists": true,
+      "files": 11,
+      "path": "/Users/majimadaisuke/Library/Caches/coreai-cache/26A428/com.daisukemajima.funasrgate"
+     },
+     "coreai_cache_build_entries": [
+      "chat-cli",
+      "com.apple.dt.xctest.tool",
+      "com.daisukemajima.funasrgate",
+      "decide-selftest",
+      "python"
+     ]
+    },
+    "before": {
+     "coreai_cache": {
+      "bytes": 1563735661,
+      "dirs": [
+       {
+        "bytes": 1091667723,
+        "dir": "ad095a47cde231bf361ba7d68b01b04dfaa6b3910865cfa383e92703305b1c44",
+        "files": 6
+       },
+       {
+        "bytes": 1091667723,
+        "dir": "ad095a47cde231bf361ba7d68b01b04dfaa6b3910865cfa383e92703305b1c44/2BCC1AD4E15EA0CB8CD8E14DD2D8F3F9B06D666FA1C93914387E9F78D3CF7443",
+        "files": 6
+       },
+       {
+        "bytes": 1091667723,
+        "dir": "ad095a47cde231bf361ba7d68b01b04dfaa6b3910865cfa383e92703305b1c44/2BCC1AD4E15EA0CB8CD8E14DD2D8F3F9B06D666FA1C93914387E9F78D3CF7443/model.aimodelx",
+        "files": 6
+       },
+       {
+        "bytes": 1091654987,
+        "dir": "ad095a47cde231bf361ba7d68b01b04dfaa6b3910865cfa383e92703305b1c44/2BCC1AD4E15EA0CB8CD8E14DD2D8F3F9B06D666FA1C93914387E9F78D3CF7443/model.aimodelx/main-this-delegates",
+        "files": 4
+       },
+       {
+        "bytes": 472067938,
+        "dir": "4dca147e26e7c52e6fe243c09ccfc9dd5b5323a175313496cb986405565c27e6",
+        "files": 5
+       },
+       {
+        "bytes": 472067938,
+        "dir": "4dca147e26e7c52e6fe243c09ccfc9dd5b5323a175313496cb986405565c27e6/1437135650F5EB80B3545D58225DFBDAB1D3F672814A14BDB8BE67FA0A9BB0E1",
+        "files": 5
+       },
+       {
+        "bytes": 472067938,
+        "dir": "4dca147e26e7c52e6fe243c09ccfc9dd5b5323a175313496cb986405565c27e6/1437135650F5EB80B3545D58225DFBDAB1D3F672814A14BDB8BE67FA0A9BB0E1/model.aimodelx",
+        "files": 5
+       },
+       {
+        "bytes": 472057018,
+        "dir": "4dca147e26e7c52e6fe243c09ccfc9dd5b5323a175313496cb986405565c27e6/1437135650F5EB80B3545D58225DFBDAB1D3F672814A14BDB8BE67FA0A9BB0E1/model.aimodelx/main-this-delegates",
+        "files": 3
+       }
+      ],
+      "dirs_total": 8,
+      "exists": true,
+      "files": 11,
+      "path": "/Users/majimadaisuke/Library/Caches/coreai-cache/26A428/com.daisukemajima.funasrgate"
+     },
+     "coreai_cache_build_entries": [
+      "chat-cli",
+      "com.apple.dt.xctest.tool",
+      "com.daisukemajima.funasrgate",
+      "decide-selftest",
+      "python"
+     ]
+    }
+   },
+   "t_end_s": 1.325342083,
+   "t_start_s": 0.226604416,
+   "thermal": [
+    {
+     "at": "start",
+     "state": "nominal",
+     "t_s": 0.22662141600000002
+    },
+    {
+     "at": "after encoder alone",
+     "state": "nominal",
+     "t_s": 0.437283833
+    },
+    {
+     "at": "after model",
+     "state": "nominal",
+     "t_s": 1.080128291
+    },
+    {
+     "at": "after encoder warm",
+     "state": "nominal",
+     "t_s": 1.304909416
+    },
+    {
+     "at": "end",
+     "state": "nominal",
+     "t_s": 1.325336708
+    }
+   ]
+  },
+  "load2": {
+   "available_mb_after_drop": -1,
+   "cache_bytes_after": 1563735661,
+   "cache_bytes_before": 1563735661,
+   "dropped_model": true,
+   "footprint_mb_after": 132.975112,
+   "footprint_mb_after_drop": 287.86832,
+   "footprint_mb_with_model": 703.154792,
+   "min_available_mb": -1,
+   "model_memory": {
+    "available_mb_end": -1,
+    "available_mb_start": -1,
+    "duration_s": 0.655343125,
+    "footprint_mb_end": 132.991496,
+    "footprint_mb_start": 287.884704,
+    "interval_s": 0.1,
+    "min_available_mb": -1,
+    "peak_at_s": 0.325259666,
+    "peak_footprint_mb": 312.674536,
+    "samples": 8,
+    "series_1s": [
+     [
+      0,
+      287.884704,
+      -1
+     ]
+    ]
+   },
+   "model_s": 0.55973775,
+   "pass": true,
+   "peak_footprint_mb": 312.674536,
+   "step": "done",
+   "storage": {
+    "after": {
+     "coreai_cache": {
+      "bytes": 1563735661,
+      "dirs": [
+       {
+        "bytes": 1091667723,
+        "dir": "ad095a47cde231bf361ba7d68b01b04dfaa6b3910865cfa383e92703305b1c44",
+        "files": 6
+       },
+       {
+        "bytes": 1091667723,
+        "dir": "ad095a47cde231bf361ba7d68b01b04dfaa6b3910865cfa383e92703305b1c44/2BCC1AD4E15EA0CB8CD8E14DD2D8F3F9B06D666FA1C93914387E9F78D3CF7443",
+        "files": 6
+       },
+       {
+        "bytes": 1091667723,
+        "dir": "ad095a47cde231bf361ba7d68b01b04dfaa6b3910865cfa383e92703305b1c44/2BCC1AD4E15EA0CB8CD8E14DD2D8F3F9B06D666FA1C93914387E9F78D3CF7443/model.aimodelx",
+        "files": 6
+       },
+       {
+        "bytes": 1091654987,
+        "dir": "ad095a47cde231bf361ba7d68b01b04dfaa6b3910865cfa383e92703305b1c44/2BCC1AD4E15EA0CB8CD8E14DD2D8F3F9B06D666FA1C93914387E9F78D3CF7443/model.aimodelx/main-this-delegates",
+        "files": 4
+       },
+       {
+        "bytes": 472067938,
+        "dir": "4dca147e26e7c52e6fe243c09ccfc9dd5b5323a175313496cb986405565c27e6",
+        "files": 5
+       },
+       {
+        "bytes": 472067938,
+        "dir": "4dca147e26e7c52e6fe243c09ccfc9dd5b5323a175313496cb986405565c27e6/1437135650F5EB80B3545D58225DFBDAB1D3F672814A14BDB8BE67FA0A9BB0E1",
+        "files": 5
+       },
+       {
+        "bytes": 472067938,
+        "dir": "4dca147e26e7c52e6fe243c09ccfc9dd5b5323a175313496cb986405565c27e6/1437135650F5EB80B3545D58225DFBDAB1D3F672814A14BDB8BE67FA0A9BB0E1/model.aimodelx",
+        "files": 5
+       },
+       {
+        "bytes": 472057018,
+        "dir": "4dca147e26e7c52e6fe243c09ccfc9dd5b5323a175313496cb986405565c27e6/1437135650F5EB80B3545D58225DFBDAB1D3F672814A14BDB8BE67FA0A9BB0E1/model.aimodelx/main-this-delegates",
+        "files": 3
+       }
+      ],
+      "dirs_total": 8,
+      "exists": true,
+      "files": 11,
+      "path": "/Users/majimadaisuke/Library/Caches/coreai-cache/26A428/com.daisukemajima.funasrgate"
+     },
+     "coreai_cache_build_entries": [
+      "chat-cli",
+      "com.apple.dt.xctest.tool",
+      "com.daisukemajima.funasrgate",
+      "decide-selftest",
+      "python"
+     ]
+    },
+    "before": {
+     "coreai_cache": {
+      "bytes": 1563735661,
+      "dirs": [
+       {
+        "bytes": 1091667723,
+        "dir": "ad095a47cde231bf361ba7d68b01b04dfaa6b3910865cfa383e92703305b1c44",
+        "files": 6
+       },
+       {
+        "bytes": 1091667723,
+        "dir": "ad095a47cde231bf361ba7d68b01b04dfaa6b3910865cfa383e92703305b1c44/2BCC1AD4E15EA0CB8CD8E14DD2D8F3F9B06D666FA1C93914387E9F78D3CF7443",
+        "files": 6
+       },
+       {
+        "bytes": 1091667723,
+        "dir": "ad095a47cde231bf361ba7d68b01b04dfaa6b3910865cfa383e92703305b1c44/2BCC1AD4E15EA0CB8CD8E14DD2D8F3F9B06D666FA1C93914387E9F78D3CF7443/model.aimodelx",
+        "files": 6
+       },
+       {
+        "bytes": 1091654987,
+        "dir": "ad095a47cde231bf361ba7d68b01b04dfaa6b3910865cfa383e92703305b1c44/2BCC1AD4E15EA0CB8CD8E14DD2D8F3F9B06D666FA1C93914387E9F78D3CF7443/model.aimodelx/main-this-delegates",
+        "files": 4
+       },
+       {
+        "bytes": 472067938,
+        "dir": "4dca147e26e7c52e6fe243c09ccfc9dd5b5323a175313496cb986405565c27e6",
+        "files": 5
+       },
+       {
+        "bytes": 472067938,
+        "dir": "4dca147e26e7c52e6fe243c09ccfc9dd5b5323a175313496cb986405565c27e6/1437135650F5EB80B3545D58225DFBDAB1D3F672814A14BDB8BE67FA0A9BB0E1",
+        "files": 5
+       },
+       {
+        "bytes": 472067938,
+        "dir": "4dca147e26e7c52e6fe243c09ccfc9dd5b5323a175313496cb986405565c27e6/1437135650F5EB80B3545D58225DFBDAB1D3F672814A14BDB8BE67FA0A9BB0E1/model.aimodelx",
+        "files": 5
+       },
+       {
+        "bytes": 472057018,
+        "dir": "4dca147e26e7c52e6fe243c09ccfc9dd5b5323a175313496cb986405565c27e6/1437135650F5EB80B3545D58225DFBDAB1D3F672814A14BDB8BE67FA0A9BB0E1/model.aimodelx/main-this-delegates",
+        "files": 3
+       }
+      ],
+      "dirs_total": 8,
+      "exists": true,
+      "files": 11,
+      "path": "/Users/majimadaisuke/Library/Caches/coreai-cache/26A428/com.daisukemajima.funasrgate"
+     },
+     "coreai_cache_build_entries": [
+      "chat-cli",
+      "com.apple.dt.xctest.tool",
+      "com.daisukemajima.funasrgate",
+      "decide-selftest",
+      "python"
+     ]
+    }
+   },
+   "t_end_s": 43.321920666,
+   "t_start_s": 41.548823666,
+   "thermal_end": "nominal",
+   "thermal_start": "nominal"
+  },
+  "md5": {
+   "bytes": 1251281362,
+   "files": [
+    "decoder/funasr_nano_2512_decode_int8lin_n63_s1.aimodel/main.mlirb",
+    "encoder.aimodel/main.mlirb"
+   ],
+   "md5_mismatch": [],
+   "pass": true,
+   "seconds": 1.4741855830000001,
+   "t_end_s": 46.600741666,
+   "t_start_s": 45.126151375
+  },
+  "warmup": {
+   "audio_s": 5.616,
+   "clip": "zh",
+   "decode_ms": 29.938208,
+   "decode_ms_per_token": 2.7216552727272725,
+   "encoder_ms": 66.308083,
+   "exact_mac_swift": true,
+   "exact_oracle": true,
+   "exact_python_engine": true,
+   "frontend_ms": 1.012167,
+   "gen_ids": [
+    29767,
+    99938,
+    20450,
+    105083,
+    99609,
+    27442,
+    56137,
+    102172,
+    75108,
+    27442,
+    1773,
+    151645
+   ],
+   "hit_cap": false,
+   "memory": {
+    "available_mb_end": -1,
+    "available_mb_start": -1,
+    "duration_s": 0.220084041,
+    "footprint_mb_end": 612.583944,
+    "footprint_mb_start": 217.401816,
+    "interval_s": 0.1,
+    "min_available_mb": -1,
+    "peak_at_s": 0.11005329100000001,
+    "peak_footprint_mb": 631.42552,
+    "samples": 4,
+    "series_1s": [
+     [
+      0,
+      217.401816,
+      -1
+     ]
+    ]
+   },
+   "pass": true,
+   "prefill_ms": 118.000084,
+   "prompt_length": 35,
+   "rtf": 0.03846288123219374,
+   "t_end_s": 1.548888375,
+   "t_start_s": 1.326428833,
+   "text": "开饭时间早上九点至下午五点。",
+   "text_equal_mac_swift": true,
+   "text_equal_oracle": true,
+   "text_equal_python_engine": true,
+   "thermal_end": "nominal",
+   "thermal_start": "nominal",
+   "tokens": 12,
+   "verdict": "exact",
+   "wall_ms": 216.00754100000003,
+   "windows": 1
+  }
+ }
+}
