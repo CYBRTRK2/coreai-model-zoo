@@ -82,7 +82,28 @@ def main():
         shutil.copyfile(WORK / "ship_src" / name, out / name)
     card = repo_root() / "models" / "audio8-tts" / "README.md"
     if card.exists():
-        shutil.copyfile(card, out / "README.md")
+        # the Hub card = the zoo's front matter + the definition line every zoo card opens with + the card itself
+        front = (
+            "---\n"
+            "license: apache-2.0\n"
+            "library_name: coreai\n"
+            "pipeline_tag: text-to-speech\n"
+            f"base_model: {HF_ID}\n"
+            "language:\n" + "".join(f"  - {lang}\n" for lang in ("yue", "zh", "nl", "en", "fr", "de", "it", "ja", "ko", "pl", "es")) +
+            "tags: [core-ai, coreaikit, audio8, dualar, text-to-speech, tts, voice-cloning, zero-shot, multilingual, on-device, apple]\n"
+            "base_model_relation: quantized\n"
+            "---\n\n"
+            "Core AI is Apple's on-device ML runtime in iOS 27 / macOS 27 and the successor to Core ML: PyTorch models are "
+            "exported with Apple's `coreai-torch` (LLMs: `coreai.llm.export`) into `.aimodel` bundles that run on the GPU or the "
+            "Neural Engine, e.g. Qwen3-8B 4-bit decodes at 94 tok/s on an M4 Max GPU, MLX 90 under the same protocol "
+            "([apple-silicon-llm-bench](https://github.com/john-rocky/apple-silicon-llm-bench), macOS 27 beta, 2026-06).\n\n"
+        )
+        body = card.read_text()
+        body = body.replace("](../../knowledge/audio8-tts-port.md)", "](https://github.com/john-rocky/coreai-model-zoo/blob/main/knowledge/audio8-tts-port.md)")
+        body = body.replace("](../../apps/Audio8Gate)", "](https://github.com/john-rocky/coreai-model-zoo/tree/main/apps/Audio8Gate)")
+        body = body.replace("](../../conversion/audio8_tts/)", "](https://github.com/john-rocky/coreai-model-zoo/tree/main/conversion/audio8_tts)")
+        body = body.replace("](recipe.toml)", "](https://github.com/john-rocky/coreai-model-zoo/blob/main/models/audio8-tts/recipe.toml)")
+        (out / "README.md").write_text(front + body)
     meta = {
         "metadata_version": "0.2",
         "kind": "tts",

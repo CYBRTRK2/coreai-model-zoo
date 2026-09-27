@@ -13,12 +13,12 @@ steps = [
   { script = "audio8_tts/export_audio8.py", args = ["--part", "codec", "--codec-frames", "160"], bundle = "audio8_codec_decoder_fp16_t160.aimodel" },
   { script = "audio8_tts/audio8_encoder.py", args = ["--frames", "216", "--dtype", "fp16w32"], bundle = "audio8_codec_encoder_fp16w32_t216.aimodel" },
 ]
-open_questions = [
-  "The Hugging Face revision is not pinned yet: the bundles are staged in $ZOO_WORK_ROOT/_audio8_tts/ship/ and upload waits for the maintainer's go.",
-  "The Mac speed (RTF 1.05 median on an M4 Max) was measured while another model conversion ran on the machine; a quiet-machine run is owed before the card's number is final.",
+open_questions = [  "The Mac speed (RTF 1.05 median on an M4 Max) was measured while another model conversion ran on the machine; a quiet-machine run is owed before the card's number is final.",
   "iPhone 18 Pro: not yet measured (the device was held by another lane on 2026-09-28); the assets are JIT and untested on the phone.",
 ]
 notes = [
+  "Published revision: mlboydaisuke/Audio8-TTS-Preview-0.6b-CoreAI@72e1c935961c786bb838e235c7839a2bd77468cc (2026-09-28; every file sha256 / size",
+  "checked against the staged layout, zoo_verify run). Mirror: coreai-community/Audio8-TTS-Preview-0.6b-CoreAI.",
   "Weights are read from the Hugging Face cache at revision f07040f3d151f1ba0253bfb92cb2f5dd38b44594 (model.safetensors",
   "sha256 62dcff0a…, codec.pth sha256 c310505a…); every script resolves it through conversion/_paths.py. Outputs land",
   "in $ZOO_WORK_ROOT/_audio8_tts/exports/. Prerequisite: conversion/audio8_tts/oracle_audio8.py (the fp32 oracle the",
@@ -32,5 +32,5 @@ notes = [
   "The codec decoder is a 160-frame (7.4 s) bucket, fp16; every op is causal, so a stream decodes in 160-frame",
   "windows keeping the last 32. The codec encoder (voice registration) is a 216-frame (10.0 s) bucket with fp16 weights",
   "and fp32 arithmetic: the whole-fp16 export flips the vector quantizers' nearest-neighbour choices.",
-  "`status` becomes verified once the published revision is pinned and the Mac gate app's numbers are in the card.",
+  "`status` becomes verified once a quiet-machine Mac run and the iPhone 18 Pro run are in the card.",
 ]

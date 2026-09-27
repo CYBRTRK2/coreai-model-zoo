@@ -120,7 +120,6 @@
      "run": "python3 conversion/zoo_convert.py run audio8-tts-preview-0.6b",
      "gate_transcript": "models/audio8-tts/gate-audio8-tts-preview-0.6b.json",
      "open_questions": [
-      "The Hugging Face revision is not pinned yet: the bundles are staged in $ZOO_WORK_ROOT/_audio8_tts/ship/ and upload waits for the maintainer's go.",
       "The Mac speed (RTF 1.05 median on an M4 Max) was measured while another model conversion ran on the machine; a quiet-machine run is owed before the card's number is final.",
       "iPhone 18 Pro: not yet measured (the device was held by another lane on 2026-09-28); the assets are JIT and untested on the phone."
      ]

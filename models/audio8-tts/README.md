@@ -1,6 +1,6 @@
 # Audio8-TTS-Preview-0.6b — Core AI
 
-[🤗 mlboydaisuke/Audio8-TTS-Preview-0.6b-CoreAI](https://huggingface.co/mlboydaisuke/Audio8-TTS-Preview-0.6b-CoreAI) · Apache-2.0 · base [Edge0/Audio8-TTS-Preview-0.6b](https://huggingface.co/Edge0/Audio8-TTS-Preview-0.6b)
+[🤗 mlboydaisuke/Audio8-TTS-Preview-0.6b-CoreAI](https://huggingface.co/mlboydaisuke/Audio8-TTS-Preview-0.6b-CoreAI/tree/72e1c935961c786bb838e235c7839a2bd77468cc) · Apache-2.0 · base [Edge0/Audio8-TTS-Preview-0.6b](https://huggingface.co/Edge0/Audio8-TTS-Preview-0.6b)
 
 [`Edge0/Audio8-TTS-Preview-0.6b`](https://huggingface.co/Edge0/Audio8-TTS-Preview-0.6b) (Edge0, Apache-2.0, 601M + a
 337M codec) is a **DualAR text-to-speech** model of the Fish Audio S2 Pro design: a Qwen2.5-shaped **slow AR** (24
@@ -123,7 +123,7 @@ let cloned = try await tts.synthesize("Turn left at the second traffic light.", 
 
 ## ⬇️ Bundle
 
-**[mlboydaisuke/Audio8-TTS-Preview-0.6b-CoreAI](https://huggingface.co/mlboydaisuke/Audio8-TTS-Preview-0.6b-CoreAI)** —
+**[mlboydaisuke/Audio8-TTS-Preview-0.6b-CoreAI](https://huggingface.co/mlboydaisuke/Audio8-TTS-Preview-0.6b-CoreAI/tree/72e1c935961c786bb838e235c7839a2bd77468cc)** (revision `72e1c935`, 2026-09-28) —
 `audio8_dualar_int8_cl2048_w32.aimodel/` (876 MB) + `audio8_codec_decoder_fp16_t160.aimodel/` (261 MB) +
 `audio8_codec_encoder_fp16w32_t216.aimodel/` (416 MB, voice registration only) + `tokenizer/`; one subtree for macOS and
 iOS (JIT `.aimodel`s). Apache-2.0: LICENSE + NOTICE from the publisher's repository. Mirror:
