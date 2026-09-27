@@ -1,0 +1,149 @@
+{
+ "generation": {
+  "max_new_tokens": 512,
+  "temperature": 0.7,
+  "top_p": 0.9,
+  "top_k": 50,
+  "note": "generation_config.json defaults; RAS high branch = config ras_top_p 0.9 / ras_temperature 1.0 / window 10"
+ },
+ "fixtures": [
+  {
+   "name": "ja_1",
+   "lang": "ja",
+   "text": "明日の午後、駅前の喫茶店で待ち合わせましょう。",
+   "seed": 1000,
+   "reference": null
+  },
+  {
+   "name": "ja_2",
+   "lang": "ja",
+   "text": "この製品は電源を入れてから約三十秒で使えるようになります。",
+   "seed": 1001,
+   "reference": null
+  },
+  {
+   "name": "ja_3",
+   "lang": "ja",
+   "text": "天気予報によると、週末は晴れて気温が二十五度まで上がるそうです。",
+   "seed": 1002,
+   "reference": null
+  },
+  {
+   "name": "ja_4",
+   "lang": "ja",
+   "text": "会議の資料は昨日メールで送りましたので、ご確認ください。",
+   "seed": 1003,
+   "reference": null
+  },
+  {
+   "name": "ja_5",
+   "lang": "ja",
+   "text": "図書館は月曜日が休館日で、それ以外は朝九時から夜八時まで開いています。",
+   "seed": 1004,
+   "reference": null
+  },
+  {
+   "name": "ja_6",
+   "lang": "ja",
+   "text": "新しい橋が完成して、隣の町まで車で十分ほど短縮されました。",
+   "seed": 1005,
+   "reference": null
+  },
+  {
+   "name": "en_1",
+   "lang": "en",
+   "text": "The meeting has been moved to Thursday afternoon, so please update your calendars.",
+   "seed": 1006,
+   "reference": null
+  },
+  {
+   "name": "en_2",
+   "lang": "en",
+   "text": "Fresh bread is baked every morning at six, and it usually sells out before noon.",
+   "seed": 1007,
+   "reference": null
+  },
+  {
+   "name": "en_3",
+   "lang": "en",
+   "text": "Turn left at the second traffic light, and the museum will be on your right.",
+   "seed": 1008,
+   "reference": null
+  },
+  {
+   "name": "en_4",
+   "lang": "en",
+   "text": "The library extends its opening hours during the exam period in December.",
+   "seed": 1009,
+   "reference": null
+  },
+  {
+   "name": "en_5",
+   "lang": "en",
+   "text": "A small change in the recipe made the soup taste far richer than before.",
+   "seed": 1010,
+   "reference": null
+  },
+  {
+   "name": "en_6",
+   "lang": "en",
+   "text": "Our train leaves from platform nine in about fifteen minutes.",
+   "seed": 1011,
+   "reference": null
+  },
+  {
+   "name": "zh_1",
+   "lang": "zh",
+   "text": "请在下周三之前把报告发给我，谢谢。",
+   "seed": 1012,
+   "reference": null
+  },
+  {
+   "name": "zh_2",
+   "lang": "zh",
+   "text": "今天下午的会议改到三点半开始。",
+   "seed": 1013,
+   "reference": null
+  },
+  {
+   "name": "clone_en_1",
+   "lang": "en",
+   "text": "The meeting has been moved to Thursday afternoon, so please update your calendars.",
+   "seed": 1014,
+   "reference": {
+    "pick": "en_us",
+    "index": 0
+   }
+  },
+  {
+   "name": "clone_ja_1",
+   "lang": "ja",
+   "text": "明日の午後、駅前の喫茶店で待ち合わせましょう。",
+   "seed": 1015,
+   "reference": {
+    "pick": "ja_jp",
+    "index": 0
+   }
+  },
+  {
+   "name": "clone_en_2",
+   "lang": "en",
+   "text": "Turn left at the second traffic light, and the museum will be on your right.",
+   "seed": 1016,
+   "reference": {
+    "pick": "en_us",
+    "index": 1
+   }
+  },
+  {
+   "name": "clone_ja_2",
+   "lang": "ja",
+   "text": "天気予報によると、週末は晴れて気温が二十五度まで上がるそうです。",
+   "seed": 1017,
+   "reference": {
+    "pick": "ja_jp",
+    "index": 1
+   }
+  }
+ ]
+}

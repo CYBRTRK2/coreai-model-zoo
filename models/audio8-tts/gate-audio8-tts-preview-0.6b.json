@@ -1,0 +1,744 @@
+{
+ "tag": "dualarint8_cl2048_w32_t160_gpu",
+ "bundles": [
+  "audio8_dualar_int8_cl2048_w32.aimodel",
+  "audio8_codec_decoder_fp16_t160.aimodel"
+ ],
+ "unit": "gpu",
+ "summary": {
+  "fixtures": 18,
+  "slow_steps": 1695,
+  "slow_sample_eq": 1671,
+  "slow_argmax_eq": 1668,
+  "slow_cos_min": 0.9998490406316265,
+  "hidden_cos_min": 0.9999116461417898,
+  "fast_n": 15093,
+  "fast_sample_eq": 14711,
+  "fast_argmax_eq": 14705,
+  "fast_cos_min": 0.9980495090669897,
+  "codec_cos_min": 0.9997845072752991,
+  "codec_logmel_min": 0.9987589174431344,
+  "free_run_eos": 18,
+  "free_run_identical": 0,
+  "free_run_frames": 1685,
+  "oracle_frames": 1677,
+  "frame_ms_median": 32.91046619415283,
+  "free_run_ms_per_frame_median": 32.81091917783786,
+  "prefill_ms_median": 88.55307102203369,
+  "load_s_median": 0.37110865116119385,
+  "asr": {
+   "ja": {
+    "port": {
+     "n": 8,
+     "edits": 5,
+     "ref_units": 216,
+     "rate": 0.023148148148148147,
+     "normalized_exact": 5
+    },
+    "oracle": {
+     "n": 8,
+     "edits": 14,
+     "ref_units": 216,
+     "rate": 0.06481481481481481,
+     "normalized_exact": 3
+    }
+   },
+   "en": {
+    "port": {
+     "n": 8,
+     "edits": 1,
+     "ref_units": 107,
+     "rate": 0.009345794392523364,
+     "normalized_exact": 7
+    },
+    "oracle": {
+     "n": 8,
+     "edits": 0,
+     "ref_units": 107,
+     "rate": 0.0,
+     "normalized_exact": 8
+    }
+   },
+   "zh": {
+    "port": {
+     "n": 2,
+     "edits": 0,
+     "ref_units": 29,
+     "rate": 0.0,
+     "normalized_exact": 2
+    },
+    "oracle": {
+     "n": 2,
+     "edits": 0,
+     "ref_units": 29,
+     "rate": 0.0,
+     "normalized_exact": 2
+    }
+   }
+  },
+  "speaker": {
+   "port": {
+    "n": 4,
+    "mean": 0.8551146537065506,
+    "min": 0.5609290599822998
+   },
+   "oracle": {
+    "n": 4,
+    "mean": 0.8542190790176392,
+    "min": 0.5816420316696167
+   }
+  }
+ },
+ "results": {
+  "ja_1": {
+   "teacher_forced": {
+    "steps": 75,
+    "slow_cos_min": 0.9998490406316265,
+    "slow_argmax_eq": 75,
+    "slow_sample_eq": 75,
+    "hidden_cos_min": 0.9999199428990801,
+    "fast_n": 666,
+    "fast_cos_min": 0.9980495090669897,
+    "fast_argmax_eq": 650,
+    "fast_sample_eq": 651,
+    "frame_ms_median": 33.560752868652344,
+    "prefill_ms": 101.14097595214844
+   },
+   "codec": {
+    "frames": 74,
+    "cos": 0.9999990847451179,
+    "maxabs": 0.0026302579790353775,
+    "logmel_cos": 0.9996731575611331,
+    "seconds": 0.1861131191253662,
+    "audio_s": 3.436553287981859
+   },
+   "free_run": {
+    "frames": 80,
+    "oracle_frames": 74,
+    "ended_with_eos": true,
+    "identical_frames_prefix": 1,
+    "identical": false,
+    "steps": 81,
+    "wall_s": 2.6544277667999268,
+    "ms_per_frame": 32.77071317036947,
+    "seconds": 3.7151927437641725
+   },
+   "load_s": 0.3918781280517578,
+   "wall_s": 6.7
+  },
+  "ja_2": {
+   "teacher_forced": {
+    "steps": 89,
+    "slow_cos_min": 0.9998840184197443,
+    "slow_argmax_eq": 88,
+    "slow_sample_eq": 88,
+    "hidden_cos_min": 0.9999155523395085,
+    "fast_n": 792,
+    "fast_cos_min": 0.9991031203650731,
+    "fast_argmax_eq": 779,
+    "fast_sample_eq": 778,
+    "frame_ms_median": 33.879876136779785,
+    "prefill_ms": 85.58201789855957
+   },
+   "codec": {
+    "frames": 88,
+    "cos": 0.9999993325751401,
+    "maxabs": 0.0011878907680511475,
+    "logmel_cos": 0.9995670222449522,
+    "seconds": 0.18849420547485352,
+    "audio_s": 4.08671201814059
+   },
+   "free_run": {
+    "frames": 96,
+    "oracle_frames": 88,
+    "ended_with_eos": true,
+    "identical_frames_prefix": 4,
+    "identical": false,
+    "steps": 97,
+    "wall_s": 3.339148998260498,
+    "ms_per_frame": 34.42421647691235,
+    "seconds": 4.458231292517007
+   },
+   "load_s": 0.37077927589416504,
+   "wall_s": 7.9
+  },
+  "ja_3": {
+   "teacher_forced": {
+    "steps": 100,
+    "slow_cos_min": 0.9999104999971504,
+    "slow_argmax_eq": 96,
+    "slow_sample_eq": 99,
+    "hidden_cos_min": 0.9999151090247084,
+    "fast_n": 891,
+    "fast_cos_min": 0.9992240224823382,
+    "fast_argmax_eq": 870,
+    "fast_sample_eq": 862,
+    "frame_ms_median": 34.56377983093262,
+    "prefill_ms": 88.33003044128418
+   },
+   "codec": {
+    "frames": 99,
+    "cos": 0.9999995101970544,
+    "maxabs": 0.0024654604494571686,
+    "logmel_cos": 0.9994338439513093,
+    "seconds": 0.18912005424499512,
+    "audio_s": 4.597551020408163
+   },
+   "free_run": {
+    "frames": 98,
+    "oracle_frames": 99,
+    "ended_with_eos": true,
+    "identical_frames_prefix": 6,
+    "identical": false,
+    "steps": 99,
+    "wall_s": 3.3618056774139404,
+    "ms_per_frame": 33.95763310519131,
+    "seconds": 4.551111111111111
+   },
+   "load_s": 0.39733028411865234,
+   "wall_s": 8.9
+  },
+  "ja_4": {
+   "teacher_forced": {
+    "steps": 81,
+    "slow_cos_min": 0.9999008829802095,
+    "slow_argmax_eq": 78,
+    "slow_sample_eq": 80,
+    "hidden_cos_min": 0.9999250665094479,
+    "fast_n": 720,
+    "fast_cos_min": 0.9995189931805156,
+    "fast_argmax_eq": 705,
+    "fast_sample_eq": 693,
+    "frame_ms_median": 32.77087211608887,
+    "prefill_ms": 88.36722373962402
+   },
+   "codec": {
+    "frames": 80,
+    "cos": 0.9999994988371909,
+    "maxabs": 0.0014021247625350952,
+    "logmel_cos": 0.9997064864284796,
+    "seconds": 0.18463516235351562,
+    "audio_s": 3.7151927437641725
+   },
+   "free_run": {
+    "frames": 86,
+    "oracle_frames": 80,
+    "ended_with_eos": true,
+    "identical_frames_prefix": 3,
+    "identical": false,
+    "steps": 87,
+    "wall_s": 2.8716421127319336,
+    "ms_per_frame": 33.00738060611418,
+    "seconds": 3.9938321995464854
+   },
+   "load_s": 0.37143802642822266,
+   "wall_s": 6.9
+  },
+  "ja_5": {
+   "teacher_forced": {
+    "steps": 129,
+    "slow_cos_min": 0.9998863072248211,
+    "slow_argmax_eq": 128,
+    "slow_sample_eq": 126,
+    "hidden_cos_min": 0.9999194900989898,
+    "fast_n": 1152,
+    "fast_cos_min": 0.9983998680436951,
+    "fast_argmax_eq": 1121,
+    "fast_sample_eq": 1120,
+    "frame_ms_median": 34.62111949920654,
+    "prefill_ms": 88.25993537902832
+   },
+   "codec": {
+    "frames": 128,
+    "cos": 0.9999993360797895,
+    "maxabs": 0.0018083490431308746,
+    "logmel_cos": 0.9994352537724783,
+    "seconds": 0.18170499801635742,
+    "audio_s": 5.944308390022676
+   },
+   "free_run": {
+    "frames": 124,
+    "oracle_frames": 128,
+    "ended_with_eos": true,
+    "identical_frames_prefix": 2,
+    "identical": false,
+    "steps": 125,
+    "wall_s": 4.1631920337677,
+    "ms_per_frame": 33.3055362701416,
+    "seconds": 5.758548752834467
+   },
+   "load_s": 0.37166690826416016,
+   "wall_s": 11.2
+  },
+  "ja_6": {
+   "teacher_forced": {
+    "steps": 122,
+    "slow_cos_min": 0.999865083485296,
+    "slow_argmax_eq": 121,
+    "slow_sample_eq": 121,
+    "hidden_cos_min": 0.999913821600681,
+    "fast_n": 1089,
+    "fast_cos_min": 0.9989876861222629,
+    "fast_argmax_eq": 1069,
+    "fast_sample_eq": 1062,
+    "frame_ms_median": 34.19208526611328,
+    "prefill_ms": 90.70467948913574
+   },
+   "codec": {
+    "frames": 121,
+    "cos": 0.9999991737725068,
+    "maxabs": 0.0018108505755662918,
+    "logmel_cos": 0.9997269139350023,
+    "seconds": 0.1828019618988037,
+    "audio_s": 5.61922902494331
+   },
+   "free_run": {
+    "frames": 112,
+    "oracle_frames": 121,
+    "ended_with_eos": true,
+    "identical_frames_prefix": 11,
+    "identical": false,
+    "steps": 113,
+    "wall_s": 3.8109843730926514,
+    "ms_per_frame": 33.72552542559869,
+    "seconds": 5.201269841269841
+   },
+   "load_s": 0.38802409172058105,
+   "wall_s": 10.3
+  },
+  "en_1": {
+   "teacher_forced": {
+    "steps": 106,
+    "slow_cos_min": 0.9999367186020233,
+    "slow_argmax_eq": 101,
+    "slow_sample_eq": 104,
+    "hidden_cos_min": 0.9999345975830205,
+    "fast_n": 945,
+    "fast_cos_min": 0.9993306114261462,
+    "fast_argmax_eq": 921,
+    "fast_sample_eq": 923,
+    "frame_ms_median": 33.76317024230957,
+    "prefill_ms": 88.73891830444336
+   },
+   "codec": {
+    "frames": 105,
+    "cos": 0.9999834001138634,
+    "maxabs": 0.024461880326271057,
+    "logmel_cos": 0.9994263130735203,
+    "seconds": 0.19228863716125488,
+    "audio_s": 4.876190476190477
+   },
+   "free_run": {
+    "frames": 94,
+    "oracle_frames": 105,
+    "ended_with_eos": true,
+    "identical_frames_prefix": 0,
+    "identical": false,
+    "steps": 95,
+    "wall_s": 3.228670120239258,
+    "ms_per_frame": 33.9860012656764,
+    "seconds": 4.365351473922902
+   },
+   "load_s": 0.3806140422821045,
+   "wall_s": 8.7
+  },
+  "en_2": {
+   "teacher_forced": {
+    "steps": 116,
+    "slow_cos_min": 0.9999236511994937,
+    "slow_argmax_eq": 116,
+    "slow_sample_eq": 115,
+    "hidden_cos_min": 0.9999116461417898,
+    "fast_n": 1035,
+    "fast_cos_min": 0.9990414089210887,
+    "fast_argmax_eq": 1004,
+    "fast_sample_eq": 1011,
+    "frame_ms_median": 41.2449836730957,
+    "prefill_ms": 94.51079368591309
+   },
+   "codec": {
+    "frames": 115,
+    "cos": 0.9999991047490241,
+    "maxabs": 0.006476776674389839,
+    "logmel_cos": 0.9993005809722093,
+    "seconds": 0.18805408477783203,
+    "audio_s": 5.340589569160998
+   },
+   "free_run": {
+    "frames": 114,
+    "oracle_frames": 115,
+    "ended_with_eos": true,
+    "identical_frames_prefix": 4,
+    "identical": false,
+    "steps": 115,
+    "wall_s": 3.9144279956817627,
+    "ms_per_frame": 34.038504310276195,
+    "seconds": 5.294149659863946
+   },
+   "load_s": 0.37976717948913574,
+   "wall_s": 11.2
+  },
+  "en_3": {
+   "teacher_forced": {
+    "steps": 85,
+    "slow_cos_min": 0.9999417014941715,
+    "slow_argmax_eq": 85,
+    "slow_sample_eq": 85,
+    "hidden_cos_min": 0.9999415783797205,
+    "fast_n": 756,
+    "fast_cos_min": 0.9995247874224916,
+    "fast_argmax_eq": 738,
+    "fast_sample_eq": 738,
+    "frame_ms_median": 31.688332557678223,
+    "prefill_ms": 83.11700820922852
+   },
+   "codec": {
+    "frames": 84,
+    "cos": 0.9999988905662022,
+    "maxabs": 0.0024714386090636253,
+    "logmel_cos": 0.9994680996562935,
+    "seconds": 0.1862630844116211,
+    "audio_s": 3.900952380952381
+   },
+   "free_run": {
+    "frames": 93,
+    "oracle_frames": 84,
+    "ended_with_eos": true,
+    "identical_frames_prefix": 1,
+    "identical": false,
+    "steps": 94,
+    "wall_s": 2.8258771896362305,
+    "ms_per_frame": 30.062523294002453,
+    "seconds": 4.31891156462585
+   },
+   "load_s": 0.3777279853820801,
+   "wall_s": 6.9
+  },
+  "en_4": {
+   "teacher_forced": {
+    "steps": 98,
+    "slow_cos_min": 0.9999366292158758,
+    "slow_argmax_eq": 96,
+    "slow_sample_eq": 97,
+    "hidden_cos_min": 0.9999350564699274,
+    "fast_n": 873,
+    "fast_cos_min": 0.9995816323982352,
+    "fast_argmax_eq": 849,
+    "fast_sample_eq": 848,
+    "frame_ms_median": 33.0500602722168,
+    "prefill_ms": 83.79912376403809
+   },
+   "codec": {
+    "frames": 97,
+    "cos": 0.9999988635026422,
+    "maxabs": 0.0035889537539333105,
+    "logmel_cos": 0.9997705148272553,
+    "seconds": 0.1896648406982422,
+    "audio_s": 4.504671201814059
+   },
+   "free_run": {
+    "frames": 99,
+    "oracle_frames": 97,
+    "ended_with_eos": true,
+    "identical_frames_prefix": 15,
+    "identical": false,
+    "steps": 100,
+    "wall_s": 3.894061803817749,
+    "ms_per_frame": 38.94061803817749,
+    "seconds": 4.597551020408163
+   },
+   "load_s": 0.35004186630249023,
+   "wall_s": 9.0
+  },
+  "en_5": {
+   "teacher_forced": {
+    "steps": 113,
+    "slow_cos_min": 0.9998614444938897,
+    "slow_argmax_eq": 113,
+    "slow_sample_eq": 111,
+    "hidden_cos_min": 0.9999374066555659,
+    "fast_n": 1008,
+    "fast_cos_min": 0.9989663242041068,
+    "fast_argmax_eq": 983,
+    "fast_sample_eq": 975,
+    "frame_ms_median": 39.220452308654785,
+    "prefill_ms": 105.11898994445801
+   },
+   "codec": {
+    "frames": 112,
+    "cos": 0.9999990343635365,
+    "maxabs": 0.001416519284248352,
+    "logmel_cos": 0.9997183767277632,
+    "seconds": 0.18508005142211914,
+    "audio_s": 5.201269841269841
+   },
+   "free_run": {
+    "frames": 103,
+    "oracle_frames": 112,
+    "ended_with_eos": true,
+    "identical_frames_prefix": 7,
+    "identical": false,
+    "steps": 104,
+    "wall_s": 3.4165170192718506,
+    "ms_per_frame": 32.85112518530626,
+    "seconds": 4.783310657596372
+   },
+   "load_s": 0.5387613773345947,
+   "wall_s": 10.3
+  },
+  "en_6": {
+   "teacher_forced": {
+    "steps": 85,
+    "slow_cos_min": 0.999903714672275,
+    "slow_argmax_eq": 85,
+    "slow_sample_eq": 84,
+    "hidden_cos_min": 0.9999364558531443,
+    "fast_n": 756,
+    "fast_cos_min": 0.9988804648994863,
+    "fast_argmax_eq": 737,
+    "fast_sample_eq": 744,
+    "frame_ms_median": 32.14108943939209,
+    "prefill_ms": 67.13485717773438
+   },
+   "codec": {
+    "frames": 84,
+    "cos": 0.9999989578464131,
+    "maxabs": 0.0018678177148103714,
+    "logmel_cos": 0.9997707991791949,
+    "seconds": 0.18442797660827637,
+    "audio_s": 3.900952380952381
+   },
+   "free_run": {
+    "frames": 98,
+    "oracle_frames": 84,
+    "ended_with_eos": true,
+    "identical_frames_prefix": 2,
+    "identical": false,
+    "steps": 99,
+    "wall_s": 2.981666088104248,
+    "ms_per_frame": 30.117839273780284,
+    "seconds": 4.551111111111111
+   },
+   "load_s": 0.3672657012939453,
+   "wall_s": 11.0
+  },
+  "zh_1": {
+   "teacher_forced": {
+    "steps": 72,
+    "slow_cos_min": 0.9998887359940952,
+    "slow_argmax_eq": 71,
+    "slow_sample_eq": 72,
+    "hidden_cos_min": 0.9999206022118073,
+    "fast_n": 639,
+    "fast_cos_min": 0.99948011407229,
+    "fast_argmax_eq": 628,
+    "fast_sample_eq": 628,
+    "frame_ms_median": 32.14287757873535,
+    "prefill_ms": 64.37826156616211
+   },
+   "codec": {
+    "frames": 71,
+    "cos": 0.9999989753093463,
+    "maxabs": 0.0011320561170578003,
+    "logmel_cos": 0.9996291806680468,
+    "seconds": 0.18713808059692383,
+    "audio_s": 3.297233560090703
+   },
+   "free_run": {
+    "frames": 76,
+    "oracle_frames": 71,
+    "ended_with_eos": true,
+    "identical_frames_prefix": 0,
+    "identical": false,
+    "steps": 77,
+    "wall_s": 2.304608106613159,
+    "ms_per_frame": 29.92997541056051,
+    "seconds": 3.5294331065759637
+   },
+   "load_s": 0.36279916763305664,
+   "wall_s": 5.8
+  },
+  "zh_2": {
+   "teacher_forced": {
+    "steps": 60,
+    "slow_cos_min": 0.9999163824567182,
+    "slow_argmax_eq": 60,
+    "slow_sample_eq": 58,
+    "hidden_cos_min": 0.9999370400075436,
+    "fast_n": 531,
+    "fast_cos_min": 0.9993625967670666,
+    "fast_argmax_eq": 517,
+    "fast_sample_eq": 517,
+    "frame_ms_median": 31.382083892822266,
+    "prefill_ms": 64.09811973571777
+   },
+   "codec": {
+    "frames": 59,
+    "cos": 0.9999994114199283,
+    "maxabs": 0.003606826066970825,
+    "logmel_cos": 0.9997948301765274,
+    "seconds": 0.184431791305542,
+    "audio_s": 2.7399546485260773
+   },
+   "free_run": {
+    "frames": 53,
+    "oracle_frames": 59,
+    "ended_with_eos": true,
+    "identical_frames_prefix": 3,
+    "identical": false,
+    "steps": 54,
+    "wall_s": 1.6208851337432861,
+    "ms_per_frame": 30.016391365616407,
+    "seconds": 2.461315192743764
+   },
+   "load_s": 0.3503139019012451,
+   "wall_s": 4.5
+  },
+  "clone_en_1": {
+   "teacher_forced": {
+    "steps": 85,
+    "slow_cos_min": 0.9998982894081992,
+    "slow_argmax_eq": 83,
+    "slow_sample_eq": 82,
+    "hidden_cos_min": 0.9999165401497754,
+    "fast_n": 756,
+    "fast_cos_min": 0.9997928627069064,
+    "fast_argmax_eq": 729,
+    "fast_sample_eq": 735,
+    "frame_ms_median": 31.893491744995117,
+    "prefill_ms": 196.3350772857666
+   },
+   "codec": {
+    "frames": 84,
+    "cos": 0.9997845072752991,
+    "maxabs": 0.00015497650019824505,
+    "logmel_cos": 0.9987589174431344,
+    "seconds": 0.18182611465454102,
+    "audio_s": 3.900952380952381
+   },
+   "free_run": {
+    "frames": 77,
+    "oracle_frames": 84,
+    "ended_with_eos": true,
+    "identical_frames_prefix": 1,
+    "identical": false,
+    "steps": 78,
+    "wall_s": 2.4088099002838135,
+    "ms_per_frame": 30.88217820876684,
+    "seconds": 3.575873015873016
+   },
+   "load_s": 0.3539440631866455,
+   "wall_s": 6.7
+  },
+  "clone_ja_1": {
+   "teacher_forced": {
+    "steps": 84,
+    "slow_cos_min": 0.9998636339946896,
+    "slow_argmax_eq": 84,
+    "slow_sample_eq": 82,
+    "hidden_cos_min": 0.9999159146310868,
+    "fast_n": 747,
+    "fast_cos_min": 0.9999064964903208,
+    "fast_argmax_eq": 716,
+    "fast_sample_eq": 731,
+    "frame_ms_median": 31.676054000854492,
+    "prefill_ms": 255.85579872131348
+   },
+   "codec": {
+    "frames": 83,
+    "cos": 0.9999982389162941,
+    "maxabs": 0.006720736622810364,
+    "logmel_cos": 0.9998985938134074,
+    "seconds": 0.18849515914916992,
+    "audio_s": 3.8545124716553287
+   },
+   "free_run": {
+    "frames": 89,
+    "oracle_frames": 83,
+    "ended_with_eos": true,
+    "identical_frames_prefix": 7,
+    "identical": false,
+    "steps": 90,
+    "wall_s": 2.679605007171631,
+    "ms_per_frame": 29.773388968573677,
+    "seconds": 4.133151927437642
+   },
+   "load_s": 0.35495710372924805,
+   "wall_s": 7.1
+  },
+  "clone_en_2": {
+   "teacher_forced": {
+    "steps": 90,
+    "slow_cos_min": 0.9999379374153039,
+    "slow_argmax_eq": 87,
+    "slow_sample_eq": 88,
+    "hidden_cos_min": 0.9999480296185417,
+    "fast_n": 801,
+    "fast_cos_min": 0.9991987984716787,
+    "fast_argmax_eq": 783,
+    "fast_sample_eq": 780,
+    "frame_ms_median": 32.15289115905762,
+    "prefill_ms": 234.0250015258789
+   },
+   "codec": {
+    "frames": 89,
+    "cos": 0.9999994980075542,
+    "maxabs": 0.001284266822040081,
+    "logmel_cos": 0.9997216434162407,
+    "seconds": 0.18815207481384277,
+    "audio_s": 4.133151927437642
+   },
+   "free_run": {
+    "frames": 89,
+    "oracle_frames": 89,
+    "ended_with_eos": true,
+    "identical_frames_prefix": 8,
+    "identical": false,
+    "steps": 90,
+    "wall_s": 2.8004963397979736,
+    "ms_per_frame": 31.11662599775526,
+    "seconds": 4.133151927437642
+   },
+   "load_s": 0.3600277900695801,
+   "wall_s": 7.5
+  },
+  "clone_ja_2": {
+   "teacher_forced": {
+    "steps": 105,
+    "slow_cos_min": 0.9998988906520567,
+    "slow_argmax_eq": 101,
+    "slow_sample_eq": 104,
+    "hidden_cos_min": 0.9999184525138517,
+    "fast_n": 936,
+    "fast_cos_min": 0.9997240840582613,
+    "fast_argmax_eq": 906,
+    "fast_sample_eq": 915,
+    "frame_ms_median": 32.7305793762207,
+    "prefill_ms": 231.82392120361328
+   },
+   "codec": {
+    "frames": 104,
+    "cos": 0.9999979118212652,
+    "maxabs": 0.0009873658418655396,
+    "logmel_cos": 0.9995738389593425,
+    "seconds": 0.1887681484222412,
+    "audio_s": 4.829750566893424
+   },
+   "free_run": {
+    "frames": 104,
+    "oracle_frames": 104,
+    "ended_with_eos": true,
+    "identical_frames_prefix": 6,
+    "identical": false,
+    "steps": 105,
+    "wall_s": 3.326472043991089,
+    "ms_per_frame": 31.680686133248468,
+    "seconds": 4.829750566893424
+   },
+   "load_s": 0.3549330234527588,
+   "wall_s": 8.9
+  }
+ },
+ "fixtures_file": "conversion/audio8_tts/fixtures.json",
+ "oracle": "Edge0/Audio8-TTS-Preview-0.6b@f07040f3 fp32 cpu, the publisher's modeling_arktts.py, seeds in fixtures.json (conversion/audio8_tts/oracle_audio8.py)"
+}
