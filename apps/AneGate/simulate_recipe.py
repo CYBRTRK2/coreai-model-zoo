@@ -3,7 +3,7 @@
 Splits "the recipe itself is lossy" from "the ANE path executes it wrong": the same yaml the exporter uses
 (`kmeans_palettization_config`: global n_bits/granularity + module_name_configs regexes on the iOS module
 names, `extend.model.layers.N.self_attn.q_proj` …) is applied to the HF fp32 weights with coreai-opt's OWN
-palettizer (`_KMeansFakePalettize._calculate_centroids` — the exporter's optimal 1-D k-means; a home-made Lloyd
+palettizer (`_KMeansFakePalettize` — the exporter's optimal 1-D k-means, same values on coreai-opt 0.2.1 and 0.3.0; a home-made Lloyd
 k-means was 50 % worse on these heavy-tailed tensors and useless as a proxy), then every fixture prompt is run
 teacher-forced: argmax at each step vs the oracle token, a mismatch on a margin-clear step = FAIL (knife-edge
 steps excluded), exactly as AneGateRunner judges the device. Embeddings stay fp32 here (the device has them
@@ -38,8 +38,13 @@ def palettize(w: torch.Tensor, spec: dict) -> torch.Tensor:
         raise ValueError(g)
     fp = _KMeansFakePalettize(n_bits=int(spec["n_bits"]), lut_qspec=None, granularity=gran, cluster_dim=1,
                               enable_per_channel_scale=False)
-    lut, idx = fp._calculate_centroids(w)
-    return fp._palettize(lut, idx, w).to(w.dtype)
+    if hasattr(fp, "_calculate_centroids"):  # coreai-opt 0.2.x
+        lut, idx = fp._calculate_centroids(w)
+        return fp._palettize(lut, idx, w).to(w.dtype)
+    # coreai-opt 0.3.0: centroids are clustered on first use; forward_enabled is the hard-assigned
+    # reconstruction and is bit-identical to the 0.2.1 path (checked on MiniCPM5-2B k_proj, 4 recipes, 2026-09-27).
+    fp.ensure_initialized(w)
+    return fp.forward_enabled(w).to(w.dtype)
 
 
 def int8_block32(w: torch.Tensor) -> torch.Tensor:
