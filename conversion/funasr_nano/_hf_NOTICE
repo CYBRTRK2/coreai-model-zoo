@@ -1,0 +1,24 @@
+Fun-ASR-Nano-2512-CoreAI — NOTICE
+
+This repository redistributes, in Apple Core AI `.aimodel` form, the weights of
+FunAudioLLM/Fun-ASR-Nano-2512 (Fun-ASR, Tongyi Lab / Alibaba Group), licensed under the
+Apache License, Version 2.0 (see LICENSE). The upstream model repository declares
+`license: apache-2.0` in its model card and carries no LICENSE file; the LICENSE text here is
+the one shipped by the official vLLM packaging FunAudioLLM/Fun-ASR-Nano-2512-vllm, whose
+`model.safetensors` (sha256 96dfbec48282dd24d3334369a01e9e909f321ee39a1b0003c528c5379f68c1a6)
+is bit-identical to the official `model.pt` (revision 272c57b82523ada6fd87095e955f8e29100979ab)
+and is the source of every tensor converted here.
+
+Fun-ASR-Nano's text decoder is a fine-tuned Qwen3-0.6B (Qwen Team, Alibaba Cloud, Apache-2.0);
+its tokenizer files are redistributed unchanged. The audio encoder is the SenseVoice SAN-M
+encoder and adaptor trained by FunAudioLLM. The CTC decoder configured in the upstream
+`config.yaml` has no weights in the released checkpoint and is not part of this port.
+
+Conversion: mlboydaisuke (john-rocky), 2026-09. Code, gates and fixtures:
+https://github.com/john-rocky/coreai-model-zoo (conversion/funasr_nano, models/funasr-nano).
+Modifications to the network as exported: fixed-shape re-authoring for 30 s windows; the
+encoder stored in float16 and computed in float32; the decoder's linear weights quantized to
+int8 (per-block 32, symmetric); the decoder's residual stream scaled by 1/4 with the matching
+RMSNorm epsilon (a numerically equivalent transformation that keeps float16 activations in range).
+
+Keep this NOTICE together with the LICENSE file when redistributing.

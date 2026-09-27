@@ -1,0 +1,33 @@
+# Recipe for funasr-nano — the configuration that produced each published bundle.
+# Schema and the rules for `status`: ../README.md.
+# Run it with:  python3 ../../conversion/zoo_convert.py run <name>
+
+["funasr-nano-2512"]
+card = "README.md"
+hf_repo = "mlboydaisuke/Fun-ASR-Nano-2512-CoreAI"
+source_hf_id = "FunAudioLLM/Fun-ASR-Nano-2512"
+status = "verified"
+overlay = true
+runtime_env = { COREAI_CHUNK_THRESHOLD = "1" }
+steps = [
+  { script = "funasr_nano/export_encoder.py", args = ["--dtype", "fp16w32"], bundle = "gpu-pipelined/funasr_nano_audio_encoder_fp16w32_l500/funasr_nano_audio_encoder_fp16w32_l500.aimodel" },
+  { script = "funasr_nano/export_decoder.py", args = ["--mode", "int8lin"], bundle = "gpu-pipelined/funasr_nano_2512_decode_int8lin_n63_s1" },
+]
+notes = [
+  "Weights are read from FunAudioLLM/Fun-ASR-Nano-2512-vllm model.safetensors (bit-identical to the",
+  "official model.pt, revision 272c57b8); the scripts expect it at $ZOO_WORK_ROOT/_funasr_nano/hf/",
+  "model.safetensors and the official Qwen3-0.6B/ tokenizer+config dir at _funasr_nano/official/Qwen3-0.6B/",
+  "(see conversion/funasr_nano/README.md). Outputs land in $ZOO_WORK_ROOT/_funasr_nano/exports/.",
+  "Encoder --dtype fp16w32 = every weight stored float16, every activation float32 (the fp16 graph has",
+  "only 1.39x headroom to 65504 in the SAN-M residual stream). Its inputs feats/mask and its output are",
+  "float32. L=500 LFR frames (30 s) and N=63 audio rows are constants of funasr_encoder.py, not flags.",
+  "Decoder --mode int8lin keeps the tied head/embedding in float16 (untying for int8hu adds 156 MB and",
+  "flips more knife-edge tokens: 144/155 vs 150/155 exact). --residual-scale defaults to 0.25 and is",
+  "part of the shipped graph: the fine-tuned Qwen3-0.6B puts 125,067 into channel 35 at position 0 from",
+  "layer 2 on, which overflows float16; the scale plus RMSNorm eps*s^2 is an exact equivalence.",
+  "export_decoder.py also writes funasr_nano_2512_int8lin_unified_cl1024 (prefill+decode static twin",
+  "for the Python runtime gate, gate_e2e.py); it is not published. The published _s1 bundle is driven by",
+  "the Core AI high-level engine with audio_embeds bound as a static input (CoreAIKit KitFunASRModel).",
+  "Prompt contract (host): <|im_start|>system\\nYou are a helpful assistant.<|im_end|>\\n<|im_start|>user\\n",
+  "语音转写：  + N audio rows as ids vocab+slot  + <|im_end|>\\n<|im_start|>assistant\\n ; no audio marker token.",
+]

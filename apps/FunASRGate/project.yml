@@ -1,0 +1,52 @@
+# FunASRGate — device gate of the Fun-ASR-Nano-2512 Core AI port (conversion/funasr_nano) on CoreAIKit's FunASR host.
+# The app is a thin shell: the transcription path is the kit's (KitFunASRModel: kaldi fbank + LFR front end, the SAN-M
+# encoder graph, the Qwen3-0.6B decoder on the pipelined engine), taken by path from a kit checkout that carries
+# Sources/CoreAIKit/FunASR. One target for iOS and macOS, so the phone and the Mac run the same gate code.
+# Build: ./_build.sh (iOS) or ./_build.sh --mac (xcodegen generate + xcodebuild Release). Assets are sideloaded, not
+# bundled.
+name: FunASRGate
+options:
+  bundleIdPrefix: com.daisukemajima
+  createIntermediateGroups: true
+packages:
+  coreai-kit:
+    # The kit checkout with the FunASR family (a worktree beside this repo's; see README "Where the kit is").
+    path: ../../../../coreai-kit-funasr-wt/coreai-kit
+schemes:
+  FunASRGate:
+    build:
+      targets:
+        FunASRGate: all
+    run:
+      config: Release
+targets:
+  FunASRGate:
+    type: application
+    supportedDestinations: [iOS, macOS]
+    deploymentTarget:
+      iOS: "27.0"
+      macOS: "27.0"
+    sources:
+      - path: Sources
+    dependencies:
+      - package: coreai-kit
+        product: CoreAIKit
+      - package: coreai-kit
+        product: CoreAIKitVision
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.daisukemajima.funasrgate
+        DEVELOPMENT_TEAM: MFN25KNUGJ
+        CODE_SIGN_STYLE: Automatic
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_CFBundleDisplayName: FunASRGate
+        INFOPLIST_KEY_ITSAppUsesNonExemptEncryption: NO
+        TARGETED_DEVICE_FAMILY: "1"
+        SWIFT_VERSION: "6.0"
+        SWIFT_APPROACHABLE_CONCURRENCY: YES
+        # macOS: the gate reads the stage directory and writes its results where FUNASR_ASSETS / FUNASR_OUT point.
+        ENABLE_APP_SANDBOX: NO
+        ENABLE_HARDENED_RUNTIME: NO
+        MARKETING_VERSION: "1.0"
+        CURRENT_PROJECT_VERSION: "1"
