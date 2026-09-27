@@ -15,12 +15,12 @@ configuration; a single bundle answers that question by itself.
 
 | metric | count |
 | --- | --- |
-| published repos | 282 |
-| Core AI repos | 92 |
-| Core AI bundles inside them | 356 |
-| Core AI repos with a `models/<family>/` card | 85 |
-| repos covered by a recipe | 85 |
-| Core AI repos with 0 downloads in the last 30 days | 2 |
+| published repos | 283 |
+| Core AI repos | 93 |
+| Core AI bundles inside them | 358 |
+| Core AI repos with a `models/<family>/` card | 86 |
+| repos covered by a recipe | 86 |
+| Core AI repos with 0 downloads in the last 30 days | 3 |
 
 ## All repos, by 30-day downloads
 
@@ -297,6 +297,7 @@ configuration; a single bundle answers that question by itself.
 | [mlboydaisuke/YOLOE-S-CoreML](https://huggingface.co/mlboydaisuke/YOLOE-S-CoreML) | 2 | 0 | coreml | port | 0 | — | — | — | — | — |
 | [mlboydaisuke/coreml-zoo](https://huggingface.co/mlboydaisuke/coreml-zoo) | 0 | 1 | other | port | 0 | — | — | — | — | — |
 | [mlboydaisuke/embeddinggemma-300m-coreml](https://huggingface.co/mlboydaisuke/embeddinggemma-300m-coreml) | 0 | 0 | coreml | port | 0 | — | — | — | — | — |
+| [mlboydaisuke/Fun-ASR-Nano-2512-CoreAI](https://huggingface.co/mlboydaisuke/Fun-ASR-Nano-2512-CoreAI) | 0 | 0 | coreai | port | 2 | — | — | [funasr-nano](funasr-nano/README.md) | `funasr-nano-2512` | — |
 | [mlboydaisuke/functiongemma-270m-coreml](https://huggingface.co/mlboydaisuke/functiongemma-270m-coreml) | 0 | 0 | coreml | port | 0 | — | — | — | — | — |
 | [mlboydaisuke/gemma-3-270m-it-NPU-LiteRT](https://huggingface.co/mlboydaisuke/gemma-3-270m-it-NPU-LiteRT) | 0 | 0 | litert | port | 0 | — | — | — | — | — |
 | [mlboydaisuke/gemma-4-E2B-stateful-coreml](https://huggingface.co/mlboydaisuke/gemma-4-E2B-stateful-coreml) | 0 | 0 | coreml | port | 0 | — | — | — | — | — |

@@ -537,7 +537,18 @@
      "open_questions": []
     }
    ],
-   "repos": []
+   "repos": [
+    {
+     "id": "mlboydaisuke/Fun-ASR-Nano-2512-CoreAI",
+     "downloads_30d": 0,
+     "bundles": [
+      "gpu-pipelined/funasr_nano_2512_decode_int8lin_n63_s1",
+      "gpu-pipelined/funasr_nano_audio_encoder_fp16w32_l500/funasr_nano_audio_encoder_fp16w32_l500.aimodel"
+     ],
+     "tier1": {},
+     "smoke": []
+    }
+   ]
   },
   {
    "family": "gemma4-12b",
