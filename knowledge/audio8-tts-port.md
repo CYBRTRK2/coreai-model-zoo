@@ -76,8 +76,8 @@ DualAR / semantic-token TTS and its first sampler inside a graph. Card:
     takes 33–36 ms (Mac: 28–38 ms) — the raw runtime path is dispatch-bound, so the phone's smaller GPU changes nothing —
     while a 160-frame codec window takes 0.83 s (Mac 0.17 s). Streaming in 32-frame chunks decodes every window five
     times over, so it is real-time on the Mac and 1.5× real time on the phone; the whole-utterance path (`synthesize`:
-    the codec once at the end, windows sharing 128 frames of context) brings the phone to about real time (RTF 0.93 on
-    a thermally *serious* phone). The codec, not the transformers, is where the phone's next milliseconds are.
+    the codec once at the end, windows sharing 128 frames of context) brings the phone to about real time (RTF 0.92 at nominal, 0.93 on a
+    thermally *serious* phone — the frame is dispatch-bound either way). The codec, not the transformers, is where the phone's next milliseconds are.
 11. **The Python bindings leak an IOSurface per call.** A fixture is ~2,000 calls on the split graphs; the gate died
     after seven fixtures (`Failed to allocate storage for NDArray … sk: ioSurface`). One child interpreter per fixture
     (pocket-tts-port.md, defect 2). The fused graph cuts a fixture to ~200 calls; the workers stay.

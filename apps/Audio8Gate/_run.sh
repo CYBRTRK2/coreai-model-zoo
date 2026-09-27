@@ -166,4 +166,4 @@ xcrun devicectl device copy from --device $UDID --domain-type appDataContainer -
 [ -f $OUT/result.json ] && { echo "--- summary"; summary $OUT/result.json $RUN_ID | tee -a $OUT/run.out; }
 echo "files: $OUT"
 [[ $state == done ]] || exit 1
-/usr/bin/python3 -c 'import json,sys; sys.exit(0 if json.load(open(sys.argv[1])).get("pass") else 3)' $OUT/result.json
+/usr/bin/python3 -c 'import json,sys; sys.exit(0 if json.load(open(sys.argv[1])).get("verdict") == "PASS" else 3)' $OUT/result.json

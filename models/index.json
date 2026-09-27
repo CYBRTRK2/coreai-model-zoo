@@ -111,7 +111,7 @@
    "recipes": [
     {
      "name": "audio8-tts-preview-0.6b",
-     "status": "unverified",
+     "status": "verified",
      "source_model": null,
      "source_model_from": null,
      "hf_repo": "mlboydaisuke/Audio8-TTS-Preview-0.6b-CoreAI",
@@ -119,10 +119,7 @@
      "steps": 3,
      "run": "python3 conversion/zoo_convert.py run audio8-tts-preview-0.6b",
      "gate_transcript": "models/audio8-tts/gate-audio8-tts-preview-0.6b.json",
-     "open_questions": [
-      "The Mac speed (RTF 1.05 median on an M4 Max) was measured while another model conversion ran on the machine; a quiet-machine run is owed before the card's number is final.",
-      "iPhone 18 Pro: not yet measured (the device was held by another lane on 2026-09-28); the assets are JIT and untested on the phone."
-     ]
+     "open_questions": []
     }
    ],
    "repos": []

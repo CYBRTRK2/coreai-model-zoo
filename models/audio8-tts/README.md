@@ -104,7 +104,7 @@ work).
 | | frame (slow step + sampling + fast AR) | codec | time to first audio, streaming | RTF streaming, median / p90 | RTF whole utterance (bench, 5 s sentence) | first load (cold) → later loads | footprint |
 |---|---|---|---|---|---|---|---|
 | M4 Max (GPU, macOS 27 26A428, GPU lock held, another conversion running: load average 3–4) | 28 ms | 0.17 s per 160-frame window | 1.2 s | **0.81** / 0.84 | **0.70** | 5.4 s (cache 0 → 1.27 GB) → 0.65 s | 0.85–0.99 GB |
-| iPhone 18 Pro (GPU, iOS 27 24A437, device JIT, h19p), fresh install, thermal nominal | 33–36 ms | 0.83 s per window | 2.0 s | **1.53** / 1.83 | 0.93 (measured on the third back-to-back run, thermal *serious*; a cooled run is owed) | 6.1 s (cache 0 → 1.27 GB) → 0.5 s | 0.59–0.72 GB |
+| iPhone 18 Pro (GPU, iOS 27 24A437, device JIT, h19p), fresh install, thermal nominal | 33–36 ms | 0.83 s per window | 2.0 s | **1.53** / 1.83 | **0.92** (nominal, after a 145 s cool-down; 0.93 on a thermally *serious* phone) | 6.1 s (cache 0 → 1.27 GB) → 0.5 s | 0.59–0.72 GB |
 
 A 46 ms frame costs **the same ~33 ms of engine time on the phone as on the Mac** — the frame is dispatch-bound, not
 compute-bound (a 512-slot cache, AOT compilation and Apple's composite RMSNorm/RoPE change it by 0–10 %). What
@@ -112,8 +112,9 @@ separates the two devices is the codec: 0.17 s per 160-frame window on the Mac, 
 in 32-frame chunks — which decodes each window five times over — is real-time on the Mac and 1.5× real time on the
 phone, while a whole utterance decodes on the phone at about real time. Apple's pipelined engine drives a
 same-sized Qwen3-0.6B at 2.8 ms per token; moving the slow step onto it is the lever for a several-times faster
-frame — a separate round. Back-to-back synthesis heats the phone: the third run in eight minutes reached *serious*
-and its frames slowed from 33 to 39 ms.
+frame — a separate round. Back-to-back synthesis heats the phone: the third run in eight minutes reached *serious* and its streaming frames slowed
+from 33 to 39 ms, but the whole-utterance bench reads the same at *serious* (0.93) as at nominal (0.92) — the frame is
+dispatch-bound either way.
 
 ## Use it
 
