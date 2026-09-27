@@ -82,30 +82,38 @@ in-graph sampler, given the port's logits and the oracle's noise, makes the orac
 | same, 15,093 fast-AR codebook draws | logits cos min 0.99805, argmax 14,705, **draw 14,711 / 15,093** |
 | codec decoder on the oracle's codes, 18 utterances | wav cos min 0.99978, log-mel cos min 0.99876 |
 | codec encoder (fp16w32) on the 4 reference clips, 712 frames | 691 frames exact; codebook 0 exact on every frame, every codebook ≥ 97.7 % |
-| free run (the port's own loop, the oracle's draws) | reached eos 18 / 18; Swift host == Python engine on 1,637 / 1,688 frames (10 / 18 utterances identical end to end) |
-| ASR round trip vs the fixture text (Fun-ASR fp32): ja CER / en WER / zh CER | port **2.3 % / 0.9 % / 0.0 %** · the oracle's own audio 6.5 / 0.0 / 0.0 |
-| speaker cosine to the reference clip (WavLM-Base-Plus-SV), 4 clone fixtures | port mean 0.855 / min 0.561 · oracle 0.854 / 0.582 |
+| free run (the port's own loop, the oracle's draws) | reached eos 18 / 18; Swift host (Mac) == Python engine on 1,637 / 1,688 frames (10 / 18 utterances identical end to end); the iPhone's fp16 GPU agrees with the Mac's on 385 / 1,672 frames — it diverges earlier, so its audio is gated by the rows below |
+| ASR round trip vs the fixture text (Fun-ASR fp32): ja CER / en WER / zh CER | Mac **2.3 % / 0.9 % / 0.0 %** · iPhone 18 Pro **3.2 % / 0.0 % / 0.0 %** · the oracle's own audio 6.5 / 0.0 / 0.0 |
+| speaker cosine to the reference clip (WavLM-Base-Plus-SV), 4 clone fixtures | Mac mean 0.855 / min 0.561 · iPhone 0.842 / 0.572 · oracle 0.854 / 0.582 |
 
 A miss is fp16 GPU or int8 arithmetic moving a draw that sat within a hair of the runner-up; under sampling, one flip
 changes every later frame, so end-to-end identity is not the bar — the ASR and speaker rows are. They are eight to
 fourteen sentences per language, our own measurement with one normalizer: the port's speech is as intelligible and as
-speaker-faithful as the publisher's fp32 output on these fixtures, not more.
+speaker-faithful as the publisher's fp32 output on these fixtures, not more (the Japanese "errors" are the ASR's
+number normalization — 三十 → 30 — on both arms, plus one real word error on the phone).
 
 ## Speed
 
 Measured with [`apps/Audio8Gate`](../../apps/Audio8Gate) (the kit's `Audio8TTS` in a Release build, the 18 fixtures,
-78 s of audio; medians; 2026-09-28) **while another model conversion ran on the same Mac (load average 5–7)**. Both
-assets are JIT: the first load specializes them, later loads read the cache.
+78 s of audio; medians; 2026-09-28; raw runs in [`device/`](device/), the four runs side by side in
+[`device/tables.md`](device/tables.md)). Both assets are JIT: the first load specializes them, later loads read the
+cache. Two paths: **streaming** (a 160-frame codec window every 32 frames, audio starts after ~1.5 s of frames) and
+**whole utterance** (`synthesize`: the codec once at the end — one window for anything up to 7.4 s, a fifth of the codec
+work).
 
-| | frame (slow step + sampling + fast AR) | codec (160-frame window) | time to first audio (32-frame chunk) | RTF median / p90 | first load (cold) → later loads | footprint |
-|---|---|---|---|---|---|---|
-| M4 Max (GPU, macOS 27 26A428, GPU lock held) | 36–40 ms | ~0.7 s per utterance | 1.5 s | **1.05** / 1.09 (bench on one 5 s sentence: 0.99) | 5.4 s (cache 0 → 1.27 GB) → 0.8 s | 0.85–0.95 GB |
-| iPhone 18 Pro | not yet measured (the device was held by another lane on 2026-09-28) | | | | | |
+| | frame (slow step + sampling + fast AR) | codec | time to first audio, streaming | RTF streaming, median / p90 | RTF whole utterance (bench, 5 s sentence) | first load (cold) → later loads | footprint |
+|---|---|---|---|---|---|---|---|
+| M4 Max (GPU, macOS 27 26A428, GPU lock held, another conversion running: load average 3–4) | 28 ms | 0.17 s per 160-frame window | 1.2 s | **0.81** / 0.84 | **0.70** | 5.4 s (cache 0 → 1.27 GB) → 0.65 s | 0.85–0.99 GB |
+| iPhone 18 Pro (GPU, iOS 27 24A437, device JIT, h19p), fresh install, thermal nominal | 33–36 ms | 0.83 s per window | 2.0 s | **1.53** / 1.83 | 0.93 (measured on the third back-to-back run, thermal *serious*; a cooled run is owed) | 6.1 s (cache 0 → 1.27 GB) → 0.5 s | 0.59–0.72 GB |
 
-A 46 ms frame costs ~36 ms of engine time, so the Mac synthesizes at about real time and streams the first 1.5 s of
-audio after 1.5 s. The per-frame cost is the raw runtime path's per-layer dispatch (a 512-slot cache, AOT compilation
-and Apple's composite RMSNorm/RoPE change it by 0–10 %); Apple's pipelined engine drives a same-sized Qwen3-0.6B at
-2.8 ms per token, and moving the slow step onto it is the lever for a several-times faster frame — a separate round.
+A 46 ms frame costs **the same ~33 ms of engine time on the phone as on the Mac** — the frame is dispatch-bound, not
+compute-bound (a 512-slot cache, AOT compilation and Apple's composite RMSNorm/RoPE change it by 0–10 %). What
+separates the two devices is the codec: 0.17 s per 160-frame window on the Mac, 0.83 s on the phone, so streaming
+in 32-frame chunks — which decodes each window five times over — is real-time on the Mac and 1.5× real time on the
+phone, while a whole utterance decodes on the phone at about real time. Apple's pipelined engine drives a
+same-sized Qwen3-0.6B at 2.8 ms per token; moving the slow step onto it is the lever for a several-times faster
+frame — a separate round. Back-to-back synthesis heats the phone: the third run in eight minutes reached *serious*
+and its frames slowed from 33 to 39 ms.
 
 ## Use it
 

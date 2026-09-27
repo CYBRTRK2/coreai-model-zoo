@@ -1,0 +1,66 @@
+{
+ "tag": "iphone18pro-run3",
+ "wavs": 18,
+ "asr": {
+  "ja": {
+   "device": {
+    "n": 8,
+    "edits": 7,
+    "ref_units": 216,
+    "rate": 0.032407407407407406,
+    "normalized_exact": 5
+   },
+   "oracle": {
+    "n": 8,
+    "edits": 14,
+    "ref_units": 216,
+    "rate": 0.06481481481481481,
+    "normalized_exact": 3
+   }
+  },
+  "en": {
+   "device": {
+    "n": 8,
+    "edits": 0,
+    "ref_units": 107,
+    "rate": 0.0,
+    "normalized_exact": 8
+   },
+   "oracle": {
+    "n": 8,
+    "edits": 0,
+    "ref_units": 107,
+    "rate": 0.0,
+    "normalized_exact": 8
+   }
+  },
+  "zh": {
+   "device": {
+    "n": 2,
+    "edits": 0,
+    "ref_units": 29,
+    "rate": 0.0,
+    "normalized_exact": 2
+   },
+   "oracle": {
+    "n": 2,
+    "edits": 0,
+    "ref_units": 29,
+    "rate": 0.0,
+    "normalized_exact": 2
+   }
+  }
+ },
+ "speaker": {
+  "device": {
+   "n": 4,
+   "mean": 0.8424140363931656,
+   "min": 0.5720292925834656
+  },
+  "oracle": {
+   "n": 4,
+   "mean": 0.8542190790176392,
+   "min": 0.5816420316696167
+  }
+ }
+}

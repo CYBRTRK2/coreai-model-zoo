@@ -13,8 +13,8 @@ steps = [
   { script = "audio8_tts/export_audio8.py", args = ["--part", "codec", "--codec-frames", "160"], bundle = "audio8_codec_decoder_fp16_t160.aimodel" },
   { script = "audio8_tts/audio8_encoder.py", args = ["--frames", "216", "--dtype", "fp16w32"], bundle = "audio8_codec_encoder_fp16w32_t216.aimodel" },
 ]
-open_questions = [  "The Mac speed (RTF 1.05 median on an M4 Max) was measured while another model conversion ran on the machine; a quiet-machine run is owed before the card's number is final.",
-  "iPhone 18 Pro: not yet measured (the device was held by another lane on 2026-09-28); the assets are JIT and untested on the phone.",
+open_questions = [  "The Mac speed (M4 Max RTF 0.81 streaming / 0.70 whole utterance) was measured while another model conversion ran on the machine (load average 3-4); a quiet-machine run is owed.",
+  "iPhone 18 Pro whole-utterance RTF 0.93 was measured on a thermally serious phone (third back-to-back run); the streaming rows are from the fresh, nominal first run. A cooled bench is owed.",
 ]
 notes = [
   "Published revision: mlboydaisuke/Audio8-TTS-Preview-0.6b-CoreAI@72e1c935961c786bb838e235c7839a2bd77468cc (2026-09-28; every file sha256 / size",
@@ -33,5 +33,5 @@ notes = [
   "The codec decoder is a 160-frame (7.4 s) bucket, fp16; every op is causal, so a stream decodes in 160-frame",
   "windows keeping the last 32. The codec encoder (voice registration) is a 216-frame (10.0 s) bucket with fp16 weights",
   "and fp32 arithmetic: the whole-fp16 export flips the vector quantizers' nearest-neighbour choices.",
-  "`status` becomes verified once a quiet-machine Mac run and the iPhone 18 Pro run are in the card.",
+  "`status` becomes verified once the two runs above are repeated in the stated conditions.",
 ]

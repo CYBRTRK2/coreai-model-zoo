@@ -42,6 +42,7 @@ vector); the shipped asset is the fused one (`audio8_frame.py`, `export_audio8_f
 | encoder | `audio8_encoder.py --frames 216 --dtype fp16w32` | `audio8_codec_encoder_fp16w32_t216.aimodel` (voice registration): eager fp32 codes exact on the four reference clips (712/712 frames); on the GPU 691/712 frames exact, codebook 0 exact on every frame, every codebook ≥ 97.7 % (the whole-fp16 export: 44–121 of ~200 frames — the nearest-neighbour choice flips on fp16 noise and the residual books cascade) |
 | gate | `gate_audio8_frame.py --mode int8` | `_audio8_tts/gate/<tag>/gate.json` + wavs: teacher-forced replay (per frame the slow logits, hidden and nine fast-logits vectors vs the oracle, and the in-graph sampler's draws vs the oracle's tokens), codec decode of the oracle codes, free run with the oracle's draws, then `asr_judge.py` (Fun-ASR fp32 WER/CER on every wav) and `speaker_sim.py` (WavLM-SV x-vector cosine vs the reference clip) |
 | split-graph diagnostics | `export_audio8.py --part slow|fast --mode int8|fp16`, `gate_audio8.py`, `sampler.py`, `replay.py` | the slow and fast graphs as separate assets with the sampler in NumPy: the arm table below, and where the per-call cost was measured |
+| device wavs | `asr_device_wavs.py --wavs <gate run>/wav --tag <run>` | the ASR round trip + speaker cosine on the wavs a gate-app run wrote (the phone's or the Mac's) |
 | Swift reference | `dump_swift_ref.py --tag <ship arm>` | `_audio8_tts/swift_ref/` — the recorded draws, prompts and the Python engine run's codes for `Audio8SmokeTests` (CoreAIKit) and `apps/Audio8Gate` |
 | voices | `register_voice.py` | `voice.json` (reference text + codes) from a wav, through the fp32 codec or the exported encoder |
 | ship | `stage_ship.py --with-encoder` | the Hugging Face repository layout in `_audio8_tts/ship/` (no upload) |
@@ -65,6 +66,7 @@ The shipped asset (`gate_audio8_frame.py`, sampler in the graph), then the split
 | ASR round trip vs the fixture text (Fun-ASR fp32): ja CER / en WER / zh CER | 2.3 % / 0.9 % / 0.0 % (oracle's own audio: 6.5 / 0.0 / 0.0) | 2.3 / 0.0 / 0.0 | 2.3 / 0.0 / 0.0 | 4.2 / 0.0 / 0.0 |
 | speaker cosine to the reference (WavLM-SV), 4 clone fixtures: mean / min | 0.855 / 0.561 (oracle 0.854 / 0.582) | 0.873 / 0.611 | 0.865 / 0.594 | 0.858 / 0.585 |
 | engine time per frame, Python runtime, machine under other load | **32.9 ms** (one call) | 16.6 + 1.6 + 8 × 3.3 = 44.6 ms (10 calls) | — | — |
+| the kit's Swift host (`apps/Audio8Gate`, Release): ASR round trip ja / en / zh, speaker cos | Mac 2.3 % / 0.9 % / 0.0 %, 0.855 · **iPhone 18 Pro 3.2 % / 0.0 % / 0.0 %, 0.842** (`asr_device_wavs.py`) | — | — | — |
 
 The fp32 eager re-author (and the fused module in fp32) matches the oracle at every draw; every miss above is fp16 GPU
 or int8 arithmetic moving a draw that sat within a hair of the runner-up. The fused asset's fast-AR agreement is two

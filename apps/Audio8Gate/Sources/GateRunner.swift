@@ -24,7 +24,8 @@
 //            first audio; the wav written. Thermal, footprint and headroom every 20 s.
 //   load2    the model dropped and loaded again in this process
 //   bench    AUDIO8_BENCH_FIXTURE (default en_2, ~5.3 s): wait up to AUDIO8_WAIT_NOMINAL s (default 300) for the thermal
-//            state nominal, then one warm-up and AUDIO8_BENCH_RUNS (default 5) timed syntheses with the host's own seeds
+//            state nominal, then one warm-up and AUDIO8_BENCH_RUNS (default 5) timed whole-utterance syntheses (the codec
+//            once at the end: the RTF number; e2e measures the streaming path) with the host's own seeds
 //   md5      md5 of the files "assets" left for later (the model files)
 //
 // Environment (devicectl device process launch --environment-variables on the iPhone; the shell on the Mac), all
@@ -418,14 +419,18 @@ actor GateRunner {
         let ts = ContinuousClock.now
         for i in 0..<config.benchRuns {
             let start = seconds(since: ts)
-            let s = try await t.synthesizeStreaming(f.text, voice: v, seed: UInt64(100 + i)) { _ in }
+            // whole-utterance synthesis: the codec runs once at the end (the cheapest path, the RTF number);
+            // the streaming path's cost is the e2e stage's
+            var noise = Audio8SeededNoise(seed: UInt64(100 + i))
+            let s = try await t.generate(f.text, voice: v, noise: &noise, maxFrames: nil, streaming: false) { _ in }
             var row = statsJSON(s)
             row["start_offset_s"] = start
             row["seed"] = 100 + i
+            row["streaming"] = false
             runs.append(row)
             log("bench run \(i + 1): \(s.frames) frames \(f2(s.audioSeconds)) s in \(f2(s.wallSeconds)) s, rtf \(f3(s.rtf)), "
-                + "frame \(f1(s.frameSeconds * 1000 / Double(max(s.frames, 1)))) ms/f, "
-                + "first audio \(f2(s.firstAudioSeconds)) s, thermal \(DeviceInfo.thermal())")
+                + "frame \(f1(s.frameSeconds * 1000 / Double(max(s.frames, 1)))) ms/f, codec \(f2(s.codecSeconds)) s, "
+                + "thermal \(DeviceInfo.thermal())")
         }
         let rtfs = runs.map { $0["rtf"] as? Double ?? .nan }
         return ["ok": true, "fixture": f.name, "waited_s": waited, "thermal_start": DeviceInfo.thermal(), "runs": runs,

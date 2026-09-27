@@ -72,7 +72,13 @@ DualAR / semantic-token TTS and its first sampler inside a graph. Card:
    in the zoo's Fun-ASR fp32 oracle transcribing every generated wav (ja CER / en WER / zh CER against the fixture
    text, the publisher's own audio scored alike) and, for the clone fixtures, a WavLM-SV x-vector cosine to the
    reference clip — the port lands where the oracle lands on both.
-10. **The Python bindings leak an IOSurface per call.** A fixture is ~2,000 calls on the split graphs; the gate died
+10. **The frame costs the same on an A19 Pro as on an M4 Max; the codec does not.** On the iPhone 18 Pro the fused frame
+    takes 33–36 ms (Mac: 28–38 ms) — the raw runtime path is dispatch-bound, so the phone's smaller GPU changes nothing —
+    while a 160-frame codec window takes 0.83 s (Mac 0.17 s). Streaming in 32-frame chunks decodes every window five
+    times over, so it is real-time on the Mac and 1.5× real time on the phone; the whole-utterance path (`synthesize`:
+    the codec once at the end, windows sharing 128 frames of context) brings the phone to about real time (RTF 0.93 on
+    a thermally *serious* phone). The codec, not the transformers, is where the phone's next milliseconds are.
+11. **The Python bindings leak an IOSurface per call.** A fixture is ~2,000 calls on the split graphs; the gate died
     after seven fixtures (`Failed to allocate storage for NDArray … sk: ioSurface`). One child interpreter per fixture
     (pocket-tts-port.md, defect 2). The fused graph cuts a fixture to ~200 calls; the workers stay.
 

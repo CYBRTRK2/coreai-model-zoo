@@ -28,81 +28,43 @@ if len(sys.argv) > 2 and r.get("run_id") != sys.argv[2]:
     print(f"result.json is from run {r.get('run_id')}, not {sys.argv[2]}")
 def num(v, f="%.2f"):
     return (f % v) if isinstance(v, (int, float)) and not isinstance(v, bool) else "-"
-d, b = r.get("device", {}), r.get("build", {})
-print(f"run {r.get('run_id')}: status {r.get('status')}, pass {r.get('pass')}, {num(r.get('elapsed_s'), '%.0f')} s | "
+d = r.get("device", {})
+print(f"run {r.get('run_id')}: status {r.get('status')}, verdict {r.get('verdict')}, {num(r.get('total_seconds'), '%.0f')} s | "
       f"{d.get('machine')} {d.get('hw_model')} {d.get('os')} (build {d.get('os_build')}, Core AI arch {d.get('coreai_architecture')}), "
-      f"thermal {d.get('thermal')} -> {r.get('device_end', {}).get('thermal')}, battery {num(d.get('battery_level', -1) * 100, '%.0f')} % "
-      f"{d.get('battery_state')}, low power {d.get('low_power_mode')} | {b.get('configuration')} build, testable {b.get('testable_import')}")
+      f"thermal {d.get('thermal')}, low power {d.get('low_power_mode')}")
 env = r.get("config", {}).get("env", {})
 if env.get("AUDIO8_GPU_LOCK"): print(f"GPU lock: {env['AUDIO8_GPU_LOCK']}")
-if r.get("fatal"): print("FATAL", r["fatal"])
 S = r.get("stages", {})
 for k in r.get("stage_order", []):
     s = S.get(k, {})
-    tag = f"{k}: {'PASS' if s.get('pass') else 'FAIL'}" + (" (partial)" if s.get("partial") else "")
-    err = f" | ERROR {s.get('error_step', '')} {s['error']}"[:300] if "error" in s else ""
+    tag = f"{k}: {'ok' if s.get('ok') else 'FAIL'}" + (" (partial)" if s.get("partial") else "")
+    err = f" | ERROR {s['error']}"[:300] if "error" in s else ""
     if k == "assets":
-        print(f"{tag} | {s.get('md5sums_listed')} files, missing {len(s.get('missing', []))}, md5 checked {s.get('md5_checked')} "
-              f"(different {len(s.get('md5_mismatch', []))}), {len(s.get('md5_deferred', []))} model files for the md5 stage, "
-              f"free {num(s.get('free_gb'), '%.1f')} GB{err}")
-    elif k == "load1":
-        m = s.get("model_memory", {})
-        print(f"{tag} | encoder alone {num(s.get('encoder_alone_s'))} s, model {num(s.get('model_s'))} s (decoder + cached "
-              f"encoder), encoder warm {num(s.get('encoder_warm_s'))} s -> decoder ≈ {num(s.get('decoder_est_s'))} s, cold total ≈ "
-              f"{num(s.get('cold_total_est_s'))} s | model peak footprint {num(m.get('peak_footprint_mb'), '%.0f')} MB, least available "
-              f"{num(m.get('min_available_mb'), '%.0f')} MB | cache MB {num(s.get('cache_bytes_before', 0) / 1e6, '%.1f')} -> "
-              f"{num(s.get('cache_bytes_after_encoder_alone', 0) / 1e6, '%.1f')} -> {num(s.get('cache_bytes_after_model', 0) / 1e6, '%.1f')} "
-              f"-> {num(s.get('cache_bytes_after_encoder_warm', 0) / 1e6, '%.1f')}{err}")
+        print(f"{tag} | {s.get('listed')} files listed, {s.get('checked')} md5-checked, {s.get('deferred')} deferred, missing {len(s.get('missing', []))}, "
+              f"bad {len(s.get('bad', []))}, {s.get('fixtures')} fixtures (ref {s.get('ref_tag')}){err}")
+    elif k in ("load1", "load2"):
+        m = s.get("memory", {})
+        print(f"{tag} | both assets {num(s.get('load_s'))} s | peak footprint {num(m.get('peak_footprint_mb'), '%.0f')} MB | Core AI cache MB "
+              f"{num(s.get('coreai_cache_mb_before'), '%.0f')} -> {num(s.get('coreai_cache_mb_after'), '%.0f')} | thermal {s.get('thermal')}{err}")
     elif k == "warmup":
-        print(f"{tag} | {s.get('clip')} {s.get('verdict')}, wall {num(s.get('wall_ms'), '%.1f')} ms, RTF {num(s.get('rtf'), '%.3f')}{err}")
+        print(f"{tag} | {s.get('fixture')}: {s.get('frames')} frames, {num(s.get('audio_s'))} s audio in {num(s.get('wall_s'))} s (rtf {num(s.get('rtf'), '%.3f')}), "
+              f"eos {s.get('eos')}, first audio {num(s.get('first_audio_s'))} s{err}")
     elif k == "e2e":
         m = s.get("summary", {})
-        print(f"{tag} | {m.get('clips_done')}/{m.get('clips_planned')} clips, errors {m.get('errors')}, {num(m.get('audio_s_total'), '%.0f')} s "
-              f"audio in {num(m.get('wall_s_total'), '%.1f')} s | RTF median {num(m.get('rtf_median'), '%.4f')}, p90 {num(m.get('rtf_p90'), '%.4f')}, "
-              f"max {num(m.get('rtf_max'), '%.4f')} ({m.get('rtf_max_clip')}), aggregate {num(m.get('rtf_aggregate'), '%.4f')}; first 20 s "
-              f"{num(m.get('rtf_median_first_20s'), '%.4f')} ({m.get('clips_first_20s')} clips), after {num(m.get('rtf_median_after_20s'), '%.4f')}{err}")
-        if "exact_oracle" in m:
-            print(f"  ids: oracle exact {m['exact_oracle']}, knife-edge {m['knife_edge']}, exact or knife-edge {m['exact_or_knife_edge']}"
-                  f"/{m['clips_done']}, above the floor {m['mismatch_above_floor']}; == Python engine {m['exact_python_engine']}, == Mac Swift "
-                  f"{m['exact_mac_swift']}/{m.get('mac_swift_reference')}; cap {m['hit_cap']}")
-            print(f"  median: front end {num(m.get('frontend_ms_median'), '%.1f')} ms, encoder {num(m.get('encoder_ms_median'), '%.1f')} ms "
-                  f"(p90 {num(m.get('encoder_ms_p90'), '%.1f')}), prefill {num(m.get('prefill_ms_median'), '%.1f')} ms (p90 "
-                  f"{num(m.get('prefill_ms_p90'), '%.1f')}), decode {num(m.get('decode_ms_per_token_median'), '%.2f')} ms/token (p90 "
-                  f"{num(m.get('decode_ms_per_token_p90'), '%.2f')}), {m.get('tokens_total')} tokens")
-            for c in m.get("knife_edge_clips", []) + m.get("mismatch_clips", []):
-                kind = "knife-edge" if c in m.get("knife_edge_clips", []) else "MISMATCH"
-                print(f"  {kind} {c['clip']}: step {c['step']}, oracle margin {num(c['margin'], '%.4f')}, ours {c['ours']}, oracle "
-                      f"{c['oracle']}, runner-up {c['oracle_runner_up']}")
-            if m.get("ids_differ_mac_swift"): print(f"  ids differ from Mac Swift: {m['ids_differ_mac_swift']}")
-            if m.get("ids_differ_python_engine"): print(f"  ids differ from the Python engine: {m['ids_differ_python_engine']}")
-        print(f"  text: == oracle {m.get('text_equal_oracle')}, == Python engine {m.get('text_equal_python_engine')}, == Mac Swift "
-              f"{m.get('text_equal_mac_swift')}/{m.get('mac_swift_reference')}; front end max|Δ| vs NumPy "
-              f"{num(m.get('frontend_max_abs_delta'), '%.2e')} ({m.get('frontend_max_abs_delta_clip')})")
         mem = s.get("memory", {})
-        tl = mem.get("timeline", [])
-        if mem:
-            print(f"  memory: peak footprint {num(mem.get('peak_footprint_mb'), '%.0f')} MB, least available "
-                  f"{num(mem.get('min_available_mb'), '%.0f')} MB | thermal every 20 s: "
-                  + ", ".join(f"{t[0]:.0f}s {t[1]}" for t in tl))
-    elif k == "load2":
-        m = s.get("model_memory", {})
-        print(f"{tag} | model {num(s.get('model_s'))} s (again in this process), peak footprint {num(m.get('peak_footprint_mb'), '%.0f')} MB, "
-              f"footprint after {num(s.get('footprint_mb_after'), '%.0f')} MB{err}")
+        print(f"{tag} | {m.get('fixtures')} fixtures, eos {m.get('eos_runs')}, codes == Python engine {m.get('identical_runs')} runs / "
+              f"{m.get('identical_prefix_frames')} of {m.get('frames')} frames | RTF median {num(m.get('rtf_median'), '%.3f')} p90 {num(m.get('rtf_p90'), '%.3f')} "
+              f"overall {num(m.get('rtf_overall'), '%.3f')} | frame {num(m.get('frame_ms_per_frame_median'), '%.1f')} ms, prefill {num(m.get('prefill_ms_median'), '%.0f')} ms, "
+              f"first audio {num(m.get('first_audio_s_median'))} s | {num(m.get('audio_s'), '%.0f')} s audio in {num(m.get('wall_s'), '%.0f')} s | "
+              f"peak footprint {num(mem.get('peak_footprint_mb'), '%.0f')} MB{err}")
     elif k == "bench":
-        m = s.get("summary", {})
-        w = s.get("wait_nominal")
-        wt = (f" | waited {num(w.get('waited_s'), '%.0f')} s for nominal ({w.get('state_before')} -> {w.get('state_after')})" if w else "")
-        print(f"{tag} | {s.get('clip')} {num(s.get('audio_s'))} s, {s.get('runs_timed')} runs after 1 warm-up: RTF median "
-              f"{num(m.get('rtf_median'), '%.4f')}, p90 {num(m.get('rtf_p90'), '%.4f')}, wall median {num(m.get('wall_ms_median'), '%.1f')} ms | "
-              f"encoder {num(m.get('encoder_ms_median'), '%.1f')} ms, prefill {num(m.get('prefill_ms_median'), '%.1f')} ms, decode "
-              f"{num(m.get('decode_ms_per_token_median'), '%.2f')} ms/token | runs end at {num(m.get('timed_runs_end_s'), '%.1f')} s | thermal "
-              f"{s.get('thermal_start')} -> {s.get('thermal_end')}{wt}{err}")
+        print(f"{tag} | {s.get('fixture')}: waited {num(s.get('waited_s'), '%.0f')} s ({s.get('thermal_start')}), RTF median {num(s.get('rtf_median'), '%.3f')} "
+              f"(min {num(s.get('rtf_min'), '%.3f')} max {num(s.get('rtf_max'), '%.3f')}), frame {num(s.get('frame_ms_per_frame_median'), '%.1f')} ms, "
+              f"first audio {num(s.get('first_audio_s_median'))} s{err}")
     elif k == "md5":
-        print(f"{tag} | {len(s.get('files', []))} model files, {num(s.get('bytes', 0) / 1e6, '%.0f')} MB, different "
-              f"{len(s.get('md5_mismatch', []))}{err}")
+        print(f"{tag} | {s.get('checked')} large files checked, bad {len(s.get('bad', []))}{err}")
     else:
         print(f"{tag}{err}")
-print("summary:", " ".join(r.get("summary", [])))
 PY
 }
 
@@ -195,6 +157,11 @@ if [[ $state != done ]]; then
     say "no crash log of today names Audio8Gate or a jetsam event (listing: crashlogs_listing.txt)"
   fi
 fi
+# the generated wavs (the ASR round trip on the Mac reads them: conversion/audio8_tts/asr_judge.py)
+rm -rf $OUT/wav
+xcrun devicectl device copy from --device $UDID --domain-type appDataContainer --domain-identifier $BID \
+  --source Documents/audio8_gate/wav --destination $OUT/wav >/dev/null 2>&1 && say "pulled $(ls $OUT/wav 2>/dev/null | wc -l | tr -d ' ') wavs" \
+  || say "no wav/ pulled"
 [ -f $OUT/result.log ] && { echo "--- last lines of result.log"; tail -8 $OUT/result.log | cut -c1-230; }
 [ -f $OUT/result.json ] && { echo "--- summary"; summary $OUT/result.json $RUN_ID | tee -a $OUT/run.out; }
 echo "files: $OUT"
