@@ -18,7 +18,8 @@ open_questions = [  "The Mac speed (RTF 1.05 median on an M4 Max) was measured w
 ]
 notes = [
   "Published revision: mlboydaisuke/Audio8-TTS-Preview-0.6b-CoreAI@72e1c935961c786bb838e235c7839a2bd77468cc (2026-09-28; every file sha256 / size",
-  "checked against the staged layout, zoo_verify run). Mirror: coreai-community/Audio8-TTS-Preview-0.6b-CoreAI.",
+  "checked against the staged layout, zoo_verify run). Mirror: coreai-community/Audio8-TTS-Preview-0.6b-CoreAI@87fdb3c7",
+  "(17 files checked). Zoo PR #47; kit branch audio8-tts, PR john-rocky/coreai-kit#62 (catalog id audio8-tts-preview-0.6b).",
   "Weights are read from the Hugging Face cache at revision f07040f3d151f1ba0253bfb92cb2f5dd38b44594 (model.safetensors",
   "sha256 62dcff0a…, codec.pth sha256 c310505a…); every script resolves it through conversion/_paths.py. Outputs land",
   "in $ZOO_WORK_ROOT/_audio8_tts/exports/. Prerequisite: conversion/audio8_tts/oracle_audio8.py (the fp32 oracle the",

@@ -109,7 +109,7 @@ and Apple's composite RMSNorm/RoPE change it by 0–10 %); Apple's pipelined eng
 
 ## Use it
 
-CoreAIKit `Audio8TTS` (catalog enrollment pending):
+CoreAIKit `Audio8TTS`; catalog id `audio8-tts-preview-0.6b` ([coreai-kit#62](https://github.com/john-rocky/coreai-kit/pull/62)):
 
 ```swift
 import CoreAIKit
@@ -127,7 +127,7 @@ let cloned = try await tts.synthesize("Turn left at the second traffic light.", 
 `audio8_dualar_int8_cl2048_w32.aimodel/` (876 MB) + `audio8_codec_decoder_fp16_t160.aimodel/` (261 MB) +
 `audio8_codec_encoder_fp16w32_t216.aimodel/` (416 MB, voice registration only) + `tokenizer/`; one subtree for macOS and
 iOS (JIT `.aimodel`s). Apache-2.0: LICENSE + NOTICE from the publisher's repository. Mirror:
-`coreai-community/Audio8-TTS-Preview-0.6b-CoreAI`.
+[`coreai-community/Audio8-TTS-Preview-0.6b-CoreAI`](https://huggingface.co/coreai-community/Audio8-TTS-Preview-0.6b-CoreAI/tree/87fdb3c702b07dd9d2b25d851c4af1021e099786).
 
 Convert yourself — [`conversion/audio8_tts/`](../../conversion/audio8_tts/): `oracle_audio8.py` → `parity_audio8.py` →
 `export_audio8_frame.py --mode int8`, `export_audio8.py --part codec`, `audio8_encoder.py --frames 216 --dtype fp16w32`,
