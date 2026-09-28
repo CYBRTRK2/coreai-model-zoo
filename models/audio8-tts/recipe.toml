@@ -1,0 +1,35 @@
+# Recipe for audio8-tts — the configuration that produced each published bundle.
+# Schema and the rules for `status`: ../README.md.
+# Run it with:  python3 ../../conversion/zoo_convert.py run <name>
+
+["audio8-tts-preview-0.6b"]
+card = "README.md"
+hf_repo = "mlboydaisuke/Audio8-TTS-Preview-0.6b-CoreAI"
+source_hf_id = "Edge0/Audio8-TTS-Preview-0.6b"
+status = "verified"
+overlay = true
+steps = [
+  { script = "audio8_tts/export_audio8_frame.py", args = ["--mode", "int8"], bundle = "audio8_dualar_int8_cl2048_w32.aimodel" },
+  { script = "audio8_tts/export_audio8.py", args = ["--part", "codec", "--codec-frames", "160"], bundle = "audio8_codec_decoder_fp16_t160.aimodel" },
+  { script = "audio8_tts/audio8_encoder.py", args = ["--frames", "216", "--dtype", "fp16w32"], bundle = "audio8_codec_encoder_fp16w32_t216.aimodel" },
+]
+notes = [
+  "Published revision: mlboydaisuke/Audio8-TTS-Preview-0.6b-CoreAI@72e1c935961c786bb838e235c7839a2bd77468cc (2026-09-28; every file sha256 / size",
+  "checked against the staged layout, zoo_verify run). Mirror: coreai-community/Audio8-TTS-Preview-0.6b-CoreAI@87fdb3c7",
+  "(17 files checked). Zoo PR #47; kit branch audio8-tts, PR john-rocky/coreai-kit#62 (catalog id audio8-tts-preview-0.6b).",
+  "Weights are read from the Hugging Face cache at revision f07040f3d151f1ba0253bfb92cb2f5dd38b44594 (model.safetensors",
+  "sha256 62dcff0a…, codec.pth sha256 c310505a…); every script resolves it through conversion/_paths.py. Outputs land",
+  "in $ZOO_WORK_ROOT/_audio8_tts/exports/. Prerequisite: conversion/audio8_tts/oracle_audio8.py (the fp32 oracle the",
+  "exports quick-gate against) — it needs the Fun-ASR port's fixture set for the four voice-clone references.",
+  "The dualar asset holds three functions over one weight set and one KV state: prefill (32-wide windows), frame (the",
+  "slow step + the semantic draw with the RAS rule + the fast AR's ten rows and nine codebook draws, one call per frame)",
+  "and first_frame (the frame after the prefill). --mode int8 = weight-only int8 per-block-32 symmetric-with-clipping",
+  "on the 24 slow layers' linears; the fast AR, embeddings, head and norms stay fp16 (int8 on the fast AR costs 4",
+  "points of draw agreement for 53 MB). The sampler's top-k 50 / top-p 0.9 / temperature 0.7 and the RAS 0.9 / 1.0 are",
+  "constants of audio8_frame.py; the uniform draws are graph inputs.",
+  "The codec decoder is a 160-frame (7.4 s) bucket, fp16; every op is causal, so a stream decodes in 160-frame",
+  "windows keeping the last 32. The codec encoder (voice registration) is a 216-frame (10.0 s) bucket with fp16 weights",
+  "and fp32 arithmetic: the whole-fp16 export flips the vector quantizers' nearest-neighbour choices.",
+  "Speed conditions: the M4 Max rows were measured while another model conversion ran on the machine (load average 3-4);",
+  "the iPhone 18 Pro rows are a fresh install at thermal nominal (streaming) and a cooled bench (whole utterance, RTF 0.92).",
+]

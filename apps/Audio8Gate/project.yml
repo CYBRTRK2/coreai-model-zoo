@@ -1,0 +1,53 @@
+# Audio8Gate — device gate of the Audio8-TTS-Preview-0.6b Core AI port (conversion/audio8_tts) on CoreAIKit's Audio8TTS
+# host. The app is a thin shell: the synthesis path is the kit's (Audio8TTS: the prompt builder over swift-transformers,
+# the slow AR / fast AR / codec decoder graphs through the raw Core AI API, the sampler on the host), taken by path from
+# a kit checkout that carries Sources/CoreAIKit/Audio8TTS. One target for iOS and macOS, so the phone and the Mac run
+# the same gate code.
+# Build: ./_build.sh (iOS) or ./_build.sh --mac (xcodegen generate + xcodebuild Release). Assets are sideloaded, not
+# bundled.
+name: Audio8Gate
+options:
+  bundleIdPrefix: com.daisukemajima
+  createIntermediateGroups: true
+packages:
+  coreai-kit:
+    # The kit checkout with the Audio8TTS family (a worktree beside this repo's; see README "Where the kit is").
+    path: ../../../../coreai-kit-audio8-wt/coreai-kit
+schemes:
+  Audio8Gate:
+    build:
+      targets:
+        Audio8Gate: all
+    run:
+      config: Release
+targets:
+  Audio8Gate:
+    type: application
+    supportedDestinations: [iOS, macOS]
+    deploymentTarget:
+      iOS: "27.0"
+      macOS: "27.0"
+    sources:
+      - path: Sources
+    dependencies:
+      - package: coreai-kit
+        product: CoreAIKit
+      - package: coreai-kit
+        product: CoreAIKitVision
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.daisukemajima.audio8gate
+        DEVELOPMENT_TEAM: MFN25KNUGJ
+        CODE_SIGN_STYLE: Automatic
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_CFBundleDisplayName: Audio8Gate
+        INFOPLIST_KEY_ITSAppUsesNonExemptEncryption: NO
+        TARGETED_DEVICE_FAMILY: "1"
+        SWIFT_VERSION: "6.0"
+        SWIFT_APPROACHABLE_CONCURRENCY: YES
+        # macOS: the gate reads the stage directory and writes its results where AUDIO8_ASSETS / AUDIO8_OUT point.
+        ENABLE_APP_SANDBOX: NO
+        ENABLE_HARDENED_RUNTIME: NO
+        MARKETING_VERSION: "1.0"
+        CURRENT_PROJECT_VERSION: "1"

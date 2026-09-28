@@ -397,6 +397,14 @@ For the long-form version of the same material, read
   to anti-correlated); deriving `S_MAX` from the model's own generation bound instead of the
   fixtures; windowed prefill as a **second escape** from the large-query SDPA lowering crash; and
   gating TTS with an **ASR round trip** because tensor cosine passes on unintelligible audio.
+- [`audio8-tts-port.md`](audio8-tts-port.md) — Audio8-TTS-Preview-0.6b (DualAR, Fish Audio S2 Pro design: a Qwen2.5-shaped
+  slow AR + a 4-layer fast AR + a 44.1 kHz DAC-style codec; 11 languages, zero-shot voice cloning): the zoo's first **sampler
+  inside the graph** — the publisher's top-k / top-p / temperature / Gumbel-max / RAS draw written without a sort (`topk` +
+  `logsumexp` + a cumulative sum, the uniform draws as inputs) so a frame is **one runtime call** instead of ten (48 → 32 ms on an
+  M4 Max); where the remaining milliseconds are not (cache size, int8, composite ops, AOT — one variable at a time) and the lever
+  that is left (the pipelined engine); the 4,097-row head that is exact; the publisher's bf16 RoPE tables; int8 on the fast AR
+  as the wrong 53 MB; the codec encoder's vector quantizers needing fp32 arithmetic; the RAS window quirk; gating TTS with an
+  ASR round trip and a speaker-verification cosine; the Python bindings' IOSurface leak.
 - [`chatterbox-port.md`](chatterbox-port.md) — Chatterbox: the zoo's first **zero-shot voice-cloning
   TTS** and first multi-network port.
 - [`music-generation-stable-audio.md`](music-generation-stable-audio.md) — Stable Audio Open:

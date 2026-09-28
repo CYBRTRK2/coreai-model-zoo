@@ -1,0 +1,211 @@
+{
+  "app" : "com.daisukemajima.audio8gate",
+  "battery" : {
+    "level" : 0.80000001192092896,
+    "state" : "charging"
+  },
+  "config" : {
+    "assets" : "\/var\/mobile\/Containers\/Data\/Application\/4EBC7CE9-06C8-47EA-8B7E-3334EB21437A\/Library\/Application Support\/Audio8Assets",
+    "bench_fixture" : "en_2",
+    "bench_runs" : 5,
+    "codec" : "audio8_codec_decoder_fp16_t160",
+    "dualar" : "audio8_dualar_int8_cl2048_w32",
+    "env" : {
+      "AUDIO8_RUN_ID" : "20260928-084755",
+      "AUDIO8_STAGES" : "assets,load1,bench"
+    },
+    "fixture_limit" : -1,
+    "md5_small_limit_bytes" : 16777216,
+    "out" : "\/var\/mobile\/Containers\/Data\/Application\/4EBC7CE9-06C8-47EA-8B7E-3334EB21437A\/Documents\/audio8_gate",
+    "stages" : [
+      "assets",
+      "load1",
+      "bench"
+    ],
+    "wait_nominal_s" : 300,
+    "warmup_fixture" : "zh_2"
+  },
+  "device" : {
+    "coreai_architecture" : "h19p",
+    "cpu" : "?",
+    "hw_model" : "V63AP",
+    "low_power_mode" : false,
+    "machine" : "iPhone19,2",
+    "os" : "iOS 27.0.0",
+    "os_build" : "24A437",
+    "os_version_string" : "Version 27.0 (Build 24A437)",
+    "physical_memory_gb" : 11.272796630859375,
+    "processor_count" : 6,
+    "thermal" : "fair"
+  },
+  "ended" : "2026-09-27T23:50:55Z",
+  "run_id" : "20260928-084755",
+  "stage_order" : [
+    "assets",
+    "load1",
+    "bench"
+  ],
+  "stages" : {
+    "assets" : {
+      "bad" : [
+
+      ],
+      "checked" : 63,
+      "deferred" : 5,
+      "fixtures" : 18,
+      "listed" : 68,
+      "missing" : [
+
+      ],
+      "ok" : true,
+      "ref_tag" : "dualarint8_cl2048_w32_t160_gpu",
+      "seconds" : 0.36997870800000004
+    },
+    "bench" : {
+      "first_audio_s_median" : 4.9103288750000003,
+      "fixture" : "en_2",
+      "frame_ms_per_frame_median" : 33.025847428571431,
+      "ok" : true,
+      "rtf_max" : 0.92365405076293938,
+      "rtf_median" : 0.92014855033542797,
+      "rtf_min" : 0.91531363679654387,
+      "runs" : [
+        {
+          "audio_s" : 5.154829931972789,
+          "codec_s" : 0.82923379200000003,
+          "engine_calls" : 115,
+          "eos" : true,
+          "first_audio_s" : 4.7609006249999997,
+          "frame_ms_per_frame" : 32.88323945945946,
+          "frame_s" : 3.6500395800000001,
+          "frames" : 111,
+          "prefill_s" : 0.058114625000000003,
+          "prompt_tokens" : 37,
+          "rtf" : 0.92358548930400131,
+          "samples" : 227328,
+          "seed" : 100,
+          "start_offset_s" : 1.125e-06,
+          "streaming" : false,
+          "thermal" : "nominal",
+          "wall_s" : 4.7609261250000001
+        },
+        {
+          "audio_s" : 5.4799092970521546,
+          "codec_s" : 0.83096254199999997,
+          "engine_calls" : 122,
+          "eos" : true,
+          "first_audio_s" : 5.0158104579999998,
+          "frame_ms_per_frame" : 33.03285241525424,
+          "frame_s" : 3.8978765850000001,
+          "frames" : 118,
+          "prefill_s" : 0.052003417000000003,
+          "prompt_tokens" : 37,
+          "rtf" : 0.91531363679654387,
+          "samples" : 241664,
+          "seed" : 101,
+          "start_offset_s" : 4.7623818330000001,
+          "streaming" : false,
+          "thermal" : "nominal",
+          "wall_s" : 5.015835708
+        },
+        {
+          "audio_s" : 5.3405895691609979,
+          "codec_s" : 0.83102975000000001,
+          "engine_calls" : 119,
+          "eos" : true,
+          "first_audio_s" : 4.9103288750000003,
+          "frame_ms_per_frame" : 32.998163452173912,
+          "frame_s" : 3.7947887969999998,
+          "frames" : 115,
+          "prefill_s" : 0.052672084000000001,
+          "prompt_tokens" : 37,
+          "rtf" : 0.91944016244098159,
+          "samples" : 235520,
+          "seed" : 102,
+          "start_offset_s" : 9.7796494999999997,
+          "streaming" : false,
+          "thermal" : "nominal",
+          "wall_s" : 4.910352541
+        },
+        {
+          "audio_s" : 5.2012698412698413,
+          "codec_s" : 0.83156529199999996,
+          "engine_calls" : 116,
+          "eos" : true,
+          "first_audio_s" : 4.804143625,
+          "frame_ms_per_frame" : 33.025847428571431,
+          "frame_s" : 3.6988949120000001,
+          "frames" : 112,
+          "prefill_s" : 0.054793125999999998,
+          "prompt_tokens" : 37,
+          "rtf" : 0.92365405076293938,
+          "samples" : 229376,
+          "seed" : 103,
+          "start_offset_s" : 14.691470417,
+          "streaming" : false,
+          "thermal" : "nominal",
+          "wall_s" : 4.8041739579999998
+        },
+        {
+          "audio_s" : 5.3405895691609979,
+          "codec_s" : 0.83217654100000005,
+          "engine_calls" : 119,
+          "eos" : true,
+          "first_audio_s" : 4.914113167,
+          "frame_ms_per_frame" : 33.101092756521744,
+          "frame_s" : 3.806625667,
+          "frames" : 115,
+          "prefill_s" : 0.052415625,
+          "prompt_tokens" : 37,
+          "rtf" : 0.92014855033542797,
+          "samples" : 235520,
+          "seed" : 104,
+          "start_offset_s" : 19.497193833000001,
+          "streaming" : false,
+          "thermal" : "nominal",
+          "wall_s" : 4.9141357499999998
+        }
+      ],
+      "seconds" : 177.72120849999999,
+      "thermal_start" : "nominal",
+      "waited_s" : 145
+    },
+    "load1" : {
+      "coreai_cache_mb_after" : 1273.908128,
+      "coreai_cache_mb_before" : 1273.908128,
+      "host_load_s" : 1.174206292,
+      "load_s" : 1.174372958,
+      "memory" : {
+        "available_mb_end" : 3128.4071920000001,
+        "available_mb_start" : 3261.4135120000001,
+        "duration_s" : 1.2581995830000001,
+        "footprint_mb_end" : 411.58538399999998,
+        "footprint_mb_start" : 278.57906400000002,
+        "interval_s" : 0.10000000000000001,
+        "min_available_mb" : 2975.2822799999999,
+        "peak_at_s" : 1.153138792,
+        "peak_footprint_mb" : 564.71029599999997,
+        "samples" : 14,
+        "series_1s" : [
+          [
+            0,
+            278.57906400000002,
+            3261.4135120000001
+          ],
+          [
+            1,
+            557.53410399999996,
+            2982.4584719999998
+          ]
+        ]
+      },
+      "ok" : true,
+      "seconds" : 1.2605522090000001,
+      "thermal" : "fair"
+    }
+  },
+  "started" : "2026-09-27T23:47:56Z",
+  "status" : "done",
+  "total_seconds" : 179.363604541,
+  "verdict" : "PASS"
+}
