@@ -16,6 +16,7 @@ aot = "xcrun coreai-build compile exports/bonsai2_27b_decode_pq2_0_pf64/bonsai2_
 needs = [
   "The PrismML PQ2_0 GGUF downloads from Hugging Face unless --gguf supplies a local copy.",
   "The tokenizer is loaded from Qwen/Qwen3.8-27B at export time.",
+  "PrismML's gguf-py (PrismML-Eng/llama.cpp, branch prism, gguf-py/) in place of the pip gguf package: the stock package does not know tensor type 142 (PQ2_0) and GGUFReader raises.",
 ]
 notes = [
   "The published artifact revision is 0391d83323b76e58fe3167caef5a3ce994e5d4aa.",
