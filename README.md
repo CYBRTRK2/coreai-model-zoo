@@ -178,6 +178,7 @@ in. [`CONTRIBUTING.md`](CONTRIBUTING.md) is the path to the next row.
 
 Measured by people outside this repo on their own devices, from the Bench tab of the CoreAI Zoo app, and credited here by name:
 
+- **[@jarrodpr](https://github.com/jarrodpr)** — iPhone 18 Pro Max (A20 Pro, `iPhone19,7`): [`qwen3.5-2b`](https://github.com/john-rocky/coreai-model-zoo/issues/38), [`minicpm5-1b`](https://github.com/john-rocky/coreai-model-zoo/issues/35)
 - **[@Lancelotbronner](https://github.com/Lancelotbronner)** — MacBook Pro 16-inch 2024 (M4 Pro, `Mac16,7`): [`qwen3-0.6b`](https://github.com/john-rocky/coreai-model-zoo/issues/24), [`qwen3-4b`](https://github.com/john-rocky/coreai-model-zoo/issues/31), [`qwen3.5-0.8b`](https://github.com/john-rocky/coreai-model-zoo/issues/25), [`qwen3.5-2b`](https://github.com/john-rocky/coreai-model-zoo/issues/27), [`minicpm5-1b`](https://github.com/john-rocky/coreai-model-zoo/issues/33), [`minicpm5-2b`](https://github.com/john-rocky/coreai-model-zoo/issues/32), [`qwen3.6-27b`](https://github.com/john-rocky/coreai-model-zoo/issues/26), [`qwen3.8-27b`](https://github.com/john-rocky/coreai-model-zoo/issues/34)
 - **[@LinkedWrong](https://github.com/LinkedWrong)** — iPhone 17 (A19, `iPhone18,3`): [`minicpm5-1b`](https://github.com/john-rocky/coreai-model-zoo/issues/30)
 - **[@minato-devv](https://github.com/minato-devv)** — iPhone 17 Pro (A19 Pro, `iPhone18,1`): [`minicpm5-2b`](https://github.com/john-rocky/coreai-model-zoo/issues/29)

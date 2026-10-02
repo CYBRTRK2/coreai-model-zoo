@@ -139,6 +139,7 @@ DEVICE_NAMES = {
     "iPhone18,2": ("iPhone 17 Pro Max", "A19 Pro"),
     "iPhone18,3": ("iPhone 17", "A19"),
     "iPhone18,4": ("iPhone Air", "A19 Pro"),
+    "iPhone19,7": ("iPhone 18 Pro Max", "A20 Pro"),
     "Mac16,7": ("MacBook Pro 16-inch 2024", "M4 Pro"),
 }
 
