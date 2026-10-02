@@ -125,6 +125,13 @@ For the long-form version of the same material, read
 - [`coreai-ane-partition-cost.md`](coreai-ane-partition-cost.md) — an op the ANE cannot run (`topk`
   is the usual one) charges a **fixed** cost, not one that scales with its work: cutting k 30× buys
   nothing. Count boundary crossings, not ops. Self-contained reproducer (apple/coreai-torch#66).
+- [`ane-region-count-and-fp32-ops.md`](ane-region-count-and-fp32-ops.md) — **zero ANE regions is a
+  failure mode, not a tie**: Granite-Embedding-97M at fp32 forms 0 regions under
+  `--preferred-compute neural-engine` (the silent GPU fallback), fp16 forms 13, and removing two fp32
+  ops (the softmax's `dtype=torch.float32`, the pooling head's `.float()`) forms 1. Count
+  `*ANE_region_*.mlir.bc`, because `*ANE_region*` also matches each region's directory; IOReport
+  shows placement where `xctrace`'s ANE intervals read 0; `--compute` does not override an AOT
+  bundle's placement; w8 / w6 / w4 negatives for this graph. Base M4 Mac mini, contributed (PR #36).
 - [`coreai-zero-sized-dim-abort.md`](coreai-zero-sized-dim-abort.md) — `Pass failed:
   MPSCommonRuntimeCanonicalization` / `MPSNDArray … buffer is not large enough`: a 0-length `split`
   section or a width-0 output converts fine and then **aborts the process** on GPU and ANE (CPU runs it).

@@ -199,11 +199,10 @@ epsilon because the converter's `F.normalize` decomposition drops it.
 Apache-2.0 at the pinned upstream revision; the HF repo carries IBM's unmodified card as
 `UPSTREAM_README.md` and a `LICENSE-NOTE.md` listing the changes (static graph, in-graph
 pooling, optional w8 palettes, h18p compile). Not tested: other phones or OS builds, the Mac GPU
-with w8, dynamic or batched shapes, S > 512, languages beyond the JA/EN
+with w8, the iPhone's Neural Engine, dynamic or batched shapes, S > 512, languages beyond the JA/EN
 fixtures, retrieval quality on a benchmark, sustained thermals, true cache-cold load.
 
-
-The Neural Engine is **no longer untested** — see the Mac ANE block above. Short version: the fp32
+The Mac's Neural Engine is **no longer untested** — see the Mac ANE block above. Short version: the fp32
 bundle cannot use it (0 ANE regions), fp16 can, and two fp32-op removals make it worth having
 (2.14 ms / 257 ms load against 4.31 ms / 797 ms for the published fp32 export, on a base M4). It
 fails the layer gate, so it is a measured result and not a shipped variant. One observation is

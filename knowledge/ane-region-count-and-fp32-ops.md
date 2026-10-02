@@ -4,6 +4,10 @@
 still succeeds and the bundle still runs — on the GPU. The cheap signal is the region count, and
 it is easy to measure wrong in two different ways.
 
+Measured on a base M4 (Mac mini, 16 GB), macOS 27.0 build 26A428, Xcode 27.0, coreai-build
+3600.83.1, compile architecture `h16g`; contributed by [@4rg0naut](https://github.com/4rg0naut)
+in [PR #36](https://github.com/john-rocky/coreai-model-zoo/pull/36).
+
 ## Count it with the right glob
 
 ```bash
