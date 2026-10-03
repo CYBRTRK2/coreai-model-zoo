@@ -1,0 +1,185 @@
+# Recipe for clef-flash — the configuration that produced each staged bundle.
+# Schema and the rules for `status`: ../README.md.
+# Run it with:  python3 ../../conversion/zoo_convert.py run <name>
+#
+# A decision needs one decoder, the head and the lm_head table; an image adds one tower. The decoder and the head
+# are this port's authoring (conversion/clef_flash/qwen3_5_clef_decoder.py: ids in, image rows as a static input,
+# M-RoPE in the graph, the final-norm hidden state at every position out; clef_head.py: the author's joint schema
+# head as matrices). The towers are the overlay's qwen3_5_vision.py through the Qwen3.8-27B vision exporter with the
+# grid and the dtype set. conversion/clef_flash/README.md lists the oracle and the gates in order.
+
+["clef-flash"]
+script = "clef_flash/export_decoder.py"
+args = ["fp16", "--prefill-chunk", "64", "--aot"]
+card = "README.md"
+hf_repo = "mlboydaisuke/clef-flash-CoreAI"
+source_hf_id = "Cloudflare/clef-flash"
+source_revision = "17f0b0ad64efb65d273590632833508766b2aae6"
+bundle = "gpu-pipelined/clef_flash_decode_fp16_pf64"
+status = "verified"
+overlay = true
+runtime_patches = []
+needs = [
+  "The source snapshot at 17f0b0ad64efb65d273590632833508766b2aae6 in the Hugging Face cache; the clef_flash scripts",
+  "default HF_HOME to $ZOO_WORK_ROOT/_clefflash/hf and set HF_HUB_OFFLINE=1 / HF_HUB_DISABLE_XET=1.",
+  "The overlay venv (coreai-core 1.0.0b2, coreai-torch 0.4.1, torch 2.9.0, transformers 4.57.6) and, for --aot,",
+  "Xcode 27.0 RC as DEVELOPER_DIR.",
+]
+aot = "xcrun coreai-build compile <name>.aimodel --output <dir> --platform macOS --preferred-compute gpu --architecture h16c --expect-frequent-reshapes"
+notes = [
+  "The default decoder. The arguments are the logged run's (2026-10-03 11:51 JST, macOS 27.0 26A428, M4 Max), which",
+  "also passed --record <work>/_clefflash/results/export_fp16_pf64.json (a log; it does not change the bundle).",
+  "Output: $ZOO_WORK_ROOT/_clefflash/exports/bundles/<name>/; --aot adds bundles_aotc/<name>.h16c.aimodelc",
+  "(29,731,951,203 B), which the Python gates load and which is not shipped. Export 110.4 s, AOT 113.0 s.",
+  "One function, main, at a static 64 tokens (the GDN recurrence unrolled in the graph); output hidden [1, 64, 4096] fp16",
+  "at every position, no vocabulary head; metadata.json kind decision-backbone. max_ctx 4096, image buffer 1024 rows.",
+  "main.mlirb 15,880,253,283 B, sha256 0b7dfa30a0597ead745d8f3ed9ed11fa5ac639a4c578a33a7cca7ced11b9bea8;",
+  "metadata.json sha256 bbd4401e72dd055c9fb9998aecf3fcd1b43ea789698bec9040c0d89412a77ae3.",
+  "Gates vs the author's fp32 readout (bar: argmax on every question with an oracle top-2 margin above 0.02, max |dp|",
+  "0.02, mean of run means 0.002): decoder alone 213 runs 397/397 + near-ties 4/4, max 0.0112, mean 0.00054; held out",
+  "40 runs 186/186 + 2/2, max 0.0085; Swift AOT 0.0122 / 0.0082; Swift JIT of the .aimodel bit-equal to AOT on",
+  "253/253 runs. Transcripts: gate-clef-flash-readout-fp16_pf64.json, -heldout.json, -swift.json.",
+  "Uploaded 2026-10-03 to mlboydaisuke/clef-flash-CoreAI, Hub revision 3d9e0ae355a52fc98b9e819b80c9c996734dc840 (the bundle upload); every file verified by size and sha256 after the upload (8 LFS files by the Hub hash, 23 small files by download).",
+]
+notes_reexport = [
+  "The staged bundle was exported with export_decoder.py sha256 8e91ee7ef33dfd1f79338e93373bba10a1d692ce81311adee3039654753b6112; the",
+  "file was edited the same day (the int8lin / int8mix modes and the fp16attn32 variant were added) and is now",
+  "fbc1d712842357bd57735f9acf7d47042f14f966d7c4ca5c5a358db3cfbd5a68. A re-export with the current file on 2026-10-03 16:19 JST",
+  "(--name clef_flash_decode_fp16_pf64_reexport, no --aot) gave main.mlirb 15,880,253,225 B, sha256",
+  "5260af58355497b599763b6c13e84e486e442df12135c03f73743e627d1f561e, whose first 15,879,924,897 bytes equal the staged file's;",
+  "only the trailing IR serialization (328,386 vs 328,328 bytes) differs, as in decider-2b-vision's re-export. The staged bytes",
+  "are the original export's. The re-export was deleted after the comparison (lane log logs/r7_reexport_fp16_pf64.json).",
+]
+
+["clef-flash-int8mix"]
+script = "clef_flash/export_decoder.py"
+args = ["int8mix", "--fp16-layers", "0,1,2,3,4,5,6,7,8,9,10,11", "--prefill-chunk", "64", "--aot"]
+card = "README.md"
+hf_repo = "mlboydaisuke/clef-flash-CoreAI"
+source_hf_id = "Cloudflare/clef-flash"
+source_revision = "17f0b0ad64efb65d273590632833508766b2aae6"
+bundle = "gpu-pipelined/clef_flash_decode_int8mix_pf64"
+status = "verified"
+overlay = true
+runtime_patches = []
+aot = "xcrun coreai-build compile <name>.aimodel --output <dir> --platform macOS --preferred-compute gpu --architecture h16c --expect-frequent-reshapes"
+notes = [
+  "The smaller decoder, same graph and function as clef-flash. The arguments are the logged run's (2026-10-03 12:55 JST;",
+  "also --record <work>/_clefflash/logs/r4_export_int8mix_pf64.json), with export_decoder.py sha256 fbc1d712... = the",
+  "current file. Quantize 20.2 s, export 99.8 s, total 130.2 s; AOT 218.6 s, 25,678,382,366 B (not shipped).",
+  "int8mix = every decoder linear int8 per block of 32 (symmetric_with_clipping, weight only) except the 93 linears of",
+  "layers 0-11 (2,594,439,168 params), which stay fp16; 155 int8 linears (4,324,065,280 params). The embedding table,",
+  "the GDN conv1d, every norm, SDPA and RoPE stay fp16.",
+  "The layer set is outside the bisect's rule (worst run <= 0.010, no run worse than int8lin, at most 6 fp16 layers,",
+  "the smallest set), which chose no set; layers 0-11 are the smallest contiguous fp16 prefix that met its first two",
+  "conditions in the map run after the search (worst 0.0069). It was chosen on the fixture and tested on the held-out",
+  "set (gate-clef-flash-int8-bisect.json, gate-clef-flash-heldout.json).",
+  "main.mlirb 11,826,520,241 B, sha256 2c19a0e765a659e0f726b4b7099a62490fed6ab2e4db1246eb63fd70996a67b9;",
+  "metadata.json sha256 1eafaedf47981c83c82bf4f609615e2a33f28093b8fab3d89f86dec0e520fc36.",
+  "Gates: decoder alone 397/397 + 4/4, max |dp| 0.0153, mean 0.00089; held out 186/186, near-ties 1/2 (ho_t07, oracle",
+  "margin 0.0117, flips), max 0.0171, mean 0.00063; Swift AOT 0.0153 / 0.0171; Swift JIT 0.0148 / 0.0173, not",
+  "bit-equal to AOT (max |dp| 0.0014, argmax 589/589). 134.4 ms per 64-token call against fp16's 134.2 (same 202 runs).",
+  "Uploaded 2026-10-03 to mlboydaisuke/clef-flash-CoreAI, Hub revision 3d9e0ae355a52fc98b9e819b80c9c996734dc840 (the bundle upload); every file verified by size and sha256 after the upload (8 LFS files by the Hub hash, 23 small files by download).",
+]
+
+["clef-flash-tower-g256"]
+script = "export_qwen38vl_pipelined.py"
+args = ["--hf-id", "Cloudflare/clef-flash", "--name", "clef_flash_g256", "--grid-h", "8", "--grid-w", "8", "--skip-decoder", "--vision-dtype", "fp16w32", "--out-dir", "../../_clefflash/exports"]
+card = "README.md"
+hf_repo = "mlboydaisuke/clef-flash-CoreAI"
+source_hf_id = "Cloudflare/clef-flash"
+source_revision = "17f0b0ad64efb65d273590632833508766b2aae6"
+bundle = "gpu-pipelined/clef_flash_g256_vision_fp16w32/clef_flash_g256_vision_fp16w32.aimodel"
+status = "verified"
+overlay = true
+runtime_patches = []
+aot = "xcrun coreai-build compile <name>.aimodel --output <dir> --platform macOS --preferred-compute gpu --architecture h16c"
+notes = [
+  "The 256x256 tower: 16x16 patches, 8x8 merged = 64 image rows. patches [256, 1536] f32 -> image_embeds [64, 4096] f32.",
+  "--vision-dtype fp16w32 = parameters stored fp16 and read through a cast, math and the baked positional buffers fp32.",
+  "Run 2026-10-03 10:02 JST (lane logs/export_tower_g256.log, 15 s; the log does not echo the command line, the flags",
+  "are conversion/clef_flash/README.md step 2's). --out-dir was the absolute lane path, written here relative to",
+  "conversion/, where zoo_convert.py runs the script. Set HF_HOME to the cache holding the pinned snapshot (the run used",
+  "$ZOO_WORK_ROOT/_clefflash/hf, HF_HUB_OFFLINE=1). export_qwen38vl_pipelined.py sha256",
+  "e80515f9e1c2476b992167115364b1a8957f6196ba4e8e210940e43ac4350bec (unchanged in this branch).",
+  "main.mlirb 909,207,876 B, sha256 b2adb0396f6f37f3178c0d7b413d10cddc31271c0dc7a56b2416125e9664f31d.",
+  "Gate (AOT h16c on the Mac GPU, the host's patches) vs the oracle's fp32 tower rows: 14/14 images, worst image",
+  "cosine 0.9999999994, worst row 0.99999995 (gate-clef-flash-tower.json).",
+  "Uploaded 2026-10-03 to mlboydaisuke/clef-flash-CoreAI, Hub revision 3d9e0ae355a52fc98b9e819b80c9c996734dc840 (the bundle upload); every file verified by size and sha256 after the upload (8 LFS files by the Hub hash, 23 small files by download).",
+]
+
+["clef-flash-tower-g448"]
+script = "export_qwen38vl_pipelined.py"
+args = ["--hf-id", "Cloudflare/clef-flash", "--name", "clef_flash_g448", "--grid-h", "14", "--grid-w", "14", "--skip-decoder", "--vision-dtype", "fp16w32", "--out-dir", "../../_clefflash/exports"]
+card = "README.md"
+hf_repo = "mlboydaisuke/clef-flash-CoreAI"
+source_hf_id = "Cloudflare/clef-flash"
+source_revision = "17f0b0ad64efb65d273590632833508766b2aae6"
+bundle = "gpu-pipelined/clef_flash_g448_vision_fp16w32/clef_flash_g448_vision_fp16w32.aimodel"
+status = "verified"
+overlay = true
+runtime_patches = []
+aot = "xcrun coreai-build compile <name>.aimodel --output <dir> --platform macOS --preferred-compute gpu --architecture h16c"
+notes = [
+  "The 448x448 tower: 28x28 patches, 14x14 merged = 196 image rows. patches [784, 1536] f32 -> image_embeds [196, 4096]",
+  "f32, fp16w32 as above. Run 2026-10-03 10:02 JST (lane logs/export_tower_g448.log); --out-dir and HF_HOME as for the",
+  "g256 tower.",
+  "main.mlirb 911,945,013 B, sha256 04d8629bedeb1af76a2e63ed677a931c187289a6478fc66bf33a7bfa523a1eaa.",
+  "Gate vs the oracle's fp32 tower rows: 14/14 images, worst image cosine 0.9999999994, worst row 0.99999995.",
+  "Uploaded 2026-10-03 to mlboydaisuke/clef-flash-CoreAI, Hub revision 3d9e0ae355a52fc98b9e819b80c9c996734dc840 (the bundle upload); every file verified by size and sha256 after the upload (8 LFS files by the Hub hash, 23 small files by download).",
+]
+
+["clef-flash-head"]
+script = "clef_flash/export_head.py"
+args = ["--shape", "bucket", "--weights", "fp16w32", "--aot"]
+card = "README.md"
+hf_repo = "mlboydaisuke/clef-flash-CoreAI"
+source_hf_id = "Cloudflare/clef-flash"
+source_revision = "17f0b0ad64efb65d273590632833508766b2aae6"
+bundle = "gpu-pipelined/clef_flash_head_bucket_fp16w32"
+status = "verified"
+overlay = true
+runtime_patches = []
+aot = "xcrun coreai-build compile <name>.aimodel --output <dir> --platform macOS --preferred-compute gpu --architecture h16c"
+notes = [
+  "The joint schema head as a graph: clef_head.py ClefHeadGraph (the author's JointSchemaHead, load_state_dict strict, the",
+  "per-question / per-option loops as matrices), fp16 weights read through a cast, fp32 math. One asset, four functions",
+  "t512 / t1024 / t2048 / t4096 sharing the weights, Q 16, O 128; above 2,048 keys the attention runs in key blocks of",
+  "at most 2,048 (the plain chain was wrong from 4,032 keys on this GPU stack). metadata.json kind decision-head.",
+  "The arguments are the logged run's (2026-10-03 13:53 JST; also --record <work>/_clefflash/logs/r5_export_head_bucket.json),",
+  "export_head.py sha256 8af91937bf1869d8c39aa5b05b2e1799297d4f36013a5793753183bdb6a2e930 and clef_head.py",
+  "f548f87d6fed83ae82a5a66c87626f7e155401755aa383e1adb2eea25f88687d = the current files. Export 11.3 s, AOT 0.55 s.",
+  "Output: $ZOO_WORK_ROOT/_clefflash/exports/head/<name>/ (.aimodel, metadata.json, and with --aot the .h16c.aimodelc,",
+  "not shipped). The AOT is built without --expect-frequent-reshapes: the dynamic-shape export with it aborted at its",
+  "first call (GPUMemrefOps.mm:164, gate-clef-flash-head.json).",
+  "main.mlirb 243,978,965 B, sha256 51e512ad1e4d3bcfdc7af43c1100124bd94d539de01f09651afc9b98486856fe;",
+  "metadata.json sha256 631219aafcdb56ef1f008e5476f0e7a282933abdc51b4835132676d97124ab20.",
+  "Gates: the graph on the oracle's fp32 hidden 214 runs argmax 405/405, max |dp| 1.8e-7 (held out 188/188, 1.8e-7);",
+  "fed the fp16 decoder's hidden it equals the author's fp32 head within 1.8e-7 (fixture) / 2.4e-7 (held out).",
+  "Uploaded 2026-10-03 to mlboydaisuke/clef-flash-CoreAI, Hub revision 3d9e0ae355a52fc98b9e819b80c9c996734dc840 (the bundle upload); every file verified by size and sha256 after the upload (8 LFS files by the Hub hash, 23 small files by download).",
+]
+
+["clef-flash-lm-head-table"]
+script = "clef_flash/export_lm_head_table.py"
+args = []
+card = "README.md"
+hf_repo = "mlboydaisuke/clef-flash-CoreAI"
+source_hf_id = "Cloudflare/clef-flash"
+source_revision = "17f0b0ad64efb65d273590632833508766b2aae6"
+bundle = "host/lm_head_fp16.bin"
+status = "verified"
+overlay = false
+runtime_patches = []
+notes = [
+  "The host's gather table for the head's lexical term: the untied lm_head.weight [248320, 4096] (bf16 in",
+  "model-00001-of-00004.safetensors) rounded to fp16, raw little-endian, row-major, no header (row t at byte t * 8192),",
+  "with lm_head_fp16.json beside it. Not a graph. Run 2026-10-03 13:41 JST, 8 s; export_lm_head_table.py sha256",
+  "663b7f5c65faa14b3387ae775b2d7e0f4cc7f3213466916de5fb11b7d00f7fb8 = the current file. It also copies",
+  "joint_head.safetensors and joint_head_config.json; only joint_head_config.json ships (host/).",
+  "lm_head_fp16.bin 2,034,237,440 B, sha256 bfccf00b8d5d3f6d810839a52c2ec627700a9aaebaa26aedcb96931bd21ba36d;",
+  "lm_head_fp16.json sha256 e0715ad47d7f2446cba4b16fd0f97889684fab2809946ab0402a9143b731307a.",
+  "Values in fp16's normal range are exact; 3,317,193 elements fall below it (1,649 become 0). 1,200 rows read back",
+  "bit-equal through safetensors. At the head the fp16 table moves p by at most 1.8e-7, the fp32 table's own re-run",
+  "floor (gate-clef-flash-variants.json lm_head_table_effect).",
+  "Uploaded 2026-10-03 to mlboydaisuke/clef-flash-CoreAI, Hub revision 3d9e0ae355a52fc98b9e819b80c9c996734dc840 (the bundle upload); every file verified by size and sha256 after the upload (8 LFS files by the Hub hash, 23 small files by download).",
+]

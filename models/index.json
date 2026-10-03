@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-02",
+ "generated": "2026-10-03",
  "how_to_use": {
   "list": "python3 conversion/zoo_convert.py list",
   "show": "python3 conversion/zoo_convert.py show <recipe>",
@@ -262,6 +262,99 @@
      "bundles": [
       "aot_mac/bonsai2_27b_decode_pq2_0_pf64.h16s.aimodelc",
       "bonsai2_27b_decode_pq2_0_pf64.aimodel"
+     ],
+     "tier1": {},
+     "smoke": []
+    }
+   ]
+  },
+  {
+   "family": "clef-flash",
+   "card": "models/clef-flash/README.md",
+   "recipes": [
+    {
+     "name": "clef-flash",
+     "status": "verified",
+     "source_model": "Cloudflare/clef-flash",
+     "source_model_from": "exporter",
+     "hf_repo": "mlboydaisuke/clef-flash-CoreAI",
+     "bundle": "gpu-pipelined/clef_flash_decode_fp16_pf64",
+     "steps": 1,
+     "run": "python3 conversion/zoo_convert.py run clef-flash",
+     "gate_transcript": null,
+     "open_questions": []
+    },
+    {
+     "name": "clef-flash-int8mix",
+     "status": "verified",
+     "source_model": "Cloudflare/clef-flash",
+     "source_model_from": "exporter",
+     "hf_repo": "mlboydaisuke/clef-flash-CoreAI",
+     "bundle": "gpu-pipelined/clef_flash_decode_int8mix_pf64",
+     "steps": 1,
+     "run": "python3 conversion/zoo_convert.py run clef-flash-int8mix",
+     "gate_transcript": null,
+     "open_questions": []
+    },
+    {
+     "name": "clef-flash-tower-g256",
+     "status": "verified",
+     "source_model": "Cloudflare/clef-flash",
+     "source_model_from": "recipe",
+     "hf_repo": "mlboydaisuke/clef-flash-CoreAI",
+     "bundle": "gpu-pipelined/clef_flash_g256_vision_fp16w32/clef_flash_g256_vision_fp16w32.aimodel",
+     "steps": 1,
+     "run": "python3 conversion/zoo_convert.py run clef-flash-tower-g256",
+     "gate_transcript": null,
+     "open_questions": []
+    },
+    {
+     "name": "clef-flash-tower-g448",
+     "status": "verified",
+     "source_model": "Cloudflare/clef-flash",
+     "source_model_from": "recipe",
+     "hf_repo": "mlboydaisuke/clef-flash-CoreAI",
+     "bundle": "gpu-pipelined/clef_flash_g448_vision_fp16w32/clef_flash_g448_vision_fp16w32.aimodel",
+     "steps": 1,
+     "run": "python3 conversion/zoo_convert.py run clef-flash-tower-g448",
+     "gate_transcript": null,
+     "open_questions": []
+    },
+    {
+     "name": "clef-flash-head",
+     "status": "verified",
+     "source_model": null,
+     "source_model_from": null,
+     "hf_repo": "mlboydaisuke/clef-flash-CoreAI",
+     "bundle": "gpu-pipelined/clef_flash_head_bucket_fp16w32",
+     "steps": 1,
+     "run": "python3 conversion/zoo_convert.py run clef-flash-head",
+     "gate_transcript": "models/clef-flash/gate-clef-flash-head.json",
+     "open_questions": []
+    },
+    {
+     "name": "clef-flash-lm-head-table",
+     "status": "verified",
+     "source_model": "Cloudflare/clef-flash",
+     "source_model_from": "exporter",
+     "hf_repo": "mlboydaisuke/clef-flash-CoreAI",
+     "bundle": "host/lm_head_fp16.bin",
+     "steps": 1,
+     "run": "python3 conversion/zoo_convert.py run clef-flash-lm-head-table",
+     "gate_transcript": null,
+     "open_questions": []
+    }
+   ],
+   "repos": [
+    {
+     "id": "mlboydaisuke/clef-flash-CoreAI",
+     "downloads_30d": 0,
+     "bundles": [
+      "gpu-pipelined/clef_flash_decode_fp16_pf64",
+      "gpu-pipelined/clef_flash_decode_int8mix_pf64",
+      "gpu-pipelined/clef_flash_g256_vision_fp16w32/clef_flash_g256_vision_fp16w32.aimodel",
+      "gpu-pipelined/clef_flash_g448_vision_fp16w32/clef_flash_g448_vision_fp16w32.aimodel",
+      "gpu-pipelined/clef_flash_head_bucket_fp16w32"
      ],
      "tier1": {},
      "smoke": []

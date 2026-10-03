@@ -172,6 +172,16 @@ For the long-form version of the same material, read
   levels; the int8 body error sits in layers 0–11 and three fp16 layers {0, 2, 5} fix it, confirmed on 500
   held-out photo runs; coreai-opt's `symmetric_with_clipping` does not clip; the `prefill` function
   grows the AOT compile by 3.8 GB but not the `.aimodel`; Swift's JIT of the `.aimodel` reads correctly.
+- [`clef-flash-port.md`](clef-flash-port.md) — **a hidden-state decision model and its head on Core AI**
+  (Cloudflare/clef-flash): the 9B decoder returns final-norm hidden rows at every position (no vocabulary head)
+  and the author's joint schema head runs as its own graph, with the untied lm_head as a host gather table; the
+  fixed grid's price measured with the author's code alone; fp16 passes while a few hidden rows drift, and fp32
+  attention does not lift them; the int8 error sits in layers 0–15 and the bisect's search over up to six fp16
+  layers found no set meeting its rule (layers 0–11 ship, tested on a held-out set); a dynamic-shape head AOT
+  built with `--expect-frequent-reshapes` aborts at its first call, so four static buckets ship; the plain
+  attention chain compiled for the GPU is wrong from 4,032 keys and key blocks of ≤ 2,048 fix it; the Swift host
+  copies Pillow's integer resampler and Python's JSON rendering; Swift's JIT of the fp16 `.aimodel` equals the AOT
+  asset bit for bit.
 - [`openthai-systemone-port.md`](openthai-systemone-port.md) — **a slot-head decision model on Core AI**
   (iapp/OpenThai-SystemOne): the LM head replaced by a 256-way head read at a control token —
   `model.*` weights, a resized embedding, `vocab_size` 256 as the logits width; temperatures from the

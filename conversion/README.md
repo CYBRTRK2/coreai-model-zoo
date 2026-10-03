@@ -109,6 +109,20 @@ Apple's repo; each recipe names the script it runs.
   author's code alone; `int8_bisect_torch.py` chose the fp16 layers. Order and flags:
   [`decider_vision/README.md`](decider_vision/README.md). Card:
   [`../models/decider-2b-vision/README.md`](../models/decider-2b-vision/README.md).
+- **clef-flash (typed-decision model, Cloudflare; in [`clef_flash/`](clef_flash/)): decoder
+  `clef_flash/export_decoder.py fp16 --prefill-chunk 64 --aot` (int8mix: `int8mix --fp16-layers 0,…,11`), towers
+  `export_qwen38vl_pipelined.py --hf-id Cloudflare/clef-flash --grid-h 8|14 --grid-w 8|14 --skip-decoder
+  --vision-dtype fp16w32`, head `clef_flash/export_head.py --shape bucket --weights fp16w32 --aot`, table
+  `clef_flash/export_lm_head_table.py`** — decider-2b-vision's ids-input decoder at 9B without a vocabulary head
+  (`qwen3_5_clef_decoder.py`: the final-norm hidden state at every position, one 64-token function), the author's
+  joint schema head re-written as matrices (`clef_head.py`, four static key lengths), the untied lm_head as a host
+  gather table. Every gate compares with the author's own fp32 code: `oracle_clef.py` (216 records, 254 runs) →
+  `test_host.py` (ids, spans, planes 242/242) → `parity_decoder_torch.py` (fp32 torch 405/405, max |Δp| 9.6e-6) →
+  `gate_tower.py` (fp16w32 worst row cosine 0.99999995) → `readout_gate.py` (AOT h16c, 213 runs: fp16 397/397 + 4/4,
+  max 0.0112; int8lin fails at 0.0748) → `int8_bisect_torch.py` → `gate_head.py` (h0 / h1 / h2) → `decide.py` →
+  the held-out set (40 runs: 186/186, max 0.0085) → `gate_swift.py` (the Swift CLI, AOT and JIT). `grid_price.py`
+  prices the fixed grid with the author's code alone. Order and flags: [`clef_flash/README.md`](clef_flash/README.md).
+  Card: [`../models/clef-flash/README.md`](../models/clef-flash/README.md).
 - **OpenThai-SystemOne (System One decision model with a 256-way slot head, iApp;
   [`export_openthai_systemone_decode_pipelined.py`](export_openthai_systemone_decode_pipelined.py) + [`slot/`](slot/)):
   `export_openthai_systemone_decode_pipelined.py int8lin`** — the Qwen3.5 S=1 decode graph with
