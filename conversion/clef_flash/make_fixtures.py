@@ -37,7 +37,8 @@ The own records mix the three question types (noul / choice / score), 1 to 8 que
 descriptions that are JSON objects, and noul `criteria` overrides. People, organisations, products
 and places are invented; no URL or e-mail address appears. Organisation and place names use stems
 that resolved to no A record on .com / .net / .io / .co.uk / .app when they were picked (a DNS
-screen only; see `names_screen` in records.json).
+screen only; see `names_screen` in records.json). Four requests (own_t02, own_t15, own_t16, own_j01)
+are not in this file: a later web search found one of their names in use (WITHHELD_REQUEST_SHA256).
 
     python3 conversion/clef_flash/make_fixtures.py --fetch-photos   # once (network), then offline
     python3 conversion/clef_flash/make_fixtures.py                  # -> $ZOO_WORK_ROOT/_clefflash/fixtures
@@ -93,6 +94,7 @@ SEMIF = {
 }
 SEMIF_QUESTION_ID = "decision"
 LONG_STATE_TOKENS = (1800, 2200)
+# As written into records.json on 2026-10-03; the screens after it are in fixtures-clef-flash.json names_screen.
 NAMES_SCREEN = {
     "method": "dig +short <stem>.<tld> A for tld in com, net, io, co.uk, app; a stem is used only when none resolves",
     "date": "2026-10-03",
@@ -519,144 +521,42 @@ def service_log() -> str:
     return "\n".join(lines)
 
 
-CONTRACT = """MASTER SERVICES AGREEMENT (excerpt: Sections 1 to 16)
-
-This Master Services Agreement (the "Agreement") is entered into on 4 March 2026 (the "Effective Date") between Harrowfen Field Services Ltd. ("Provider") and Ostlebury Growers Cooperative ("Client"). Provider and Client are each a "Party" and together the "Parties".
-
-1. Definitions
-1.1 "Business Day" means a day other than a Saturday, a Sunday or a public holiday at the relevant Client site.
-1.2 "Business Hours" means 08:00 to 18:00 on a Business Day.
-1.3 "Confidential Information" means any information disclosed by one Party to the other that is marked as confidential or that a reasonable person would understand to be confidential.
-
-2. Services
-2.1 Provider will supply the irrigation monitoring services described in Schedule A (the "Services"), including the installation of soil-moisture sensors at the Client's sites, the operation of the hosted monitoring dashboard, and second-line technical support during Business Hours.
-2.2 Provider may change the way it delivers the Services, provided that the change does not materially reduce their functionality or security. Provider will give Client at least thirty (30) days' written notice of any such change.
-
-3. Term and Renewal
-3.1 The Agreement starts on the Effective Date and continues for an initial term of twenty-four (24) months (the "Initial Term").
-3.2 After the Initial Term, the Agreement renews automatically for successive periods of twelve (12) months (each a "Renewal Term") unless either Party gives written notice of non-renewal at least ninety (90) days before the end of the then-current term.
-3.3 Provider may increase the fees for a Renewal Term by no more than five percent (5%) over the fees for the preceding twelve months, provided Provider notifies Client of the increase at least one hundred and twenty (120) days before the Renewal Term begins.
-
-4. Fees and Payment
-4.1 Client will pay the monthly fees set out in Schedule B. Provider will invoice monthly in arrears.
-4.2 Invoices are payable within thirty (30) days of the invoice date. Amounts not paid when due bear interest at one and a half percent (1.5%) per month until paid.
-4.3 Client may dispute an invoice in good faith by written notice within fifteen (15) days of receipt, stating its reasons. The Parties will try to resolve the dispute within thirty (30) days. Undisputed portions remain payable on the original due date.
-4.4 If any undisputed amount remains unpaid for more than forty-five (45) days after its due date, Provider may suspend the Services after giving ten (10) days' written notice.
-
-5. Service Levels
-5.1 Provider will make the monitoring dashboard available 99.5% of the time in each calendar month, excluding scheduled maintenance that is announced at least five (5) days in advance and limited to eight (8) hours per month.
-5.2 If availability falls below 99.5% in a month, Client is entitled to a service credit of five percent (5%) of that month's fees for each full 0.5% below the target, up to a maximum of twenty-five percent (25%) of that month's fees.
-5.3 Service credits are Client's sole remedy for a failure to meet the availability target, except where availability falls below 95% in three consecutive months, in which case Client may terminate under Section 10.2.
-
-6. Client Responsibilities
-6.1 Client will give Provider's technicians safe access to each site during Business Hours, with at least two (2) Business Days' notice.
-6.2 Client is responsible for the accuracy of the site information it provides and for protecting the sensors from physical damage caused by its own staff or contractors.
-
-7. Confidentiality
-7.1 Each Party will keep the other Party's Confidential Information secret and use it only to perform or receive the Services.
-7.2 These obligations survive for three (3) years after the Agreement ends, except for trade secrets, which remain protected for as long as they remain trade secrets.
-
-8. Data
-8.1 Client owns all sensor readings and reports generated for its sites ("Client Data"). Provider may use Client Data only to provide the Services and, in an aggregated form that does not identify Client or any site, to improve its products.
-8.2 On termination, Provider will make Client Data available for export for sixty (60) days and will then delete it, unless the law requires Provider to keep it.
-
-9. Liability
-9.1 Neither Party is liable for indirect or consequential loss, including loss of crops, profit or revenue, even if that loss was foreseeable.
-9.2 Each Party's total liability arising out of or in connection with this Agreement in any twelve-month period is limited to the total fees paid or payable by Client in the twelve (12) months before the event giving rise to the claim.
-9.3 The limits in this Section do not apply to liability for death or personal injury caused by negligence, for fraud, for breach of Section 7 (Confidentiality), or for gross negligence or wilful misconduct.
-
-10. Termination
-10.1 Either Party may terminate the Agreement by written notice if the other Party commits a material breach and fails to remedy it within thirty (30) days after receiving written notice describing the breach.
-10.2 Client may terminate the Agreement with immediate effect by written notice in the circumstances described in Section 5.3.
-10.3 Either Party may terminate the Agreement immediately if the other Party becomes insolvent or ceases to carry on business.
-10.4 Termination does not affect fees already due, and Sections 7, 8.2, 9 and 12 survive termination.
-
-11. Assignment
-11.1 Neither Party may assign or transfer this Agreement without the prior written consent of the other Party, which may not be unreasonably withheld.
-11.2 Provider may, however, assign the Agreement to an affiliate without consent by giving written notice to Client, provided that the affiliate is able to perform the Services to the same standard.
-
-12. Notices and Governing Law
-12.1 Notices must be in writing and delivered by hand, by courier, or by e-mail to the addresses in Schedule C. A notice sent by e-mail is received on the next Business Day after it is sent.
-12.2 This Agreement is governed by the laws of the jurisdiction in which Provider is registered, and the courts of that jurisdiction have exclusive jurisdiction over any dispute.
-
-13. Insurance
-13.1 Provider will maintain public liability insurance of at least two million (2,000,000) in the currency of Schedule B and professional indemnity insurance of at least one million (1,000,000) for the duration of the Agreement and for one (1) year afterwards.
-13.2 On request, Provider will give Client a certificate of insurance showing that the cover required by this Section is in force.
-
-14. Force Majeure
-14.1 Neither Party is liable for a delay or failure to perform caused by events beyond its reasonable control, including flood, drought, fire, storm, epidemic, war, or a failure of public utilities, provided that it notifies the other Party promptly and uses reasonable efforts to resume performance.
-14.2 If such an event prevents performance for more than sixty (60) consecutive days, either Party may terminate the Agreement by written notice without liability.
-
-15. Subcontracting and Audit
-15.1 Provider may use subcontractors to install or maintain sensors, provided that Provider remains responsible for their work as if it were its own and that each subcontractor is bound by confidentiality obligations no less protective than Section 7.
-15.2 Once in each contract year, on at least twenty (20) Business Days' written notice, Client may audit Provider's records relating to the Services and to the handling of Client Data. Each Party bears its own costs of the audit, unless the audit reveals a material breach by Provider, in which case Provider will reimburse Client's reasonable audit costs.
-
-16. Entire Agreement
-16.1 This Agreement, together with its Schedules, is the entire agreement between the Parties about its subject matter and replaces all earlier proposals and understandings.
-16.2 No amendment is effective unless it is in writing and signed by authorised representatives of both Parties."""
+# Four round-1 requests are not in this file. On 2026-10-04 an exact-phrase web search found an invented name in each
+# in use (fixtures-clef-flash.json names_screen.fixture.stems_in_use_found_2026-10-04). The published fixture keeps
+# their ids, gold answers and numbers; the requests come from a private copy (--withheld), checked against these
+# sha256 of json.dumps(request, sort_keys=True, ensure_ascii=False, separators=(",", ":")) as UTF-8.
+WITHHELD_REQUEST_SHA256 = {
+    "own_t02": "727341c27bc2ff3570eee6790dc40e572091414c4d587031377940b8c6e23111",
+    "own_t15": "03ea2157d2721f94b568632995fe50ab5b1bc702c75e5074abc4845c46687cd9",
+    "own_t16": "f86f4edabf30e7ffdd91b8480b886052baef417cfd804012e3d4c34c351eed0b",
+    "own_j01": "d963c4013aa890a4f2411b2d66a122068a2a73eafb2828a0b2c87bb28fb595e0",
+}
+WITHHELD_FILE = work_path("_clefflash", "results", "withheld_records_2026-10-04.json")
 
 
-MINUTES = """THISTLECOMBE ALLOTMENT ASSOCIATION
-Minutes of the Annual General Meeting, held on Saturday 20 September 2026 at 10:00 in the community hall.
+def load_withheld(path: Path) -> dict:
+    """{record id: request} for the withheld records; stops when the copy is missing or a request changed."""
+    if not path.exists():
+        raise SystemExit(f"{path}: not found. The requests of {', '.join(WITHHELD_REQUEST_SHA256)} are not published "
+                         "(an invented-name collision found 2026-10-04), so the round-1 records.json cannot be rebuilt "
+                         "without the private copy (--withheld).")
+    out = {}
+    for r in json.loads(path.read_text())["records"]:
+        if r["id"] in WITHHELD_REQUEST_SHA256:
+            text = json.dumps(r["request"], sort_keys=True, ensure_ascii=False, separators=(",", ":"))
+            assert hashlib.sha256(text.encode()).hexdigest() == WITHHELD_REQUEST_SHA256[r["id"]], (r["id"], "request changed")
+            out[r["id"]] = r["request"]
+    assert set(out) == set(WITHHELD_REQUEST_SHA256), ("withheld copy lacks", sorted(set(WITHHELD_REQUEST_SHA256) - set(out)))
+    return out
 
-Present: 34 members (the quorum is 25). Apologies: 6 members. In the chair: Margaret Ollerton. Minutes taken by Desmond Achebe-Lund (secretary).
 
-1. Welcome and apologies
-The chair opened the meeting at 10:04, welcomed four new plot holders and read the apologies. She reminded members that only members whose fees for 2026 are paid may vote; the secretary confirmed that all 34 members present are entitled to vote.
-
-2. Minutes of the previous AGM
-The minutes of the AGM of 14 September 2025 were approved without amendment (proposed by Ruth Penhaligon, seconded by Tomasz Wierzbicki).
-
-3. Treasurer's report
-The treasurer, Yusuf Kemal, presented the accounts for the year to 31 August 2026. Income was £8,420 (plot fees £7,150, sales at the site shop £1,040, donations £230). Expenditure was £6,980 (water £2,310, insurance £1,120, repairs £1,890, skip hire £780, sundries £880). Reserves at the year end stood at £11,600.
-Several members asked why the water bill had risen by 18%. The treasurer explained that most of the increase came from leaks on the north path, where water ran for several days before each leak was found. Members also asked about the shop: sales were up because of the new seed potato order, and the shop committee will repeat it next spring.
-The accounts were accepted (proposed by Ama Boateng, seconded by Graham Lowther), with one abstention.
-
-4. Water system
-The main pipe along the north path leaked three times this year, and the standpipe at plot 41 failed in July. The committee presented two options:
-(a) repair the damaged sections of the north run, estimated at about £1,400, with a likely need for further repairs within two or three years;
-(b) replace the whole north run with new polyethylene pipe and add two standpipes near plots 12 and 30, estimated at about £5,900, paid from reserves.
-In the discussion, some members felt that option (b) would leave the reserves too low if the hall roof needed work. Others pointed out that the repeated leaks were already costing money and that the new standpipes would help older members who now carry water a long way. The treasurer confirmed that reserves would remain above £5,000 after option (b).
-Graham Lowther asked whether the association could apply for a grant from the district council's green spaces fund. The secretary said that the fund reopens in January and usually covers up to half of the cost of capital works for community groups, but that a decision would not come before April, too late for the February work. Members agreed that the committee should still apply, and that any grant received would go back into the reserves.
-Ruth Penhaligon asked who would carry out the work. The committee intends to hire a contractor for the trenching and connections, while volunteers will clear the path and reinstate the beds afterwards; plot holders along the north path will be told at least four weeks in advance.
-The chair put option (b) to the vote: for 21, against 11, abstentions 2. The motion to replace the north run was carried. The work will be scheduled for February, when the water supply is switched off for the winter, and the committee will obtain at least two quotes.
-
-5. Plot fees
-The committee proposed raising the annual fee for a full plot from £45 to £52, and for a half plot from £25 to £29, from January 2027, to rebuild the reserves after the water works.
-Members argued that the increase was too large in a single year and that the shop surplus and donations should be used first. A suggestion to raise fees by a smaller amount was not put as a formal motion.
-Vote on the committee's proposal: for 12, against 19, abstentions 3. The motion was defeated, and fees remain unchanged for 2027. The committee will instead review the insurance renewal, which may be cheaper with a different broker, and report back at the spring meeting.
-
-6. Waiting list
-There are 23 people on the waiting list, and the average wait is now 14 months. The committee proposed that full plots which become vacant be split into two half plots where the layout allows, and that plots continue to be offered to the waiting list strictly in order of application. A member suggested giving priority to residents of the village; after discussion the meeting agreed to keep the order of application. Several members said that half plots suit newcomers better, because a full plot is a lot of work in the first year and several new holders gave up within twelve months. Tomasz Wierzbicki offered to mentor new plot holders during their first season, and three other members volunteered to join him. The committee will also ask people on the list once a year whether they still want a plot, so that the list stays accurate.
-The proposal was agreed by a show of hands, with no votes against.
-
-7. Compost and bonfires
-The committee proposed that the burning of green waste on site be banned from 1 November 2026, and that compost heaps within two metres of the boundary hedge be replaced by closed compost bins, following complaints from neighbours about smoke and rats. The association will buy ten bins in bulk and sell them to members at cost. Members who cannot compost woody prunings may leave them at the chipping area by the main gate, which will be emptied twice a year.
-The proposal was agreed with 2 votes against.
-
-8. Election of officers
-Margaret Ollerton announced that she is stepping down as chair after six years. Two nominations had been received: Priyanka Somerfield (proposed by Ruth Penhaligon, seconded by Ama Boateng) and Callum Reyes (proposed by Graham Lowther, seconded by Tomasz Wierzbicki). Both candidates spoke briefly. A ballot was held: Priyanka Somerfield 22 votes, Callum Reyes 12 votes. Priyanka Somerfield was elected chair.
-Yusuf Kemal was re-elected treasurer unopposed. Desmond Achebe-Lund was re-elected secretary unopposed. Callum Reyes agreed to join the committee as an ordinary member.
-The meeting thanked Margaret Ollerton for her years in the chair; she will continue to run the plant sale.
-
-9. Any other business
-(a) Shed security: two sheds were broken into in August and tools were taken. Members were asked to mark their tools and not to leave fuel on site. The committee will price a new gate lock.
-(b) Open day: an open day for local families is planned for Saturday 13 June 2027. Volunteers should give their names to the secretary.
-(c) Plot inspections: the committee will carry out the usual inspections in May and August. Plot holders whose plots are less than half cultivated will receive a reminder letter, and a second letter after four weeks if nothing has changed. Members asked that the inspection criteria be printed on the notice board; the secretary agreed to do so.
-(d) Thanks were recorded to the volunteers who cleared the overgrown plots in the spring and to the members who staff the shop.
-
-Action items
-- Committee: obtain at least two quotes for replacing the north water run, by 30 November 2026.
-- Yusuf Kemal: compare insurance renewal quotes and report at the spring meeting.
-- Desmond Achebe-Lund: write to members on the waiting list about the half-plot scheme, by 31 October 2026.
-- Priyanka Somerfield: order ten closed compost bins, by 15 October 2026.
-- Committee: price a new gate lock, by the next committee meeting.
-
-The meeting closed at 12:16. The next committee meeting will be held on Tuesday 7 October 2026 at 19:30."""
+def withheld_record(withheld, rid, source, gold, note):
+    req = withheld[rid]
+    return record(rid, source, req["state"], req["questions"], gold=gold, note=note)
 
 
 # --------------------------------------------------------------------------- the own records
-def own_text_records():
+def own_text_records(withheld):
     R = []
     R.append(record("own_t01", "own_text",
         "Ticket 4471 from Mara Ellison: Since this morning the DL-40 desk lamp I bought from Wendlecote Home will not "
@@ -667,21 +567,7 @@ def own_text_records():
          "urgency": score("How urgent is the ticket?", ["Can wait", "This week", "Today", "Immediately"])},
         gold={"department": "technical", "wants_refund": "false", "urgency": None},
         note="support ticket"))
-    R.append(record("own_t02", "own_text",
-        "Incident 2026-117. At 02:14 the checkout service of the Ashmerrow web store began returning HTTP 503 for about "
-        "40% of requests. The on-call engineer, Ravi Mendes, rolled back release 8.4.1 at 02:39, and the error rate was "
-        "back to normal by 02:46. No data loss was found. Root cause: the database connection-pool limit had been lowered "
-        "from 200 to 20 in the new release.",
-        {"severity": score("How severe was the incident?", ["SEV5 cosmetic", "SEV4 minor", "SEV3 moderate", "SEV2 major", "SEV1 critical"]),
-         "resolved": noul("The incident is resolved."),
-         "root_cause": choice("What caused the incident?", {
-             "config_change": "A configuration value changed in a release",
-             "hardware": "A hardware failure",
-             "third_party": "An outage at an external provider",
-             "attack": "Malicious traffic",
-             "capacity": "Organic traffic exceeded capacity"}),
-         "data_loss": noul("Was any data lost?", {"true": "Some customer or order data was lost or corrupted.",
-                                                  "false": "No data was lost or corrupted."})},
+    R.append(withheld_record(withheld, "own_t02", "own_text",
         gold={"severity": None, "resolved": "true", "root_cause": "config_change", "data_loss": "false"},
         note="incident report; noul criteria override (both keys)"))
     R.append(record("own_t03", "own_text",
@@ -826,55 +712,20 @@ def own_text_records():
                                                                   "5_to_15m": "Five to fifteen minutes", "over_15m": "More than fifteen minutes"})},
         gold={"first_failing_component": "payments", "recovered": "true", "severity": None, "error_window": "5_to_15m"},
         note="long state: service log (generated deterministically)"))
-    R.append(record("own_t15", "own_text_long", CONTRACT,
-        {"non_renewal_notice": choice("How much notice is needed to stop the automatic renewal?", {
-             "30": "30 days", "60": "60 days", "90": "90 days", "120": "120 days", "none": "No notice is needed"}),
-         "auto_renews": noul("The agreement renews automatically after the initial term."),
-         "liability_cap": choice("How is each party's liability capped?", {
-             "unlimited": "There is no cap",
-             "fees_12m": "The fees paid or payable in the 12 months before the claim",
-             "fixed_amount": "A fixed amount stated in the agreement",
-             "insurance": "The amount of the provider's insurance cover"}),
-         "assign_without_consent": noul("Either party may assign the agreement freely without the other's consent."),
-         "client_risk": score("How favourable are the terms to the client?", ["very unfavourable", "unfavourable", "balanced",
-                                                                             "favourable", "very favourable"]),
-         "uptime_target": choice("What availability does the provider commit to?", {"99.0": "99.0%", "99.5": "99.5%",
-                                                                                    "99.9": "99.9%", "99.99": "99.99%"})},
+    R.append(withheld_record(withheld, "own_t15", "own_text_long",
         gold={"non_renewal_notice": "90", "auto_renews": "true", "liability_cap": "fees_12m",
               "assign_without_consent": "false", "client_risk": None, "uptime_target": "99.5"},
         note="long state: contract excerpt"))
-    R.append(record("own_t16", "own_text_long", MINUTES,
-        {"water_decision": choice("What was decided about the water system?", {
-             "repair": "Repair the damaged sections", "replace": "Replace the north run and add standpipes",
-             "postpone": "Postpone the decision to next year", "no_decision": "No decision was made"}),
-         "fees_increase": noul("Annual plot fees will increase in 2027."),
-         "new_chair": choice("Who is the new chair?", {"ollerton": "Margaret Ollerton", "somerfield": "Priyanka Somerfield",
-                                                      "reyes": "Callum Reyes", "kemal": "Yusuf Kemal"}),
-         "water_vote_consensus": score("How much agreement was there in the water vote?", ["deeply divided", "split",
-                                                                                         "clear majority", "unanimous"]),
-         "waiting_list_order": choice("How will vacant plots be offered?", {
-             "application_order": "To the waiting list in order of application",
-             "lottery": "By drawing lots",
-             "local_priority": "With priority for residents of the village"}),
-         "bonfire_ban": noul("Burning green waste on site will be banned.")},
+    R.append(withheld_record(withheld, "own_t16", "own_text_long",
         gold={"water_decision": "replace", "fees_increase": "false", "new_chair": "somerfield", "water_vote_consensus": "2",
               "waiting_list_order": "application_order", "bonfire_ban": "true"},
         note="long state: minutes of a members' meeting"))
     return R
 
 
-def own_json_records():
+def own_json_records(withheld):
     R = []
-    R.append(record("own_j01", "own_json",
-        {"invoice": {"number": "INV-20931", "vendor": "Cradlewick Office Supply", "issued": "2026-08-02", "due": "2026-09-01",
-                     "currency": "EUR", "lines": [{"item": "A4 paper, 5 boxes", "amount": 112.5},
-                                                  {"item": "toner cartridge", "amount": 89.0}],
-                     "total": 201.5, "paid": 0.0, "status": "open"},
-         "today": "2026-09-14"},
-        {"status": choice("What is the invoice status?", {"paid": "Paid in full", "overdue": "Past the due date and unpaid",
-                                                          "open_not_due": "Unpaid but not yet due", "draft": "Not sent yet"}),
-         "large": noul("The invoice total is above 500."),
-         "priority": score("How soon should it be paid?", ["no rush", "this month", "this week", "today"])},
+    R.append(withheld_record(withheld, "own_j01", "own_json",
         gold={"status": "overdue", "large": "false", "priority": None},
         note="invoice"))
     R.append(record("own_j02", "own_json",
@@ -2352,9 +2203,12 @@ def main() -> int:
     ap.add_argument("--heldout", action="store_true", help="write the held-out set (HELDOUT_*) instead of the round-1 fixtures")
     ap.add_argument("--round1-dir", default=str(work_path("_clefflash", "fixtures")),
                     help="with --heldout: the round-1 fixtures novelty_check compares against (read only)")
+    ap.add_argument("--withheld", default=str(WITHHELD_FILE),
+                    help="private copy of the withheld round-1 requests (WITHHELD_REQUEST_SHA256)")
     args = ap.parse_args()
     if args.heldout:
         return main_heldout(args)
+    withheld = load_withheld(Path(args.withheld).expanduser())
     out = Path(args.out_dir or work_path("_clefflash", "fixtures")).expanduser()
     (out / "images").mkdir(parents=True, exist_ok=True)
 
@@ -2401,7 +2255,7 @@ def main() -> int:
                      "license_note": f"Wikimedia Commons extmetadata.LicenseShortName = {fetched[name]['license_short_name']}"})
         available.append(name)
 
-    records = (own_text_records() + own_json_records() + image_records() + photo_records(available)
+    records = (own_text_records(withheld) + own_json_records(withheld) + image_records() + photo_records(available)
                + semif_records(Path(args.semif).expanduser()))
     stats = check_records(records, set(IMAGES) | set(available))
 
