@@ -1,0 +1,52 @@
+# KevGate — device gate of the Kev-0.8B Core AI port (conversion/kev) on the Swift host apps/Kev. Copied from
+# apps/DeciderVisionGate (zoo main 2d214b3) and made Kev's. The app is a thin shell: the decision path is the library's
+# (KevDecider: the author's request checks and text, the tokenizer rows, the decoder `main` S=16 in its chunk order from
+# zero states, the float64 pointer head, the answers), taken by path from ../Kev. One target for iOS and macOS, so the
+# phone and the Mac run the same gate code. Build: ./_build.sh (iOS) or ./_build.sh --mac (xcodegen generate +
+# xcodebuild Release). Assets are sideloaded, not bundled. No entitlements: the bundle id is new, and the team's only
+# profile that lists the iPhone 18 Pro and fits a new id is the wildcard one, which cannot carry
+# com.apple.developer.kernel.increased-memory-limit (DeciderVisionGate README "Signing"); the gate runs at the default
+# memory limit and records it.
+name: KevGate
+options:
+  bundleIdPrefix: com.daisukemajima
+  createIntermediateGroups: true
+packages:
+  Kev:
+    path: ../Kev
+schemes:
+  KevGate:
+    build:
+      targets:
+        KevGate: all
+    run:
+      config: Release
+targets:
+  KevGate:
+    type: application
+    supportedDestinations: [iOS, macOS]
+    deploymentTarget:
+      iOS: "27.0"
+      macOS: "27.0"
+    sources:
+      - path: Sources
+    dependencies:
+      - package: Kev
+        product: Kev
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.daisukemajima.kevgate
+        DEVELOPMENT_TEAM: MFN25KNUGJ
+        CODE_SIGN_STYLE: Automatic
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_CFBundleDisplayName: KevGate
+        INFOPLIST_KEY_ITSAppUsesNonExemptEncryption: NO
+        TARGETED_DEVICE_FAMILY: "1"
+        SWIFT_VERSION: "6.0"
+        SWIFT_APPROACHABLE_CONCURRENCY: YES
+        # macOS: the gate reads the stage directory and writes its results where KEV_ASSETS / KEV_OUT point.
+        ENABLE_APP_SANDBOX: NO
+        ENABLE_HARDENED_RUNTIME: NO
+        MARKETING_VERSION: "1.0"
+        CURRENT_PROJECT_VERSION: "1"

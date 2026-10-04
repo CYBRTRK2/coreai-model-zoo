@@ -1,0 +1,71 @@
+# Recipe for Kev-4B — the configuration that produced the staged bundle.
+# Schema and the rules for `status`: ../README.md.
+# Run it with:  python3 ../../conversion/zoo_convert.py run <name>
+#
+# The same decoder module as Kev-0.8B (conversion/kev/qwen3_5_kev_decoder.py, no code change), selected with
+# --model kev-4b: the overlay's stateful Qwen3.5 text decoder on the merged weights, no vocabulary head, the final-norm
+# hidden state at every position of a static 128-token call, each Gated DeltaNet layer's recurrence in the overlay's
+# fp32 Metal chunk kernel. The pointer head runs on the host. conversion/kev/README.md lists the oracle, the merge and
+# the gates in order.
+
+["kev-4b"]
+script = "kev/export_decoder.py"
+args = ["fp16", "--model", "kev-4b", "--prefill-chunk", "128", "--gdn-scan", "metal", "--aot"]
+card = "README.md"
+hf_repo = "mlboydaisuke/Kev-4B-CoreAI"
+source_hf_id = "jaredpalmer/kev-4b"
+source_revision = "6cfce5c2fa4b4bd64026336ab649c5ca78857d52"
+base = "Qwen/Qwen3.5-4B-Base"
+base_revision = "1001bb4d826a52d1f399e183466143f4da7b741b"
+bundle = "gpu-pipelined/kev_4b_decode_fp16_metal_pf128"
+status = "verified"
+overlay = true
+runtime_patches = []
+needs = [
+  "The author's repository at tag kev-1.0 (github.com/jaredpalmer/kev, commit 6b719c3c3f367295f6ef336f4f751cf5ff970abc) in",
+  "$ZOO_WORK_ROOT/_kev/kev-src and its own environment (uv export --frozen of its uv.lock) for the merge;",
+  "HF_HOME=$ZOO_WORK_ROOT/_kev/hf with jaredpalmer/kev-4b at tag v1.0 (591dcb5bd6d05eb0b5131ea6608f93f10243335c) and",
+  "Qwen/Qwen3.5-4B-Base at 1001bb4d fetched once online by that venv.",
+  "The merged checkpoint: (cd $ZOO_WORK_ROOT/_kev/kev-src && HF_HUB_OFFLINE=1 python scripts/merge_lora_checkpoint.py",
+  "--lora jaredpalmer/kev-4b@591dcb5bd6d05eb0b5131ea6608f93f10243335c --out $ZOO_WORK_ROOT/_kev/merged/kev-4b-v1.0) (fp32,",
+  "four shards, 16.8 GB), then the local id the exporter reads:",
+  "$ZOO_WORK_ROOT/_kev/hf/hub/models--kev-local--kev-4b-v1.0-merged/snapshots/904380cbf0be/ with symlinks to the merged",
+  "config.json, model.safetensors.index.json and the four shards, and refs/main = 904380cbf0be. The exporter checks the four",
+  "shards' sha256 before it exports.",
+  "The overlay venv (coreai-core 1.0.0b2, coreai-torch 0.4.1, torch 2.9.0, transformers 4.57.6), HF_HUB_OFFLINE=1, and for",
+  "--aot Xcode 27.0 RC as DEVELOPER_DIR.",
+]
+aot = "xcrun coreai-build compile <name>.aimodel --output <dir> --platform macOS --preferred-compute gpu --architecture h16c --expect-frequent-reshapes"
+notes = [
+  "The arguments are the logged run's (2026-10-04 09:02 JST, macOS 27.0 26A428, M4 Max), which also passed --record",
+  "<work>/_kev/results/r12_export_fp16_metal_pf128_4b.json (a log; it does not change the bundle). Export 35.9 s (total",
+  "45.1 s); --aot adds bundles_aotc/<name>.h16c.aimodelc (15,552,786,962 B, AOT 42.3 s), which the Python gates load and",
+  "which is not shipped. Output: $ZOO_WORK_ROOT/_kev/exports/bundles/<name>/ (.aimodel, metadata.json, tokenizer/, head/).",
+  "The published bundle is that export's .aimodel with its metadata written again without exporting (2026-10-04 14:41 JST,",
+  "record <work>/_kev/results/r12_ship_bundle_pf128_4b.json): export_decoder.py fp16 --model kev-4b --gdn-scan metal",
+  "--prefill-chunk 128 --metadata-only --from-aimodel $ZOO_WORK_ROOT/_kev/exports/bundles/kev_4b_decode_fp16_metal_pf128/",
+  "kev_4b_decode_fp16_metal_pf128.aimodel --bundle-dir $ZOO_WORK_ROOT/_kev/exports/ship/kev_4b_decode_fp16_metal_pf128",
+  "(APFS clone; the .aimodel's files keep their sha256, the metadata differs from the export's in compilation.date only).",
+  "One function, main, at a static 128 tokens; inputs input_ids [1, 128] int32 and position_ids [1, seq] int32, four fp16",
+  "states (KV [8, 1, 4, ctx, 256] x 2, conv [24, 1, 8192, 3], recurrent [24, 1, 32, 128, 128]), output hidden",
+  "[1, 128, 2560] fp16 at every position, no vocabulary head; metadata.json kind decision-backbone, language.prefill_chunk",
+  "128. max_ctx 4096; a row holds at most 3,968 tokens.",
+  "main.mlirb 8,412,500,461 B, sha256 da529dd48f08a7535ca6b8dfb5640723641c2058daf7757a52a9a527413eb17f.",
+  "The staged metadata.json (sha256 e641e44fc9d540614e7bc192e49df78c9d8a7d8e23309fe1bef499a5c9039b08) is the published",
+  "bundle's (dcdd0ea1...) with the local ids replaced by the source repos and the gate added (metadata_of_record in the file",
+  "lists the edits); the keys the hosts read are unchanged.",
+  "Gates vs the author's fp32 readout (bar as Kev-0.8B): fixture 434 questions 422/422 + near-ties 10/12, max |dp| 0.0153,",
+  "mean 0.00077; held out 130 126/126 + 3/4, max 0.0096, mean 0.00069; the Swift host's hidden rows equal the Python gate's",
+  "on 434 + 130 rows; the .aimodel specialized by Swift (GPU preferred + expectFrequentReshapes) equals the AOT asset on",
+  "25/25 rows (round 12). Transcripts: gate-kev-4b-readout.json, -host.json, -swift.json, -timing-mac.json; every measured",
+  "graph form: gate-kev-4b-forms.json.",
+  "Mac only: an earlier graph's h19p AOT asset (unrolled S = 16, 15,557,759,365 B) crashed the one time it was loaded on an",
+  "iPhone 18 Pro; this graph was not loaded on the phone.",
+  "Hub: mlboydaisuke/Kev-4B-CoreAI revision ee978c72ad20f98d8548b5ef5a28e7e7e1102389 (2026-10-04), the first upload of this repository.",
+]
+notes_reexport = [
+  "The staged bundle was exported with export_decoder.py sha256 392d7bb2344e30af5ffe61b6a6f1ed637be5f2021b444930272c3e73b23cc111",
+  "and qwen3_5_kev_decoder.py ab66b73a388f1a61d3b2b0a310f0bbdb1572fe5cc57a5b3adea2738f0caf014d (round 12, the same files as",
+  "Kev-0.8B's round 11 export). The merged checkpoint was removed after the export; run the merge again before a re-export.",
+  "The staged bytes are the gated export's. No re-export was run for this recipe.",
+]

@@ -182,6 +182,18 @@ For the long-form version of the same material, read
   attention chain compiled for the GPU is wrong from 4,032 keys and key blocks of ≤ 2,048 fix it; the Swift host
   copies Pillow's integer resampler and Python's JSON rendering; Swift's JIT of the fp16 `.aimodel` equals the AOT
   asset bit for bit.
+- [`kev-port.md`](kev-port.md) — **a LoRA + pointer-head decision model on Core AI, at 0.8B and 4B**
+  (jaredpalmer/kev-0.8b, kev-4b): the author's merge script, checked by bit-equal logits; the delimiter ids come from
+  the base tokenizer, not the kev-4b repository's Qwen3-era files; the overlay's text decoder returns hidden rows, and
+  the scan form sets a call's cost: both sizes ship 128 tokens a call with the overlay's fp32 Metal kernel for the
+  Gated DeltaNet recurrence (a row holds 3,968 tokens), the in-graph chunk breaks at S = 32 already in fp32, and a dynamic
+  query length was measured and not shipped (its footprint grows while the call length keeps changing, on the Mac and
+  the iPhone; an AOT cache entry is named by the function's type, so caps collide); int8 measured and not shipped (no set met
+  the bisect rules, and a bisect's rows do not transfer between int8 variants); `--expect-frequent-reshapes` adds an
+  fp16 copy of every linear and a compiled graph holds int8 linears as fp16; the host's head in float64 with Python
+  3.12's `sum()` and Python's `str()`; the shared prefix is exact on a static graph; Swift's JIT of the `.aimodel`
+  equals the AOT asset at both sizes; Kev-0.8B on the iPhone 18 Pro at the default memory limit, and Kev-4B's iPhone AOT asset crashing at
+  load; four of ten invented fixture names found in use on the web.
 - [`openthai-systemone-port.md`](openthai-systemone-port.md) — **a slot-head decision model on Core AI**
   (iapp/OpenThai-SystemOne): the LM head replaced by a 256-way head read at a control token —
   `model.*` weights, a resized embedding, `vocab_size` 256 as the logits width; temperatures from the

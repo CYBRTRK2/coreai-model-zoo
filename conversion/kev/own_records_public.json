@@ -1,0 +1,732 @@
+{
+ "schema": "kev-own-records/1",
+ "what": "The 20 records written for the Kev port (own_*): 11 with their text; 9 withheld (an invented name in each was found in use on the web) are kept as stubs with the sha256 of their request so the fixture's ids and numbers stay reproducible for the holder of the private file.",
+ "withheld_note": "The full 9 records live outside the repository in $ZOO_WORK_ROOT/_kev/fixtures/own_records_withheld.json (KEV_OWN_WITHHELD overrides the path).",
+ "records": [
+  {
+   "id": "own_t01",
+   "source": "own_text",
+   "request": {
+    "model": "kev-0.8b",
+    "state": "Ticket #4471 - opened 2026-03-14 09:12\nFrom: Dana (customer since 2023)\nSubject: Charged twice for March\n\nHi, I'm on the Pennimere Meal Kits weekly plan. My card statement shows two charges of 64.90 on March 1, but I only received one box. I already contacted my bank and they told me to ask you first. Please refund the duplicate charge. I'd also like to pause deliveries for two weeks while I'm travelling, starting March 20. Thanks, Dana",
+    "questions": {
+     "team": {
+      "type": "choice",
+      "instructions": "Which team should handle this ticket first?",
+      "criteria": {
+       "billing": "Charges, invoices and refunds",
+       "deliveries": "Boxes, couriers and delivery dates",
+       "account": "Sign-in, plan changes and pauses",
+       "technical": "App or website faults",
+       "other": null
+      }
+     },
+     "several_actions": {
+      "type": "noul",
+      "instructions": "Does the ticket ask for more than one action?"
+     },
+     "upset": {
+      "type": "score",
+      "instructions": "How upset is the customer?",
+      "criteria": [
+       "calm",
+       "mildly annoyed",
+       "frustrated",
+       "angry"
+      ]
+     },
+     "refund": {
+      "type": "noul",
+      "instructions": "Refund request?",
+      "criteria": {
+       "true": "The customer explicitly asks for money back",
+       "false": "No refund is requested"
+      }
+     }
+    }
+   },
+   "gold": {
+    "team": "billing",
+    "several_actions": "true",
+    "upset": "1",
+    "refund": "true"
+   },
+   "note": "support ticket"
+  },
+  {
+   "id": "own_t02",
+   "source": "own_text",
+   "withheld": true,
+   "request_sha256": "618344a156a1da5a7697a30fb0c159d753890ccfd0b3abc4d36da10050792a67",
+   "questions": [
+    "impact",
+    "standby",
+    "boil_notice"
+   ],
+   "note": "incident report"
+  },
+  {
+   "id": "own_t03",
+   "source": "own_text",
+   "withheld": true,
+   "request_sha256": "611f9ed0157a71806a58173aac94d173efb312d772a5e8972148a469d96a58bf",
+   "questions": [
+    "day",
+    "confirmed",
+    "place"
+   ],
+   "note": "e-mail thread"
+  },
+  {
+   "id": "own_t04",
+   "source": "own_text",
+   "request": {
+    "model": "kev-0.8b",
+    "state": "Quennick Labs - mobile team stand-up, Wednesday\nPresent: Aiko, Ben, Chloé, Femi\nAiko: finished the offline sync screen; waiting on design review before merging.\nBen: the crash on login for Android 12 users is still open; he can reproduce it only on one test phone. Blocked until the device lab returns the second phone on Friday.\nChloé: release notes for 4.2 drafted; needs numbers from Femi.\nFemi: analytics export fixed; will send Chloé the weekly active user numbers today.\nDecisions: release 4.2 moves from Thursday to Monday because of the login crash. Ben owns the crash; Aiko will pair with him tomorrow.",
+    "questions": {
+     "crash_owner": {
+      "type": "choice",
+      "instructions": "Who owns the login crash?",
+      "criteria": {
+       "aiko": "Aiko",
+       "ben": "Ben",
+       "chloe": "Chloé",
+       "femi": "Femi"
+      }
+     },
+     "blocked": {
+      "type": "noul",
+      "instructions": "Is any team member blocked?"
+     },
+     "release_day": {
+      "type": "choice",
+      "instructions": "When is release 4.2 now planned?",
+      "criteria": {
+       "thursday": "Thursday",
+       "friday": "Friday",
+       "monday": "Monday",
+       "unknown": "Not decided"
+      }
+     },
+     "blockers": {
+      "type": "score",
+      "instructions": "How many people report a blocker?",
+      "criteria": [
+       "none",
+       "one",
+       "two or more"
+      ]
+     }
+    }
+   },
+   "gold": {
+    "crash_owner": "ben",
+    "blocked": "true",
+    "release_day": "monday",
+    "blockers": "1"
+   },
+   "note": "meeting notes"
+  },
+  {
+   "id": "own_t05",
+   "source": "own_text",
+   "withheld": true,
+   "request_sha256": "6b142cbabc69002becc9d793b7cab1ef1ec5d25426571e93a0acb16e39aed3f2",
+   "questions": [
+    "stars",
+    "complaint",
+    "recommend",
+    "returning"
+   ],
+   "note": "product review (non-ASCII)"
+  },
+  {
+   "id": "own_t06",
+   "source": "own_text",
+   "request": {
+    "model": "kev-0.8b",
+    "state": "[19:02] Guest (room 314): hi, the heating in my room isn't working and it's freezing\n[19:03] Front desk (Wendlecote Hotel): I'm sorry to hear that! I'll send someone from maintenance right away.\n[19:04] Guest: thanks. also can I keep the room until 2pm tomorrow? my train is at 3\n[19:06] Front desk: Late checkout until 14:00 is possible for 20 €, shall I add it?\n[19:06] Guest: yes please\n[19:25] Guest: still nobody came and it's getting colder\n[19:26] Front desk: Apologies, our technician is on another call. He will be with you in 10 minutes, and we can move you to room 402 if you prefer.",
+    "questions": {
+     "first_request": {
+      "type": "choice",
+      "instructions": "What did the guest ask for first?",
+      "criteria": {
+       "room_service": "Food or drinks to the room",
+       "late_checkout": "Leave the room later than usual",
+       "towels": "Extra towels or linen",
+       "maintenance": "Something in the room is broken",
+       "billing": "A question about the bill",
+       "booking_change": "Change the dates or room type",
+       "lost_item": "Something was lost",
+       "noise": "A noise complaint",
+       "transport": "Help with a taxi or train",
+       "other": null
+      }
+     },
+     "fixed": {
+      "type": "noul",
+      "instructions": "Has the heating problem been fixed by the end of the chat?"
+     },
+     "patience": {
+      "type": "score",
+      "instructions": "How patient is the guest by the end?",
+      "criteria": [
+       "patient",
+       "impatient",
+       "angry"
+      ]
+     }
+    }
+   },
+   "gold": {
+    "first_request": "maintenance",
+    "fixed": "false",
+    "patience": "1"
+   },
+   "note": "chat log, 10-option choice"
+  },
+  {
+   "id": "own_t07",
+   "source": "own_text",
+   "request": {
+    "model": "kev-0.8b",
+    "state": "Ostlebury Dental - voicemail transcript, Friday 16:48\n'Hello, this is Jonas. I have a cleaning appointment on Tuesday at 9:30 with Dr Amal. Something came up at work, so I need to move it. I can do Wednesday after 15:00 or any time on Thursday morning. Please call me back to confirm. I can't check messages during the day, so after 18:00 is best. Thank you.'\nFree slots next week: Tue 11:00, Wed 15:30, Wed 17:00, Thu 08:30, Thu 12:30.",
+    "questions": {
+     "slot": {
+      "type": "choice",
+      "instructions": "Which of these free slots fits the caller?",
+      "criteria": {
+       "tue_1100": "Tuesday 11:00",
+       "wed_1530": "Wednesday 15:30",
+       "thu_1230": "Thursday 12:30",
+       "none": "None of them fits"
+      }
+     },
+     "callback": {
+      "type": "noul",
+      "criteria": {
+       "true": "The caller wants to be phoned back",
+       "false": "No call back is needed"
+      }
+     },
+     "callback_time": {
+      "type": "choice",
+      "criteria": {
+       "morning": "Call back in the morning",
+       "afternoon": "Call back in the afternoon",
+       "evening": "Call back after 18:00"
+      }
+     }
+    }
+   },
+   "gold": {
+    "slot": "wed_1530",
+    "callback": "true",
+    "callback_time": "evening"
+   },
+   "note": "voicemail + scheduling"
+  },
+  {
+   "id": "own_t08",
+   "source": "own_text",
+   "withheld": true,
+   "request_sha256": "fa7821c465f476d33b05cd4ea2cf428445e8d60d8424184abbcd953b3b3d3259",
+   "questions": [
+    "owes",
+    "rule",
+    "amount"
+   ],
+   "note": "policy excerpt + case"
+  },
+  {
+   "id": "own_t09",
+   "source": "own_text",
+   "withheld": true,
+   "request_sha256": "15472ea434bd49bc396e88dab5249fe69bad7cbec0d0b0879c795a32eaf9c508",
+   "questions": [
+    "error",
+    "fix"
+   ],
+   "note": "user text containing delimiter spellings (user_tokens rewrite)"
+  },
+  {
+   "id": "own_t10",
+   "source": "own_text",
+   "request": {
+    "model": "kev-0.8b",
+    "state": "To the managing agent, Pennimere Court\n\nI live in flat 9 and I am writing, for the third time this month, about the noise from the gym equipment in the basement. The machines are used until after midnight, and the thumping comes up through the floor of my bedroom. I have asked for the opening hours to be limited to 07:00-22:00, as the house rules say. If nothing changes by the end of next week, I will raise it with the residents' committee.\n\nYours, Teodora (flat 9)",
+    "questions": {
+     "topic": {
+      "type": "choice",
+      "instructions": "What is the letter about?",
+      "criteria": {
+       "noise": "Noise",
+       "repairs": "Repairs",
+       "rent": "Rent or charges",
+       "parking": "Parking",
+       "pets": "Pets"
+      }
+     },
+     "first_time": {
+      "type": "noul",
+      "instructions": "Is this the first time the writer complains?"
+     },
+     "escalation": {
+      "type": "score",
+      "instructions": "How far is the writer prepared to take this?",
+      "criteria": [
+       "no further step",
+       "a reminder",
+       "the residents' committee",
+       "a lawyer or court"
+      ]
+     }
+    }
+   },
+   "gold": {
+    "topic": "noise",
+    "first_time": "false",
+    "escalation": "2"
+   },
+   "note": "complaint letter"
+  },
+  {
+   "id": "own_j01",
+   "source": "own_json",
+   "request": {
+    "model": "kev-0.8b",
+    "state": {
+     "invoice": "FPW-2026-0412",
+     "issuer": "Fennistone Print Works",
+     "customer": "Ostlebury Community Choir",
+     "issued": "2026-04-02",
+     "due": "2026-05-02",
+     "status": "unpaid",
+     "reminders_sent": 2,
+     "lines": [
+      {
+       "item": "Concert posters A2",
+       "qty": 40,
+       "unit_price": 1.85
+      },
+      {
+       "item": "Programme booklets",
+       "qty": 250,
+       "unit_price": 0.62
+      },
+      {
+       "item": "Delivery",
+       "qty": 1,
+       "unit_price": 12.0
+      }
+     ],
+     "subtotal": 241.0,
+     "vat_rate": 0.2,
+     "total": 289.2,
+     "payment_terms": "bank transfer within 30 days",
+     "today": "2026-05-19"
+    },
+    "questions": {
+     "overdue": {
+      "type": "noul",
+      "instructions": "Is the invoice overdue?"
+     },
+     "method": {
+      "type": "choice",
+      "instructions": "How is the customer expected to pay?",
+      "criteria": {
+       "card": null,
+       "bank_transfer": null,
+       "cash": null,
+       "cheque": null
+      }
+     },
+     "size": {
+      "type": "score",
+      "instructions": "How large is the invoice total?",
+      "criteria": [
+       "under 100",
+       "100 to 250",
+       "250 to 500",
+       "over 500"
+      ]
+     },
+     "reminded": {
+      "type": "noul",
+      "criteria": {
+       "true": "At least one reminder has already been sent",
+       "false": "No reminder has been sent yet"
+      }
+     }
+    }
+   },
+   "gold": {
+    "overdue": "true",
+    "method": "bank_transfer",
+    "size": "2",
+    "reminded": "true"
+   },
+   "note": "invoice (object state)"
+  },
+  {
+   "id": "own_j02",
+   "source": "own_json",
+   "request": {
+    "model": "kev-0.8b",
+    "state": {
+     "order_id": "PF-88213",
+     "shop": "Pennimere Foods",
+     "placed": "2026-06-03 18:22",
+     "items": [
+      {
+       "sku": "OAT-1KG",
+       "name": "Rolled oats 1 kg",
+       "qty": 2,
+       "status": "shipped"
+      },
+      {
+       "sku": "HNY-450",
+       "name": "Wildflower honey 450 g",
+       "qty": 1,
+       "status": "out of stock"
+      },
+      {
+       "sku": "TEA-GRN",
+       "name": "Green tea, 50 bags",
+       "qty": 3,
+       "status": "shipped"
+      }
+     ],
+     "shipping": {
+      "carrier": "regional courier",
+      "tracking_status": "delivered",
+      "delivered_at": "2026-06-05 11:40"
+     },
+     "payment": {
+      "method": "card",
+      "captured": 27.4,
+      "refunded": 0.0
+     },
+     "customer_note": "Where is my honey? I was charged for it."
+    },
+    "questions": {
+     "next_action": {
+      "type": "choice",
+      "instructions": "What should the shop do next?",
+      "criteria": {
+       "refund_missing_item": "Refund the item that was not sent",
+       "resend_order": "Send the whole order again",
+       "track_parcel": "Ask the courier where the parcel is",
+       "cancel_order": "Cancel the order",
+       "change_address": "Update the delivery address",
+       "discount_code": "Give a discount code",
+       "replace_damaged": "Replace damaged goods",
+       "confirm_delivery": "Tell the customer the parcel was delivered",
+       "fraud_review": "Flag the order for fraud review",
+       "no_action": "Nothing needs to be done"
+      }
+     },
+     "partial": {
+      "type": "noul",
+      "instructions": "Was only part of the order shipped?"
+     },
+     "charged_claim": {
+      "type": "noul",
+      "instructions": "Does the customer say they paid for something they did not receive?"
+     }
+    }
+   },
+   "gold": {
+    "next_action": "refund_missing_item",
+    "partial": "true",
+    "charged_claim": "true"
+   },
+   "note": "order (object state), 10-option choice"
+  },
+  {
+   "id": "own_j03",
+   "source": "own_json",
+   "withheld": true,
+   "request_sha256": "cd3ac92dfcc934109f0271196b3d501f126b4d0b9077a1cace48b1b136226080",
+   "questions": [
+    "out_of_range",
+    "urgency",
+    "vents_cause"
+   ],
+   "note": "sensor readings (object state), object descriptions, 7 levels"
+  },
+  {
+   "id": "own_j04",
+   "source": "own_json",
+   "withheld": true,
+   "request_sha256": "9264d1704e2ebe3e6882d2f9df50f13e9fc79ccfdeb4cc782631806e9ade432d",
+   "questions": [
+    "declined",
+    "online",
+    "notice"
+   ],
+   "note": "calendar event (object state)"
+  },
+  {
+   "id": "own_j05",
+   "source": "own_json",
+   "withheld": true,
+   "request_sha256": "f8e41850826034ff1ae4ef229b0cdf169dd2f83a3cbb07ba71ff61298e1df487",
+   "questions": [
+    "category",
+    "retry",
+    "severity"
+   ],
+   "note": "API error payload (object state), object descriptions, 7 levels"
+  },
+  {
+   "id": "own_a01",
+   "source": "own_json",
+   "request": {
+    "model": "kev-0.8b",
+    "state": [
+     {
+      "ticket": "HD-101",
+      "summary": "Printer on floor 2 jams on every job",
+      "reported": "09:05",
+      "affects": "1 team"
+     },
+     {
+      "ticket": "HD-102",
+      "summary": "Card readers at the main entrance reject all badges",
+      "reported": "09:12",
+      "affects": "whole building"
+     },
+     {
+      "ticket": "HD-103",
+      "summary": "Request for a second monitor",
+      "reported": "09:30",
+      "affects": "1 person"
+     },
+     {
+      "ticket": "HD-104",
+      "summary": "Smell of burning plastic near the server room",
+      "reported": "09:41",
+      "affects": "unknown"
+     }
+    ],
+    "questions": {
+     "first": {
+      "type": "choice",
+      "instructions": "Which ticket should be handled first?",
+      "criteria": {
+       "HD-101": "Printer jams",
+       "HD-102": "Entrance card readers",
+       "HD-103": "Second monitor",
+       "HD-104": "Burning smell"
+      }
+     },
+     "hazard": {
+      "type": "noul",
+      "instructions": "Does any ticket describe a possible safety hazard?"
+     },
+     "load": {
+      "type": "score",
+      "instructions": "Is the queue overloaded?",
+      "criteria": [
+       "normal",
+       "overloaded"
+      ]
+     }
+    }
+   },
+   "gold": {
+    "first": "HD-104",
+    "hazard": "true",
+    "load": "0"
+   },
+   "note": "helpdesk queue (top-level array state), 2 levels"
+  },
+  {
+   "id": "own_m01",
+   "source": "own_text",
+   "request": {
+    "model": "kev-0.8b",
+    "state": "Flat to let - Brindlecourt Road, Ostlebury\nTwo-bedroom flat on the third floor of a building with a lift. Rent 1,150 per month, deposit equal to five weeks' rent, minimum tenancy 12 months. Available from 1 September. Bills are not included except water. Pets considered by agreement (small dogs and cats only, no other animals). The flat is unfurnished apart from a fridge and a washing machine. Bike storage in the basement; no parking space. Viewings on Saturdays between 10:00 and 13:00. Contact the agent, Pilar, to book a viewing.",
+    "questions": {
+     "bedrooms": {
+      "type": "choice",
+      "instructions": "How many bedrooms does the flat have?",
+      "criteria": {
+       "one": null,
+       "two": null,
+       "three": null
+      }
+     },
+     "lift": {
+      "type": "noul",
+      "instructions": "Is there a lift?"
+     },
+     "furnished": {
+      "type": "score",
+      "instructions": "How furnished is the flat?",
+      "criteria": [
+       "unfurnished",
+       "partly furnished",
+       "fully furnished"
+      ]
+     },
+     "rabbit": {
+      "type": "choice",
+      "instructions": "Could a tenant keep a rabbit?",
+      "criteria": {
+       "yes": "Allowed",
+       "by_agreement": "Only with the landlord's agreement",
+       "no": "Not allowed"
+      }
+     },
+     "parking": {
+      "type": "noul",
+      "instructions": "Does the flat come with a parking space?"
+     },
+     "bill": {
+      "type": "choice",
+      "instructions": "Which bill is included in the rent?",
+      "criteria": {
+       "electricity": null,
+       "gas": null,
+       "water": null,
+       "internet": null,
+       "none": "No bill is included"
+      }
+     },
+     "weekday_viewing": {
+      "type": "noul",
+      "instructions": "Can the flat be viewed on a weekday?"
+     },
+     "term": {
+      "type": "score",
+      "instructions": "How long is the minimum tenancy?",
+      "criteria": [
+       "under 6 months",
+       "6 months",
+       "12 months",
+       "over 12 months"
+      ]
+     }
+    }
+   },
+   "gold": {
+    "bedrooms": "two",
+    "lift": "true",
+    "furnished": "0",
+    "rabbit": "no",
+    "parking": "false",
+    "bill": "water",
+    "weekday_viewing": "false",
+    "term": "2"
+   },
+   "note": "flat listing, 8 questions"
+  },
+  {
+   "id": "own_L01",
+   "source": "own_long",
+   "request": {
+    "model": "kev-0.8b",
+    "state": "BRINDLECOURT LOGISTICS - parcel hub 2, cross-belt sorter S1, controller log (excerpt)\nshift: early (06:00-14:00)   supervisor on duty: Yusuf   maintenance on call: Malik\n\n06:00:00 INFO  throughput 1712 parcels/h; lanes 1-12 active; scanner read rate 99.1%\n06:03:00 INFO  throughput 1698 parcels/h; lanes 1-12 active; scanner read rate 99.3%\n06:06:00 INFO  throughput 1731 parcels/h; lanes 1-12 active; scanner read rate 99.5%\n06:09:00 INFO  throughput 1704 parcels/h; lanes 1-12 active; scanner read rate 99.7%\n06:09:41 INFO  diverter D4 calibration check passed (offset 0.39 mm)\n06:12:00 INFO  throughput 1689 parcels/h; lanes 1-12 active; scanner read rate 99.1%\n06:12:17 WARN  scanner T2 no-read on parcel 48367; parcel sent to manual lane\n06:15:00 INFO  throughput 1720 parcels/h; lanes 1-12 active; scanner read rate 99.3%\n06:18:00 INFO  throughput 1716 parcels/h; lanes 1-12 active; scanner read rate 99.5%\n06:21:00 INFO  throughput 1702 parcels/h; lanes 1-12 active; scanner read rate 99.7%\n06:24:00 INFO  throughput 1695 parcels/h; lanes 1-12 active; scanner read rate 99.1%\n06:27:00 INFO  throughput 1727 parcels/h; lanes 1-12 active; scanner read rate 99.3%\n06:27:41 INFO  diverter D4 calibration check passed (offset 0.57 mm)\n06:30:00 INFO  throughput 1709 parcels/h; lanes 1-12 active; scanner read rate 99.5%\n06:33:00 INFO  throughput 1683 parcels/h; lanes 1-12 active; scanner read rate 99.7%\n06:33:17 WARN  scanner T2 no-read on parcel 48640; parcel sent to manual lane\n06:36:00 INFO  throughput 1718 parcels/h; lanes 1-12 active; scanner read rate 99.1%\n06:39:00 INFO  throughput 1700 parcels/h; lanes 1-12 active; scanner read rate 99.3%\n06:40:00 INFO  throughput 1694 parcels/h; lanes 1-12 active; scanner read rate 99.3%\n06:41:12 WARN  lane 7 drive motor current 8.9 A (limit 8.0 A) for 5 s\n06:41:58 WARN  lane 7 drive motor current 9.4 A (limit 8.0 A) for 12 s\n06:42:40 WARN  lane 7 belt speed 1.62 m/s (setpoint 1.80 m/s)\n06:43:05 ERROR lane 7 jam detected: photo-eye PE7-3 blocked for more than 3 s\n06:43:06 ERROR sorter S1 stopped by safety controller (cause: jam lane 7); all lanes halted\n06:43:06 INFO  infeed conveyors paused; parcels held on accumulation belts\n06:43:40 INFO  alarm acknowledged by Yusuf at the control desk\n06:44:15 INFO  maintenance call raised to Malik (priority 1)\n06:46:02 INFO  scanner T1 and T2 idle (no parcels); self-test passed\n06:47:30 INFO  accumulation belts at 64% capacity\n06:50:12 INFO  Malik on site at lane 7; lock-out applied to lane 7 drive\n06:52:48 INFO  accumulation belts at 81% capacity; infeed doors 3 and 4 closed to new trailers\n06:55:20 INFO  jam cause reported by Malik: crushed carton wedged under the lane 7 belt at the second roller\n06:58:41 INFO  carton removed from lane 7; roller R7-2 inspected, no damage found\n07:00:05 INFO  lane 7 belt tension measured below specification; adjustment started\n07:03:12 INFO  lane 7 belt tension adjusted; test run at low speed 0.5 m/s for 60 s passed\n07:04:25 INFO  lock-out removed from lane 7 drive\n07:05:30 INFO  sorter S1 restarted by Yusuf; stoppage 22 min 24 s\n07:05:31 INFO  infeed conveyors resumed; infeed doors 3 and 4 reopened\n07:06:00 INFO  lane 7 drive motor current 6.1 A (limit 8.0 A)\n07:09:00 INFO  throughput 1840 parcels/h (backlog clearing); lanes 1-12 active; scanner read rate 99.0%\n07:12:00 INFO  throughput 1866 parcels/h (backlog clearing); lanes 1-12 active; scanner read rate 99.3%\n07:15:00 INFO  throughput 1851 parcels/h (backlog clearing); lanes 1-12 active; scanner read rate 99.6%\n07:15:44 WARN  scanner T1 no-read on parcel 49870; parcel sent to manual lane\n07:18:00 INFO  throughput 1792 parcels/h (backlog clearing); lanes 1-12 active; scanner read rate 99.0%\n07:21:00 INFO  throughput 1748 parcels/h (backlog clearing); lanes 1-12 active; scanner read rate 99.3%\n07:21:09 INFO  accumulation belts back below 10% capacity\n07:24:00 INFO  throughput 1731 parcels/h (backlog clearing); lanes 1-12 active; scanner read rate 99.6%\n07:27:00 INFO  throughput 1722 parcels/h (backlog clearing); lanes 1-12 active; scanner read rate 99.0%\n07:27:30 INFO  lane 7 drive motor current 5.9 A (limit 8.0 A); belt speed 1.80 m/s\n07:30:00 INFO  throughput 1715 parcels/h (backlog clearing); lanes 1-12 active; scanner read rate 99.3%\n07:33:00 INFO  shift note by Yusuf: lane 7 belt tension to be checked again at 10:00; carton supplier to be told about weak boxes\n07:33:05 INFO  sorter S1 running normally; no active alarms",
+    "questions": {
+     "component": {
+      "type": "choice",
+      "instructions": "Which component caused the stoppage?",
+      "criteria": {
+       "scanner": "Barcode scanner",
+       "lane_7": "Conveyor lane 7",
+       "diverter": "Diverter arm",
+       "power": "Power supply",
+       "software": "Control software"
+      }
+     },
+     "normal_at_end": {
+      "type": "noul",
+      "instructions": "Was the sorter running normally at the end of the log?"
+     },
+     "stoppage": {
+      "type": "score",
+      "instructions": "How long was the sorter fully stopped?",
+      "criteria": [
+       "under 2 minutes",
+       "2 to 5 minutes",
+       "5 to 10 minutes",
+       "10 to 20 minutes",
+       "20 to 40 minutes",
+       "over 40 minutes"
+      ]
+     }
+    }
+   },
+   "gold": {
+    "component": "lane_7",
+    "normal_at_end": "true",
+    "stoppage": "4"
+   },
+   "note": "long state: sorter log"
+  },
+  {
+   "id": "own_L02",
+   "source": "own_long",
+   "withheld": true,
+   "request_sha256": "49a1faf4a2fcbd6cb7ff2b9b342355b1908cceb9d64c89bc763ab265b89754f7",
+   "questions": [
+    "notice",
+    "subcontract",
+    "cap",
+    "pay_30"
+   ],
+   "note": "long state: contract excerpt"
+  },
+  {
+   "id": "own_L03",
+   "source": "own_long",
+   "request": {
+    "model": "kev-0.8b",
+    "state": "WENDLECOTE RESIDENTS' ASSOCIATION\nMinutes of the Annual General Meeting held on Thursday 12 March 2026 at 19:30 in Wendlecote Village Hall\n\nPresent: 47 members (attendance sheet attached) and 3 guests, among them the ward councillor, Adaeze. In the chair: Gareth. Minutes: Priyanka (secretary).\nApologies: 11 members sent their apologies.\n\n1. Welcome and quorum\nThe chair welcomed members and guests and thanked the hall committee for the use of the room. The constitution requires 30 members to be present for a general meeting to be quorate. With 47 members present, the meeting was declared quorate.\n\n2. Minutes of the last annual general meeting\nThe minutes of the meeting held on 13 March 2025 were approved as a true record, proposed by Hamid and seconded by Ruth. There were no matters arising that were not already on the agenda.\n\n3. Chair's report\nGareth summarised the year. The association ran the summer fair, which raised 2,140 for the hall roof fund, and organised two litter picks along the river path, each with more than twenty volunteers. The campaign for a pedestrian crossing on Mill Lane continued, and the council has now agreed to carry out a traffic survey in May. Membership rose from 212 to 236 households. He thanked the committee and the volunteers who deliver the newsletter to every house four times a year.\n\n4. Treasurer's report\nThe outgoing treasurer, Colm, presented the accounts for the year. Income was 6,480: membership fees 2,832, the summer fair 2,140 and donations 1,508. Expenditure was 4,915, mostly newsletter printing (1,620), insurance (740), hall hire (600) and equipment for the river path clean-up (1,955). The year closed with a surplus of 1,565 and a bank balance of 9,310. The accounts had been checked by an independent examiner, who found no issues. Members approved the accounts by a show of hands, with no votes against.\n\n5. Reports from the working groups\nEnvironment group (Hannah): the group planted 150 native bulbs on the verge outside the school and repaired two of the four bird boxes on the green. It would like to survey the river path for invasive plants in the summer and is looking for two more volunteers.\nEvents group (Dominic): besides the summer fair, the group ran a quiz night in November that broke even. A film night in the hall is planned for April if a licence can be arranged at a reasonable price.\nRoads and transport group (Hamid): apart from the crossing campaign, the group reported three damaged street lights and a blocked drain on Station Road to the council; two of the lights have been repaired.\n\n6. Hall roof fund\nRuth reported for the hall committee that the roof repair has been quoted at 18,400. With the 2,140 from the summer fair, the fund now stands at 11,750. The committee has applied to two charitable trusts for the rest and expects their answers by the end of May. Work cannot start before September because bats roost in the roof space during the summer, and an ecologist will check the roof before any work begins. Members asked whether the association would cover any shortfall; Ruth said that the committee would come back to a general meeting before committing any of the association's money. One member offered to organise a sponsored walk for the fund in June, and several members volunteered to help.\n\n7. Election of officers\nGareth agreed to stand again as chair and was re-elected unopposed. Priyanka was re-elected as secretary unopposed. Colm stood down as treasurer after six years. Two members were nominated for the post: Odette and Lewis. After short statements from both candidates, a secret ballot was held. Odette received 29 votes and Lewis 16, with 2 spoiled papers. Odette was declared elected as treasurer. The meeting thanked Colm warmly for his years of service.\n\n8. Motion 1: bicycle racks on the village green\nProposed by Ines, seconded by Dominic: \"That the association spends up to 1,200 from its reserves on four bicycle racks at the edge of the village green, subject to council permission.\" Ines explained that bicycles are currently chained to the railings, which damages the paint and blocks the footpath for pushchairs. One member asked whether the racks would attract theft; Ines replied that they would stand in view of the shop's camera. Vote: 31 for, 9 against, 7 abstentions. The motion was carried.\n\n9. Motion 2: annual membership fee\nProposed by the committee: \"That the annual fee rises from 12 to 15 per household from 1 April 2026.\" The treasurer-elect said that this year's surplus makes an increase unnecessary for now. Several members said that a higher fee would put off new households, especially in the new flats on Station Road. Vote: 18 for, 26 against, 3 abstentions. The motion was defeated, and the fee stays at 12.\n\n10. Motion 3: community garden\nProposed by Kwame, seconded by Hannah: \"That the association creates a community garden on the unused plot behind the hall.\" Members supported the idea in principle but asked who would look after the garden and whether the hall committee owns the plot. It was agreed to set up a working group of Kwame, Hannah and Lewis to report to the next general meeting. No vote was taken.\n\n11. Any other business\n(a) Speeding on Mill Lane: several members reported cars driving well above the limit at school times. The secretary will write to the council asking for the May survey to include speed data.\n(b) Newsletter: volunteers are needed to deliver on the east side of the village.\n(c) The ward councillor said that the council's grant scheme for community projects opens in June and that the garden might qualify.\n(d) Recycling: the council will collect glass separately from July; the collection days will be printed in the next newsletter.\n(e) Defibrillator: Hamid reported that the defibrillator outside the shop was checked in February and that its pads expire in October; the committee will order replacements.\n\n12. Date of the next meeting\nThe next general meeting will be held in September; the date will be announced in the summer newsletter. The meeting closed at 21:10.",
+    "questions": {
+     "fee_motion": {
+      "type": "choice",
+      "instructions": "What happened to the motion on the annual fee?",
+      "criteria": {
+       "approved": null,
+       "rejected": null,
+       "deferred": "Postponed to a later meeting or a working group",
+       "withdrawn": "Withdrawn before the vote"
+      }
+     },
+     "quorate": {
+      "type": "noul",
+      "instructions": "Was the meeting quorate?"
+     },
+     "treasurer": {
+      "type": "choice",
+      "instructions": "Who was elected treasurer?",
+      "criteria": {
+       "odette": "Odette",
+       "lewis": "Lewis"
+      }
+     },
+     "racks_support": {
+      "type": "score",
+      "instructions": "How strong was the support for the bicycle racks motion?",
+      "criteria": [
+       "opposed by most",
+       "split",
+       "supported by most",
+       "unanimous"
+      ]
+     }
+    }
+   },
+   "gold": {
+    "fee_motion": "rejected",
+    "quorate": "true",
+    "treasurer": "odette",
+    "racks_support": "2"
+   },
+   "note": "long state: meeting minutes"
+  }
+ ]
+}

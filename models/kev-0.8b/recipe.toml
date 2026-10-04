@@ -1,0 +1,72 @@
+# Recipe for Kev-0.8B — the configuration that produced the staged bundle.
+# Schema and the rules for `status`: ../README.md.
+# Run it with:  python3 ../../conversion/zoo_convert.py run <name>
+#
+# The decoder graph is this port's authoring (conversion/kev/qwen3_5_kev_decoder.py: the overlay's stateful Qwen3.5
+# text decoder on the merged weights, no vocabulary head, the final-norm hidden state at every position of a static
+# 128-token call, each Gated DeltaNet layer's recurrence in the overlay's fp32 Metal chunk kernel). The pointer head runs
+# on the host from head/head.safetensors. The exporter reads the merged checkpoint that the author's own
+# scripts/merge_lora_checkpoint.py writes; conversion/kev/README.md lists the oracle, the merge and the gates in order.
+
+["kev-0.8b"]
+script = "kev/export_decoder.py"
+args = ["fp16", "--prefill-chunk", "128", "--gdn-scan", "metal", "--aot"]
+card = "README.md"
+hf_repo = "mlboydaisuke/Kev-0.8B-CoreAI"
+source_hf_id = "jaredpalmer/kev-0.8b"
+source_revision = "bf75a6a8848ea6960ff2ed108d9ed44c2941174f"
+base = "Qwen/Qwen3.5-0.8B-Base"
+base_revision = "dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68"
+bundle = "gpu-pipelined/kev_0_8b_decode_fp16_metal_pf128"
+status = "verified"
+overlay = true
+runtime_patches = []
+needs = [
+  "The author's repository at tag kev-1.0 (github.com/jaredpalmer/kev, commit 6b719c3c3f367295f6ef336f4f751cf5ff970abc) in",
+  "$ZOO_WORK_ROOT/_kev/kev-src and its own environment (uv export --frozen of its uv.lock: torch 2.8.0, transformers 5.17.0,",
+  "peft 0.21.0, huggingface_hub 1.32.0) for the merge; HF_HOME=$ZOO_WORK_ROOT/_kev/hf with jaredpalmer/kev-0.8b at tag v1.0",
+  "(788ddbdd65715bb03a56788c822f6c632c9a551d) and Qwen/Qwen3.5-0.8B-Base at dc7cdfe2 fetched once online by that venv",
+  "(huggingface_hub 1.32 resolves a 40-hex revision offline only after an online snapshot_download).",
+  "The merged checkpoint: (cd $ZOO_WORK_ROOT/_kev/kev-src && HF_HUB_OFFLINE=1 python scripts/merge_lora_checkpoint.py",
+  "--lora jaredpalmer/kev-0.8b@788ddbdd65715bb03a56788c822f6c632c9a551d --out $ZOO_WORK_ROOT/_kev/merged/kev-0.8b-v1.0),",
+  "then the local id the exporter reads: $ZOO_WORK_ROOT/_kev/hf/hub/models--kev-local--kev-0.8b-v1.0-merged/snapshots/",
+  "ab6bd41853ef/ with symlinks to the merged config.json, model.safetensors, tokenizer.json and tokenizer_config.json, and",
+  "refs/main = ab6bd41853ef. The exporter checks model.safetensors' sha256 (b5ebf92a...) before it exports. Run again",
+  "on 2026-10-04 the merge wrote the same model.safetensors and head.pt bytes.",
+  "The overlay venv (coreai-core 1.0.0b2, coreai-torch 0.4.1, torch 2.9.0, transformers 4.57.6), HF_HUB_OFFLINE=1, and for",
+  "--aot Xcode 27.0 RC as DEVELOPER_DIR.",
+]
+aot = "xcrun coreai-build compile <name>.aimodel --output <dir> --platform macOS --preferred-compute gpu --architecture h16c --expect-frequent-reshapes"
+notes = [
+  "The arguments are the logged run's (2026-10-04 08:46 JST, macOS 27.0 26A428, M4 Max), which also passed --record",
+  "<work>/_kev/results/r11_export_fp16_metal_pf128.json (a log; it does not change the bundle). Export 31.1 s (total 33.2 s);",
+  "--aot adds bundles_aotc/<name>.h16c.aimodelc (2,502,047,194 B, AOT 4.9 s), which the Python gates load and which is not",
+  "shipped. Output: $ZOO_WORK_ROOT/_kev/exports/bundles/<name>/ (.aimodel, metadata.json, tokenizer/, head/).",
+  "The published bundle is that export's .aimodel with its metadata written again without exporting (2026-10-04 13:58 JST,",
+  "record <work>/_kev/results/r15_ship_bundle_pf128.json): export_decoder.py fp16 --gdn-scan metal --prefill-chunk 128",
+  "--metadata-only --from-aimodel $ZOO_WORK_ROOT/_kev/exports/bundles/kev_0_8b_decode_fp16_metal_pf128/kev_0_8b_decode_fp16_metal_pf128.aimodel",
+  "--bundle-dir $ZOO_WORK_ROOT/_kev/exports/ship/kev_0_8b_decode_fp16_metal_pf128 (APFS clone, every file's sha256 checked).",
+  "One function, main, at a static 128 tokens; inputs input_ids [1, 128] int32 and position_ids [1, seq] int32, four fp16",
+  "states, output hidden [1, 128, 1024] fp16 at every position, no vocabulary head; metadata.json kind decision-backbone,",
+  "language.prefill_chunk 128. max_ctx 4096; a row holds at most 3,968 tokens.",
+  "main.mlirb 1,505,385,733 B, sha256 19d5a4809e348c7cdd314c17cf18646170e2af2ef62f5a32beb8948b2c3f684e.",
+  "The staged metadata.json (sha256 6e50e41a92eebe440029974a403441cd960d2f6ef4ff00828bb2aa8f47282227) is the published",
+  "bundle's (a1b6e5a3...) with the local ids replaced by the source repos and the gate added (metadata_of_record in the file",
+  "lists the edits); the keys the hosts read are unchanged.",
+  "Gates vs the author's fp32 readout (bar: argmax on every question with an oracle top-2 margin above 0.02, max |dp| 0.02,",
+  "mean of run means 0.002): fixture 434 questions 420/420 + near-ties 13/14, max 0.0124, mean 0.00096; held out 130",
+  "125/125 + 5/5, max 0.0058, mean 0.00083; Swift = Python bit for bit on 434 rows; the .aimodel specialized by Swift equals",
+  "the AOT asset on 25/25 rows; iPhone 18 Pro (device JIT, run 20261004-140048) 420/420 + 13/14, max 0.0110; held out",
+  "125/125, 0.0059. Transcripts: gate-kev-0.8b-readout.json, -host.json, -swift.json, -iphone.json; every measured graph",
+  "form: gate-kev-0.8b-forms.json.",
+  "Hub: the earlier upload, Hub revision 7793533783de7c8f916c1cba1144a561fb70b321 (2026-10-04), held the unrolled S = 16 graph",
+  "kev_0_8b_decode_fp16_pf16 (main.mlirb 1,506,481,909 B, sha256 4131d028...). This bundle replaces it; its revision is",
+  "3792e4bf4ff6337afaa774b2a229580bcc0493e5 (2026-10-04).",
+]
+notes_reexport = [
+  "The staged bundle was exported with export_decoder.py sha256 392d7bb2344e30af5ffe61b6a6f1ed637be5f2021b444930272c3e73b23cc111",
+  "and qwen3_5_kev_decoder.py ab66b73a388f1a61d3b2b0a310f0bbdb1572fe5cc57a5b3adea2738f0caf014d (round 11); the metadata step ran",
+  "export_decoder.py 3200447bd572707c41a2a12c41fae30d76e7f6ba490d8c07345c38dab677e8cb. Two exports of the same graph were not",
+  "byte-identical in round 2 (main.mlirb 23 B apart): the staged bytes are the gated export's. No re-export was run for this",
+  "recipe.",
+]

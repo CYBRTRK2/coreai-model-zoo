@@ -123,6 +123,18 @@ Apple's repo; each recipe names the script it runs.
   the held-out set (40 runs: 186/186, max 0.0085) → `gate_swift.py` (the Swift CLI, AOT and JIT). `grid_price.py`
   prices the fixed grid with the author's code alone. Order and flags: [`clef_flash/README.md`](clef_flash/README.md).
   Card: [`../models/clef-flash/README.md`](../models/clef-flash/README.md).
+- **Kev-0.8B / Kev-4B (typed-decision model, Jared Palmer; in [`kev/`](kev/)): the author's
+  `scripts/merge_lora_checkpoint.py` (tag kev-1.0), then `kev/export_decoder.py fp16 --prefill-chunk 128 --gdn-scan metal
+  --aot` (Kev-4B: `--model kev-4b`)** — the overlay's stateful Qwen3.5 text decoder without a vocabulary head
+  (`qwen3_5_kev_decoder.py`: the final-norm hidden state at every position of a static 128-token call, each
+  linear-attention recurrence in the overlay's fp32 Metal kernel; no change between the sizes), the author's pointer
+  head on the host. Every gate compares with the author's own fp32 code:
+  `oracle_kev.py` (384 records, 434 questions; 130 held out) → `parity_merged_torch.py` (merged vs adapter 434/434
+  bit-equal) → `parity_decoder_torch.py` (fp32 torch 434/434, max |Δp| 3.5e-6 / 6.6e-6) → `readout_gate.py` (AOT h16c:
+  0.0124 / 0.0153, held out 0.0058 / 0.0096; int8lin fails) → `int8_bisect_torch.py` → `test_host.py` + `decide.py`
+  (the Python host, hidden rows bit-equal to the gate's) → `gate_swift.py` (the Swift CLI; JIT = AOT) →
+  [`apps/KevGate`](../apps/KevGate/) (Kev-0.8B on the iPhone 18 Pro). Order and flags: [`kev/README.md`](kev/README.md).
+  Cards: [`../models/kev-0.8b/README.md`](../models/kev-0.8b/README.md), [`../models/kev-4b/README.md`](../models/kev-4b/README.md).
 - **OpenThai-SystemOne (System One decision model with a 256-way slot head, iApp;
   [`export_openthai_systemone_decode_pipelined.py`](export_openthai_systemone_decode_pipelined.py) + [`slot/`](slot/)):
   `export_openthai_systemone_decode_pipelined.py int8lin`** — the Qwen3.5 S=1 decode graph with
