@@ -292,9 +292,27 @@ A bundle that fails there is repaired or re-exported, not relabelled.
 
 ### Built with the zoo
 
-Third-party apps running zoo models. Built something? Open a
+Projects outside this repo that carry code ported from the zoo, read its model index, or follow
+one of its conversion recipes:
+
+- **[RF-DETR](https://github.com/roboflow/rf-detr)** — Roboflow's real-time object detection and
+  segmentation model. Its `RFDETR.export(format="coreai")` (since 1.11.0) was ported from the
+  zoo's [RF-DETR conversion](models/rf-detr/README.md)
+  ([pull request](https://github.com/roboflow/rf-detr/pull/1521)).
+- **[Archon](https://github.com/VM451/archon-swift)** — a local-first Swift SDK for building AI
+  features on Apple platforms. Its `CoreAIModelZooCatalog` fetches the zoo's
+  [`models/index.json`](models/index.json) and turns the recipes marked `verified` into entries
+  in its model catalog
+  ([source](https://github.com/VM451/archon-swift/blob/86af1356a9f2029635e6a676385da251c40163a6/Sources/ArchonModels/CoreAIModelZooCatalog.swift)).
+- **[Slurper](https://github.com/TrevorS/slurper)** — a macOS CLI that transcribes YouTube or
+  audio files and splits them into stems. Its Mel-Band RoFormer conversion script follows the
+  zoo's [recipe](models/melband-roformer/README.md): the STFT and inverse STFT become constant
+  DFT matmuls inside the graph. The script targets Core ML (`coremltools`), not Core AI
+  ([source](https://github.com/TrevorS/slurper/blob/eab5f8b064338f1bf9cd63fc6683852929a5146d/scripts/convert_melband_roformer.py)).
+
+Built something? Open a
 [showcase issue](https://github.com/john-rocky/coreai-model-zoo/issues/new?template=showcase.yml)
-— a name, a link, and one line is all it takes. *Your app here.*
+— a name, a link, and one line is all it takes.
 
 ### Most downloaded
 
